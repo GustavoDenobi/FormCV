@@ -159,6 +159,7 @@ def errorLogWriter(errorLogFile, aux):
         file_handler.write("Imagens com erros: {}\n\n".format(str(aux.warnings)))
         for item in aux.errorLog:
             file_handler.write("{}\n".format(item))
+
             
 def errorLogExporter(errorLogFile, dst):
     shutil.copy(errorLogFile, dst)
@@ -434,6 +435,7 @@ def multipleFileReader(const, var, aux, db):
                     aux.warnings += 1
     try:
         errorLogWriter(const.errorLogFile, aux)
+        aux1.errorLog = []
         errorLogExporter(const.errorLogFile, const.imgDir)
         saveDatabase(db.database, const.databaseFile)
         popup = Popup(title='FormCV',
@@ -579,7 +581,7 @@ class RMFmenu(Screen):
         self.dismiss_popup()
     
     def rmf(self):
-        multipleFileReader(Param.Const(), Param.Var(), Param.Aux(), Param.Db())
+        multipleFileReader(Param.Const(), Param.Var(), aux1, Param.Db())
 
 class ChooseRSF(FloatLayout):
     loadRSF = ObjectProperty(None)
