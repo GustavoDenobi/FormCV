@@ -1,0 +1,4 @@
+Erros fatais: 0     Imagens com erros: 1
+
+IMG: WhatsApp Image 2018-10-01 at 17.11.36.jpeg
+          AVISO: erro de preenchimento ou leitura detectado no dia: [14]
