@@ -213,6 +213,26 @@
             Button:
                 text: "Carregar"
                 on_release: root.loadEL(filechooser.path, filechooser.selection)
+                
+<SaveErrorLogDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            dirselect: True
+            
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancelar"
+                on_release: root.cancel()
+
+            Button:
+                text: "Salvar"
+                on_release: root.saveErrorLog(filechooser.path, filechooser.selection)
 
 <RMFmenu>:
     FloatLayout:
@@ -519,6 +539,12 @@
                 text: "Atualizar"
                 on_press:
                     root.runLoad()
+            Button:
+                size_hint: (None,1)
+                text: "Exportar"
+                on_press:
+                    root.show_export_errorlog()
+            
                     
         BoxLayout:
             size_hint: (.9, .775)

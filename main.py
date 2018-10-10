@@ -11,6 +11,7 @@ import numpy as np
 import os
 import pyexcel as pe
 import configparser
+import shutil
 
 VERSION = '1.0.2'
 
@@ -158,7 +159,10 @@ def errorLogWriter(errorLogFile, aux):
         file_handler.write("Imagens com erros: {}\n\n".format(str(aux.warnings)))
         for item in aux.errorLog:
             file_handler.write("{}\n".format(item))
-
+            
+def errorLogExporter(errorLogFile, path, filename):
+    shutil.copy(errorLogFile, os.path.join(path, filename[0]))
+    
 def imgPreview(img):
     cv2.imshow('Preview', img)
     cv2.waitKey(0)
@@ -487,6 +491,10 @@ class ChangeELDialog(FloatLayout):
     loadEL = ObjectProperty(None)
     cancel = ObjectProperty(None) 
 
+class SaveErrorLogDialog(FloatLayout):
+    saveErrorLog = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+
 class Options(Screen):
 
     class Text(Widget):
@@ -592,14 +600,6 @@ class RSFmenu(Screen):
         self.dismiss_popup()        
 
 class Credit(Screen):
-    # TODO - Fix credit not displaying correctly
-#    creditText = ('This app was created and developed in 2018 by Gustavo F. A. Denobi, consultant for iNOVEC. \n'
-#                  'Special thanks for ICETI and UNICESUMAR for the oportunity of learning in the process of '
-#                  'building this application.\n\n'
-#                  'The use of this application and any of its content is entirely subject to authorization of '
-#                  'the author.\n\n\n\n'
-#                  'Version: ' + VERSION
-#                  )
     
     creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. A. Denobi, consultor pela iNOVEC. \n'
                   'Agradecimentos especiais ao ICETI e à UNICESUMAR, pela oportunidade de aprender no processo '
@@ -668,7 +668,26 @@ class ViewErrorLog(Screen):
 
     def runLoad(self):
         self.load(const1.errorLogFile)
-        
+
+    def dismiss_popup(self):
+        self._popup.dismiss()    
+    
+    def show_export_errorlog(self):
+        content = SaveErrorLogDialog(saveErrorLog=self.exportErrorLog, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Salvar", content=content,
+                            size_hint=(0.9, 0.9))
+        self._popup.open()
+
+    def exportErrorLog(self, path, filename):
+        self.dismiss_popup()
+        try:
+            errorLogExporter(const1.errorLogFile, path, filename)
+            popup = Popup(title='FormCV',
+                      content=Label(text='Log de Erros exportado com sucesso.'),
+                      size_hint=(None, None), size=(400, 200))
+            popup.open()            
+        except:
+            errorPopup()
 
 class GenerateCertificate(Screen):
     months = ['','']
