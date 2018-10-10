@@ -195,7 +195,7 @@ def imgUndistort(const, var):
     pts2 = np.float32(getCoordOrder(const, approx))
     M = cv2.getPerspectiveTransform(pts1,pts2)
     imgundist = cv2.warpPerspective(imgresize,M,(const.w, const.h))
-    imgPreview(imgundist)
+    #imgPreview(imgundist)
     return imgundist
     
 def getCoordOrder(const, array):
@@ -417,18 +417,16 @@ def multipleFileReader(const, var, aux, db):
                 aux.errorLog.append('IMG: ' + file)
                 try:
                     imgRead = ImgRead(const, var)
-                    #aux.errorLog.append('     LOG: Leitura completa.')
                     try:
+                        aux.errorLog[aux.errorLog.index('IMG: ' + file)] = aux.errorLog[aux.errorLog.index('IMG: ' + file)] + ' | RA: ' + str(imgRead.ra)
                         db.database = cellWriter(imgRead.ra, imgRead.period, imgRead.time, db.database)
-                        #aux.errorLog.append('     LOG: Gravacao completa.')
                     except:
-                        aux.errorLog.append('     ERRO: nao foi possivel encontrar dados da imagem no banco de dados.')
+                        aux.errorLog.append('     ERRO: nao foi possivel encontrar o RA no banco de dados.')
                         aux.errors += 1
                 except:
-                    aux.errorLog.append('     ERRO: nao foi possivel encontrar dados na imagem.')
+                    aux.errorLog.append('     ERRO: nao foi possivel ler o cabecalho da imagem.')
                     aux.errors += 1
                 if var.errorCount > 0:
-                    #aux.errorLog.append('     RESUMO: imagem tem ' + str(var.errorCount) + ' linhas com erro de preenchimento.')
                     aux.warnings += 1
     errorLogWriter(const.errorLogFile, aux)
     saveDatabase(db.database, const.databaseFile)
@@ -539,10 +537,6 @@ class Options(Screen):
         self.dismiss_popup()
 
 class RMFmenu(Screen):
-
-
-    
-    
 
     class Info(Widget):
         imgDir = StringProperty(const1.imgDir)

@@ -1,4 +1,35 @@
-Erros fatais: 0     Imagens com erros: 1
+Erros fatais: 3     Imagens com erros: 9
 
-IMG: WhatsApp Image 2018-10-01 at 17.11.36.jpeg
+IMG: 20181009_084534.jpg | RA: 15018272
+IMG: 20181009_084705.jpg
+          AVISO: erro de preenchimento ou leitura detectado no dia: [19]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [29]
+     ERRO: nao foi possivel ler o cabecalho da imagem.
+IMG: 20181009_084727.jpg | RA: 16064282
+IMG: 20181009_084739.jpg | RA: 15015692
+IMG: 20181009_084752.jpg | RA: 15388362
+IMG: 20181009_084802.jpg | RA: 15166372
+          AVISO: erro de preenchimento ou leitura detectado no dia: [5]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [27]
+IMG: 20181009_084815.jpg | RA: 16449272
+          AVISO: erro de preenchimento ou leitura detectado no dia: [12]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [19]
+IMG: 20181009_084841.jpg | RA: 15029162
           AVISO: erro de preenchimento ou leitura detectado no dia: [14]
+IMG: 20181009_084853.jpg | RA: 15029162
+          AVISO: erro de preenchimento ou leitura detectado no dia: [14]
+IMG: 20181009_084904.jpg | RA: 17188452
+          AVISO: erro de preenchimento ou leitura detectado no dia: [14]
+IMG: 20181009_084918.jpg | RA: 16074282
+IMG: 20181009_084926.jpg | RA: 15085452
+IMG: 20181009_084936.jpg
+          AVISO: erro de preenchimento ou leitura detectado no dia: [13]
+     ERRO: nao foi possivel ler o cabecalho da imagem.
+IMG: 20181009_084946.jpg | RA: 15385822
+          AVISO: dia com soma maior que 24h detectado no dia: [12]
+IMG: 20181009_084956.jpg | RA: 17224952
+IMG: 20181009_085004.jpg | RA: 16074282
+IMG: 20181009_085021.jpg
+          AVISO: erro de preenchimento ou leitura detectado no dia: [5]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [28]
+     ERRO: nao foi possivel ler o cabecalho da imagem.
