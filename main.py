@@ -160,8 +160,8 @@ def errorLogWriter(errorLogFile, aux):
         for item in aux.errorLog:
             file_handler.write("{}\n".format(item))
             
-def errorLogExporter(errorLogFile, path, filename):
-    shutil.copy(errorLogFile, os.path.join(path, filename[0]))
+def errorLogExporter(errorLogFile, dst):
+    shutil.copy(errorLogFile, dst)
     
 def imgPreview(img):
     cv2.imshow('Preview', img)
@@ -432,12 +432,16 @@ def multipleFileReader(const, var, aux, db):
                     aux.errors += 1
                 if var.errorCount > 0:
                     aux.warnings += 1
-    errorLogWriter(const.errorLogFile, aux)
-    saveDatabase(db.database, const.databaseFile)
-    popup = Popup(title='FormCV',
-                  content=Label(text='Imagens lidas: ' + str(aux.numOfFiles) + '\nErros fatais: ' + str(aux.errors) + '\nImagens com erros: ' + str(aux.warnings)),
-                  size_hint=(None, None), size=(400, 200))
-    popup.open()
+    try:
+        errorLogWriter(const.errorLogFile, aux)
+        errorLogExporter(const.errorLogFile, const.imgDir)
+        saveDatabase(db.database, const.databaseFile)
+        popup = Popup(title='FormCV',
+                      content=Label(text='Imagens lidas: ' + str(aux.numOfFiles) + '\nErros fatais: ' + str(aux.errors) + '\nImagens com erros: ' + str(aux.warnings)),
+                      size_hint=(None, None), size=(400, 200))
+        popup.open()
+    except:
+        errorPopup()
     
 def singleFileReader(const, var, aux, db):
     db = readDatabase(const.databaseFile, db)
@@ -681,7 +685,7 @@ class ViewErrorLog(Screen):
     def exportErrorLog(self, path, filename):
         self.dismiss_popup()
         try:
-            errorLogExporter(const1.errorLogFile, path, filename)
+            errorLogExporter(const1.errorLogFile, os.path.join(path, filename[0]))
             popup = Popup(title='FormCV',
                       content=Label(text='Log de Erros exportado com sucesso.'),
                       size_hint=(None, None), size=(400, 200))
