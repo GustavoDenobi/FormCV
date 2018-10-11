@@ -12,6 +12,7 @@ import os
 import pyexcel as pe
 import configparser
 import shutil
+from datetime import datetime
 
 VERSION = '1.0.2'
 
@@ -436,7 +437,9 @@ def multipleFileReader(const, var, aux, db):
     try:
         errorLogWriter(const.errorLogFile, aux)
         aux1.errorLog = []
-        errorLogExporter(const.errorLogFile, const.imgDir)
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        errorLogExporter(const.errorLogFile, os.path.join(const.imgDir, (const.errorLogFile[:-4] + currentTime[:14] + ".txt")))
+        #errorLogExporter(const.errorLogFile, const.imgDir)
         saveDatabase(db.database, const.databaseFile)
         popup = Popup(title='FormCV',
                       content=Label(text='Imagens lidas: ' + str(aux.numOfFiles) + '\nErros fatais: ' + str(aux.errors) + '\nImagens com erros: ' + str(aux.warnings)),
@@ -478,7 +481,7 @@ def singleFileReader(const, var, aux, db):
 ###############################################################################
 # KIVY APP
     
-Window.size = (1024,768)
+Window.size = (1000,600)
 
 class MainMenu(Screen):
     
@@ -495,7 +498,8 @@ class ChangeImgDialog(FloatLayout):
 
 class ChangeELDialog(FloatLayout):
     loadEL = ObjectProperty(None)
-    cancel = ObjectProperty(None) 
+    cancel = ObjectProperty(None)
+
 
 class SaveErrorLogDialog(FloatLayout):
     saveErrorLog = ObjectProperty(None)
