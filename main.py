@@ -693,7 +693,7 @@ class ViewErrorLog(Screen):
         try:
             errorLogExporter(const1.errorLogFile, os.path.join(path, filename[0]))
             popup = Popup(title='FormCV',
-                      content=Label(text='Log de Erros exportado com sucesso.'),
+                      content=Label(text='Relatorio exportado com sucesso.'),
                       size_hint=(None, None), size=(400, 200))
             popup.open()            
         except:

@@ -43,7 +43,7 @@
                 on_release:
                     root.manager.current = "manconsult"
             Button:
-                text: 'Log de Erros'
+                text: 'Relatorio'
                 on_release:
                     root.manager.current = "errorlog"
             Button:
@@ -104,7 +104,7 @@
                     text: "Pasta de imagens: "
                     halign: 'center'
                 Label:
-                    text: "Arquivo de log: "        
+                    text: "Arquivo de relatorio: "        
                     halign: 'center'
                     
             BoxLayout:
@@ -515,7 +515,7 @@
                     
             Label:
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                text: "Log de Erros"
+                text: "Relatorio"
                 font_size: '30sp'
                     
             Button:
@@ -532,7 +532,7 @@
         
             Label:
                 size_hint: (.8,1)
-                text: 'Clique em "Atualizar" para exibir o log de erros.'
+                text: 'Clique em "Atualizar" para exibir o relatorio.'
                         
             Button:
                 size_hint: (None,1)
