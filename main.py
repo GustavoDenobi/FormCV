@@ -424,7 +424,7 @@ def multipleFileReader(const, var, aux, db):
     aux.numOfFiles = fileCount(const, aux)
     for subdir, dirs, files in os.walk(const.imgDir):
         for file in files:
-            var.errorCount = 0
+            var1.errorCount = 0
             filepath = subdir + os.sep + file
             if filepath.endswith(".jpeg") or filepath.endswith(".jpg"):
                 var.imgAddress = filepath
@@ -444,10 +444,9 @@ def multipleFileReader(const, var, aux, db):
                     aux.warnings += 1
     try:
         errorLogWriter(const.errorLogFile, aux)
-        aux1.errorLog = []
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         errorLogExporter(const.errorLogFile, os.path.join(const.imgDir, (const.errorLogFile[:-4] + currentTime[:14] + ".txt")))
-        #errorLogExporter(const.errorLogFile, const.imgDir)
+        
         saveDatabase(db.database, const.databaseFile)
         popup = Popup(title='FormCV',
                       content=Label(text='Imagens lidas: ' + str(aux.numOfFiles) + '\nErros fatais: ' + str(aux.errors) + '\nImagens com erros: ' + str(aux.warnings)),
@@ -455,6 +454,11 @@ def multipleFileReader(const, var, aux, db):
         popup.open()
     except:
         errorPopup()
+    
+    #Resets error countings
+    aux1.errorLog = []
+    aux1.errors = 0
+    aux1.warnings = 0
     
 def singleFileReader(const, var, aux, db):
     db = readDatabase(const.databaseFile, db)
@@ -593,7 +597,7 @@ class RMFmenu(Screen):
         self.dismiss_popup()
     
     def rmf(self):
-        multipleFileReader(Param.Const(), Param.Var(), aux1, Param.Db())
+        multipleFileReader(Param.Const(), var1, aux1, Param.Db())
 
 class ChooseRSF(FloatLayout):
     loadRSF = ObjectProperty(None)
