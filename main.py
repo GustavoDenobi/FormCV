@@ -13,26 +13,15 @@ import pyexcel as pe
 import configparser
 import shutil
 from datetime import datetime
+import unicodedata
 
 VERSION = '1.0.2'
 
 """
-OK - Reestruturar sistema de banco de dados que não seja diretamente acessado pelo usuário.
-OK - O banco de dados não possuirá formatação (csv)
-OK - Criar sistema de io de parâmetros, para que as configuracoes do usuario sejam mantidas ao reiniciar o programa.
-OK - Fix parameters entry in Options menu.
-OK - Fix non-refreshing labels in Options menu.
-OK - FileChooser seems to prevent pyinstaller to work properly. Find a solution.
-OK - Write function to generate the file used to feed the certificates.
-OK - Transform "Add Consultant" into "Manage Consultants".
-    OK - Add function do delete consultant.
-OK - Develop rounding system in output. .5 becomes 0, .75 becomes 1
-OK - Develop a better error log type, probably to tell exactly where the filling errors are
 
 TODO - Fix errorLog changing in Options menu. It can't be changed right now.
 TODO - Fix icon not showing in exe.
 TODO - Create screen that shows/controls the database.
-
 
 """
 
@@ -117,6 +106,25 @@ def outputDatabase(const, db, months):
         popup.open()
     except:
         errorPopup()
+
+def strip_accents(text):
+    """
+    Strip accents from input String.
+
+    :param text: The input string.
+    :type text: String.
+
+    :returns: The processed String.
+    :rtype: String.
+    """
+    try:
+        text = unicode(text, 'utf-8')
+    except (TypeError, NameError): # unicode is a default on python 3 
+        pass
+    text = unicodedata.normalize('NFD', text)
+    text = text.encode('ascii', 'ignore')
+    text = text.decode("utf-8")
+    return str(text)
         
 def addConsultant(const, db, consultant):
     db = readDatabase(const.databaseFile, db)
@@ -629,7 +637,7 @@ class ManageConsultant(Screen):
         self.consultant['RA'] = ra
         
     def bindNOME(self, nome):
-        self.consultant['NOME'] = nome
+        self.consultant['NOME'] = strip_accents(nome).title()
         
     def bindCONSULT(self, consult):
         self.consultant['CONSULTORIA'] = consult
