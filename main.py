@@ -100,6 +100,18 @@ def outputDatabase(const, db, months):
         certificateCount = len(newoutput['NOME'])
         output = pe.get_sheet(adict = newoutput) # Transforms the dict created above in csv format
         output.save_as(const.outputFile) # Saves the csv into file
+        
+        # sorts SaidaParaCertificados by Consulting names
+        b = pe.get_array(file_name = const.outputFile)
+        indexConsult = b[0].index('CONSULTORIA')
+        
+        def takeSecond(b):
+            element = b[indexConsult]
+            return element
+        
+        sortedList = [b[0]] + sorted(b[1::], key=takeSecond)
+        pe.save_as(array=sortedList, dest_file_name=const.outputFile)
+        
         popup = Popup(title='FormCV',
                       content=Label(text='Sucesso!\n\n' + str(certificateCount) + ' certificado(s) gerados.'),
                       size_hint=(None, None), size=(400, 200))
