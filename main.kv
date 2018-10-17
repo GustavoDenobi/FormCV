@@ -104,7 +104,7 @@
                     text: "Pasta de imagens: "
                     halign: 'center'
                 Label:
-                    text: "Arquivo de relatorio: "        
+                    text: "Saida para certificados: "        
                     halign: 'center'
                     
             BoxLayout:
@@ -134,7 +134,7 @@
                     text_size: self.size
                     halign: 'center'
                     valign: 'middle'
-                    text: root.text.elDir
+                    text: root.text.outputDir
                     color:  [0,0,0,0.5]
                     
             BoxLayout:
@@ -153,7 +153,7 @@
                 Button:
                     text: 'Alterar'
                     on_release:
-                        root.show_load_EL()
+                        root.show_load_output()
                         
 <ChangeDatabaseDialog>:
     BoxLayout:
@@ -194,14 +194,14 @@
                 text: "Carregar"
                 on_release: root.loadImg(filechooser.path, filechooser.selection)
 
-<ChangeELDialog>:
+<ChangeOutputDialog>:
     BoxLayout:
         size: root.size
         pos: root.pos
         orientation: "vertical"
         FileChooserListView:
             id: filechooser
-            dirselect: False
+            dirselect: True
             
         BoxLayout:
             size_hint_y: None
@@ -212,7 +212,7 @@
 
             Button:
                 text: "Carregar"
-                on_release: root.loadEL(filechooser.path, filechooser.selection)
+                on_release: root.loadOutput(filechooser.path, filechooser.selection)
                 
 <SaveErrorLogDialog>:
     BoxLayout:

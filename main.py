@@ -519,11 +519,10 @@ class ChangeDatabaseDialog(FloatLayout):
 class ChangeImgDialog(FloatLayout):
     loadImg = ObjectProperty(None)
     cancel = ObjectProperty(None)
-
-class ChangeELDialog(FloatLayout):
-    loadEL = ObjectProperty(None)
+    
+class ChangeOutputDialog(FloatLayout):
+    loadOutput = ObjectProperty(None)
     cancel = ObjectProperty(None)
-
 
 class SaveErrorLogDialog(FloatLayout):
     saveErrorLog = ObjectProperty(None)
@@ -535,6 +534,7 @@ class Options(Screen):
         dbDir = StringProperty(const1.databaseFile)
         imgDir = StringProperty(const1.imgDir)
         elDir = StringProperty(const1.errorLogFile)
+        outputDir = StringProperty(const1.outputFile)
     
     text = Text()
     
@@ -542,6 +542,7 @@ class Options(Screen):
         self.text.dbDir = const1.databaseFile
         self.text.imgDir = const1.imgDir
         self.text.elDir = const1.errorLogFile
+        self.text.outputDir = const1.outputFile
     
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -557,24 +558,27 @@ class Options(Screen):
         self._popup = Popup(title="Selecione uma pasta", content=content,
                             size_hint=(0.9, 0.9))
         self._popup.open()
-        
-    def show_load_EL(self):
-        content = ChangeELDialog(loadEL=self.changeEL, cancel=self.dismiss_popup)
-        self._popup = Popup(title="Selecione um arquivo", content=content,
+
+    def show_load_output(self):
+        content = ChangeOutputDialog(loadOutput=self.changeOutput, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Selecione uma pasta", content=content,
                             size_hint=(0.9, 0.9))
         
     def changeDatabase(self, path, filename):
-        paramTuner('databaseFile', os.path.join(path, filename[0]))
+        if(filename != []):
+            paramTuner('databaseFile', os.path.join(path, filename[0]))
         self.textUpdate()
         self.dismiss_popup()        
         
     def changeImgDir(self, path, filename):
-        paramTuner('imgDir', os.path.join(path, filename[0]))
+        if(filename != []):
+            paramTuner('imgDir', os.path.join(path, filename[0]))
         self.textUpdate()
         self.dismiss_popup()
         
-    def changeEL(self, path, filename):
-        paramTuner('errorLogFile', os.path.join(path, filename[0]))
+    def changeOutput(self, path, filename):
+        if(filename != []):
+            paramTuner('outputFile', os.path.join(path, filename[0]))
         self.textUpdate()
         self.dismiss_popup()
 
@@ -714,14 +718,20 @@ class ViewErrorLog(Screen):
 
     def exportErrorLog(self, path, filename):
         self.dismiss_popup()
-        try:
-            errorLogExporter(const1.errorLogFile, os.path.join(path, filename[0]))
+        if(filename != []):
+            try:
+                errorLogExporter(const1.errorLogFile, os.path.join(path, filename[0]))
+                popup = Popup(title='FormCV',
+                          content=Label(text='Relatorio exportado com sucesso.'),
+                          size_hint=(None, None), size=(400, 200))
+                popup.open()
+            except:
+                errorPopup
+        else:
             popup = Popup(title='FormCV',
-                      content=Label(text='Relatorio exportado com sucesso.'),
+                      content=Label(text='Selecione uma pasta de destino.'),
                       size_hint=(None, None), size=(400, 200))
-            popup.open()            
-        except:
-            errorPopup()
+            popup.open()
 
 class GenerateCertificate(Screen):
     months = ['','']
