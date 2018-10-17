@@ -120,12 +120,12 @@ def outputDatabase(const, db, months):
         
 def addConsultant(const, db, consultant):
     db = readDatabase(const.databaseFile, db)
-    print(db.database['RA'])
+    #print(db.database['RA'])
     if(int(consultant['RA']) in db.database['RA']):
         popup = Popup(title='FormCV',
                       content=Label(text='Este RA já está no banco de dados.'),
                       size_hint=(None, None), size=(400, 200))
-        popup.open()        
+        popup.open()
     else:
         try:
             for key in consultant.keys():
@@ -424,7 +424,7 @@ def multipleFileReader(const, var, aux, db):
                 try:
                     imgRead = ImgRead(const, var)
                     try:
-                        aux.errorLog[aux.errorLog.index('IMG: ' + file)] = aux.errorLog[aux.errorLog.index('IMG: ' + file)] + ' | RA: ' + str(imgRead.ra)
+                        aux.errorLog[aux.errorLog.index('IMG: ' + file)] = aux.errorLog[aux.errorLog.index('IMG: ' + file)] + '  |  RA: ' + str(imgRead.ra)
                         db.database = cellWriter(imgRead.ra, imgRead.period, imgRead.time, db.database)
                     except:
                         aux.errorLog.append('     ERRO: nao foi possivel encontrar o RA no banco de dados.')
