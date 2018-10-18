@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty, StringProperty, AliasProperty
 from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
@@ -646,9 +646,11 @@ class Credit(Screen):
                   'Contato: gustavodenobi@gmail.com\n\n'
                   'Versão: ' + VERSION
                   )
+
+class AddConsultant(FloatLayout):
+    cancel = ObjectProperty(None)
+    objAddContultant = ObjectProperty(None)
     
-class ManageConsultant(Screen):
-    # TODO - Clear fields after any function is executed.
     consultant = {'RA': '',
                   'NOME': '',
                   'CONSULTORIA': ''}
@@ -662,6 +664,28 @@ class ManageConsultant(Screen):
     def bindCONSULT(self, consult):
         self.consultant['CONSULTORIA'] = consult
 
+    def dismiss_popup(self):
+        self._popup.dismiss()
+            
+
+class ManageConsultant(Screen):
+
+    consultant = {'RA': '',
+                  'NOME': '',
+                  'CONSULTORIA': ''}
+    
+    def bindRA(self, ra):
+        self.consultant['RA'] = ra    
+    
+    def dismiss_popup(self):
+        self._popup.dismiss()
+    
+    def show_add_consultant(self):
+        content = AddConsultant(objAddConsultant = self.runAddConsultant, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Adicionar consultor", content=content,
+                            size_hint=(0.8, 0.8))
+        self._popup.open()
+        
     def runAddConsultant(self):
         status = True
         for key in self.consultant.keys():
@@ -683,8 +707,9 @@ class ManageConsultant(Screen):
                       size_hint=(None, None), size=(400, 200))
             popup.open()
         if(status):
+            print(self.consultant)
             addConsultant(const1, db1, self.consultant)
-            
+            self.dismiss_popup()        
             
     def runDelConsultant(self):
         status = True

@@ -404,30 +404,8 @@
                 line_height: 1.25
                 color: [1,1,1,1]
 
-<ManageConsultant>:
+<AddConsultant>:
     FloatLayout:
-        FloatLayout:
-            size_hint: (1, .1)
-            pos_hint: {'center_x': 0.5, 'y': 0.9}
-            canvas:
-                Color:
-                    rgba: (1,1,1,0.1)
-                Rectangle:
-                    pos: self.pos
-                    size: self.size        
-                    
-            Label:
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                text: "Gerenciar Consultores"
-                font_size: '30sp'
-                    
-            Button:
-                size_hint: (0.1, 0.33)
-                pos_hint: {'x': 0.01, 'center_y': 0.5}
-                text: 'Voltar'
-                on_release:
-                    root.manager.current = "mainmenu"
-        
         Label:
             size_hint: (.9,.2)
             pos_hint: {'center_x': 0.5, 'y': 0.75}
@@ -455,24 +433,64 @@
                 orientation: 'vertical'
                     
                 TextInput:
+                    id: 'ra'
                     hint_text: 'Numeros apenas'
+                    input_filter: 'int'
                     on_text: root.bindRA(self.text)
                 TextInput:
+                    id: 'nome'
                     on_text: root.bindNOME(self.text)
                 TextInput:
+                    id: 'consult'
                     on_text: root.bindCONSULT(self.text)
-                                          
-        Button:
-            size_hint: (0.2, 0.06125)
-            pos_hint: {'center_x': 0.5, 'center_y': .45}
-            text: "Adicionar Consultor"
-            on_press:
-                root.runAddConsultant()
+                    
+        BoxLayout:
+            size_hint: (0.4, 0.06125)
+            pos_hint: {'center_x': 0.5, 'center_y': .45}                                  
+            Button:
+                text: "Adicionar Consultor"
+                on_press:
+                    root.runAddConsultant()    
+            Button:
+                text: "Cancelar"
+                on_press:
+                    root.cancel()
+
+<ManageConsultant>:
+    FloatLayout:
+        FloatLayout:
+            size_hint: (1, .1)
+            pos_hint: {'center_x': 0.5, 'y': 0.9}
+            canvas:
+                Color:
+                    rgba: (1,1,1,0.1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size        
+                    
+            Label:
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                text: "Gerenciar Consultores"
+                font_size: '30sp'
+                    
+            Button:
+                size_hint: (0.1, 0.33)
+                pos_hint: {'x': 0.01, 'center_y': 0.5}
+                text: 'Voltar'
+                on_release:
+                    root.manager.current = "mainmenu"
 
         Label:
             size_hint: (.9,.1)
             pos_hint: {'center_x': 0.5, 'y': 0.3}
             text: 'Insira o RA e clique em "Remover Consultor" para remover o consultor do banco de dados.'
+            
+        Button:
+            size_hint: (0.2, 0.06125)
+            pos_hint: {'center_x': 0.5, 'center_y': .75}
+            text: "Adicionar Consultor"
+            on_press:
+                root.show_add_consultant()            
             
         BoxLayout:
             size_hint: (.9, .08)
