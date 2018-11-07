@@ -1,31 +1,27 @@
-Erros fatais: 8     Imagens com erros: 1
+Erros fatais: 5     Imagens com erros: 4
 
-IMG: 20181010_091501.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091514.jpg  |  RA: 15006012
-IMG: 20181010_091525.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091539.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091553.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091603.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091616.jpg  |  RA: 16308002
-IMG: 20181010_091637.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091654.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: 20181010_091707.jpg
-     ERRO: nao foi possivel ler o cabecalho da imagem.
-IMG: WhatsApp Image 2018-10-16 at 13.56.01 (1).jpeg  |  RA: 15006012
-IMG: WhatsApp Image 2018-10-16 at 13.56.01 (2).jpeg  |  RA: 16203842
-IMG: WhatsApp Image 2018-10-16 at 13.56.01.jpeg  |  RA: 15011942
-IMG: WhatsApp Image 2018-10-16 at 13.56.02 (1).jpeg  |  RA: 17054102
+IMG: 12.jpeg  |  RA: 12345678  |  PERIODO: JUN  |  HORAS: 14.5
+          AVISO: dia com soma maior que 24h detectado no dia: [2]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [3]
+    ERRO: nao foi possivel encontrar o RA no banco de dados.
+IMG: 13.jpeg  |  RA: 18304445  |  PERIODO: ABR  |  HORAS: 27.25
+    ERRO: nao foi possivel encontrar o RA no banco de dados.
+IMG: 14.jpeg  |  RA: 12345678  |  PERIODO: JUN  |  HORAS: 13.5
+          AVISO: dia com soma maior que 24h detectado no dia: [2]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [3]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [6]
           AVISO: erro de preenchimento ou leitura detectado no dia: [17]
-IMG: WhatsApp Image 2018-10-16 at 13.56.02 (2).jpeg  |  RA: 17329942
-IMG: WhatsApp Image 2018-10-16 at 13.56.02.jpeg  |  RA: 13003832
-IMG: WhatsApp Image 2018-10-16 at 13.56.03 (1).jpeg  |  RA: 17155762
-IMG: WhatsApp Image 2018-10-16 at 13.56.03 (2).jpeg  |  RA: 15007692
-IMG: WhatsApp Image 2018-10-16 at 13.56.03 (3).jpeg  |  RA: 15012612
-IMG: WhatsApp Image 2018-10-16 at 13.56.03.jpeg  |  RA: 16308002
+          AVISO: erro de preenchimento ou leitura detectado no dia: [22]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [27]
+    ERRO: nao foi possivel encontrar o RA no banco de dados.
+IMG: 15.jpeg  |  RA: 12345678  |  PERIODO: JUN  |  HORAS: 14.5
+          AVISO: dia com soma maior que 24h detectado no dia: [2]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [3]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [17]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [22]
+          AVISO: erro de preenchimento ou leitura detectado no dia: [27]
+    ERRO: nao foi possivel encontrar o RA no banco de dados.
+IMG: 15a.jpg
+    Erro de preenchimento no RA.
+    Erro de preenchimento no Periodo.
+IMG: asd.jpeg  |  RA: 16157912  |  PERIODO: JUN  |  HORAS: 49.25

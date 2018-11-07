@@ -33,6 +33,12 @@ def errorPopup():
                   content=Label(text='Ops! Algo deu errado.'),
                   size_hint=(None, None), size=(400, 200))
     popup.open()
+    
+def textPopup(txt):
+    popup = Popup(title='FormCV',
+                  content=Label(text=txt),
+                  size_hint=(None, None), size=(500, 200))
+    popup.open()
 
 def readDatabase(databaseFile, db): # Used to read a csv file and store it as a dict
     db.database = pe.get_dict(file_name = databaseFile, encoding = 'utf-8-sig')
@@ -111,11 +117,7 @@ def outputDatabase(const, db, months):
         
         sortedList = [b[0]] + sorted(b[1::], key=takeSecond)
         pe.save_as(array=sortedList, dest_file_name=const.outputFile)
-        
-        popup = Popup(title='FormCV',
-                      content=Label(text='Sucesso!\n\n' + str(certificateCount) + ' certificado(s) gerados.'),
-                      size_hint=(None, None), size=(400, 200))
-        popup.open()
+        textPopup('Sucesso!\n\n' + str(certificateCount) + ' certificado(s) gerados.')
     except:
         errorPopup()
 
@@ -193,36 +195,37 @@ def imgPreview(img):
 ###############################################################################
 ### CORE
 
-def imgUndistort(const, var):
-    #print(var)
-    imggray = cv2.cvtColor(cv2.imread(var.imgAddress), cv2.COLOR_BGR2GRAY)  #import and convert into grayscale
-    width, height = imggray.shape
-    maxheight = 1024
-    maxwidth = int(maxheight/(width/height))
-    imgresize = cv2.resize(imggray,(maxwidth, maxheight), interpolation = cv2.INTER_AREA)
-    #imgPreview(imgresize)
-    imgblur = cv2.GaussianBlur(imgresize,(9,9),0) #apply gaussian blur
-    imgthresh = cv2.adaptiveThreshold(imgblur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
-            cv2.THRESH_BINARY_INV,3,2)
-    im2, contours, hierarchy = cv2.findContours(imgthresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #detect contours
-    #imgPreview(imgthresh)
-    #Select contour with biggest area:
-    cnt = contours[0]
-    for c in contours:
-        if cv2.contourArea(c) > cv2.contourArea(cnt):
-            cnt = c
-
-    #simplify contour to 4 coordinates
-    epsilon = 0.1*cv2.arcLength(cnt,True)
-    approx = cv2.approxPolyDP(cnt,epsilon,True)
-
-    #transforms polygon that contains data into rectangle
-    pts1 = np.float32(approx) #coordinates from contour
-    pts2 = np.float32(getCoordOrder(const, approx))
-    M = cv2.getPerspectiveTransform(pts1,pts2)
-    imgundist = cv2.warpPerspective(imgresize,M,(const.w, const.h))
-    #imgPreview(imgundist)
-    return imgundist
+def imgUndistort(const, imgAddress):
+    try:
+        imggray = cv2.cvtColor(cv2.imread(imgAddress), cv2.COLOR_BGR2GRAY)  #import and convert into grayscale
+        width, height = imggray.shape
+        maxheight = 1024
+        maxwidth = int(maxheight/(width/height))
+        imgresize = cv2.resize(imggray,(maxwidth, maxheight), interpolation = cv2.INTER_AREA)
+        #imgPreview(imgresize)
+        imgblur = cv2.GaussianBlur(imgresize,(9,9),0) #apply gaussian blur
+        imgthresh = cv2.adaptiveThreshold(imgblur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+                cv2.THRESH_BINARY_INV,3,2)
+        im2, contours, hierarchy = cv2.findContours(imgthresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #detect contours
+        #imgPreview(imgthresh)
+        #Select contour with biggest area:
+        cnt = contours[0]
+        for c in contours:
+            if cv2.contourArea(c) > cv2.contourArea(cnt):
+                cnt = c
+    
+        #simplify contour to 4 coordinates
+        epsilon = 0.1*cv2.arcLength(cnt,True)
+        approx = cv2.approxPolyDP(cnt,epsilon,True)
+    
+        #transforms polygon that contains data into rectangle
+        pts1 = np.float32(approx) #coordinates from contour
+        pts2 = np.float32(getCoordOrder(const, approx))
+        M = cv2.getPerspectiveTransform(pts1,pts2)
+        imgundist = cv2.warpPerspective(imgresize,M,(const.w, const.h))
+        return imgundist
+    except:
+        return "IMGUNDIST"
     
 def getCoordOrder(const, array):
     sumofcoorda = []
@@ -244,132 +247,210 @@ def getCoordOrder(const, array):
     return ordered
 
 def imgTransform(img):
-    # transforms data into single pixels
-    imgthresh = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
-            cv2.THRESH_BINARY,17,25)
-    #imgPreview(imgthresh)
-    imgblur = cv2.GaussianBlur(imgthresh,(13,13),0)
-    #imgPreview(imgblur)
-    ret,imgthresh = cv2.threshold(imgblur,180,255,cv2.THRESH_BINARY)
-    #imgPreview(imgthresh)
-    imgresized = cv2.resize(imgthresh,(37, 95), interpolation = cv2.INTER_AREA)
-    #imgPreview(imgresized)
-    ret,imgthresh = cv2.threshold(imgresized,192,255,cv2.THRESH_BINARY_INV)
-    imgout = imgthresh[1:94, 1:36] #deletes 1 pixel at all margins
-    #imgPreview(imgout)
-    return imgout
+    try:
+        # transforms data into single pixels
+        imgthresh = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+                cv2.THRESH_BINARY,17,25)
+        #imgPreview(imgthresh)
+        imgblur = cv2.GaussianBlur(imgthresh,(13,13),0)
+        #imgPreview(imgblur)
+        ret,imgthresh = cv2.threshold(imgblur,180,255,cv2.THRESH_BINARY)
+        #imgPreview(imgthresh)
+        imgresized = cv2.resize(imgthresh,(37, 95), interpolation = cv2.INTER_AREA)
+        #imgPreview(imgresized)
+        ret,imgthresh = cv2.threshold(imgresized,192,255,cv2.THRESH_BINARY_INV)
+        imgout = imgthresh[1:94, 1:36] #deletes 1 pixel at all margins
+        #imgPreview(imgout)
+        return imgout
+    except:
+        return "IMGOUT"
 
 def imgToMatrix(img):
     imgcut = img
     row,col = imgcut.shape
-
-    #turns 255 values into 1
-    for x in range(row):
-        for y in range(col):
-            imgcut[x,y] = imgcut[x,y]/255
     
-    #delete odd lines (blank)
-    data = []
-    for line in range(93):
-        if line%2 == 0:
-            data.append(imgcut[line].tolist())
-    #Returns matrix of 0s and 1s
-    
-    return data
+    try:
+        #turns 255 values into 1
+        for x in range(row):
+            for y in range(col):
+                imgcut[x,y] = imgcut[x,y]/255
+        
+        #delete odd lines (blank)
+        data = []
+        for line in range(93):
+            if line%2 == 0:
+                data.append(imgcut[line].tolist())
+        #Returns matrix of 0s and 1s
+        
+        return data
+    except:
+        return "TOMATRIX"
 
-def dataExtract(var, matrix):
+def dataExtract(matrix):
     data = matrix
     ra = []
     period = []
     time = []
     timeFilter = []
-    for line in range(8):
-        ra.append(data[line][0:10])
-    
-    for line in range(3):
-        period.append(data[line][18:30])
-    
-    count = 1    
-    for line in range(10,47):
-        data[line].append(count)
-        time.append(data[line])
-        count += 1
-    
-    for line in range(37):
-        sumRow = 0
-        for item in time[line][:-1]:
-            sumRow = sumRow + item
-        if sumRow > 0 and sumRow != 6: # if true, theres an error in the current line in the image
-            var.errorCount +=1
-            aux1.errorLog.append('          AVISO: erro de preenchimento ou leitura detectado no dia: ' + str(time[line][-1:]))
-        elif sumRow == 6:
-            #timeFilter.append(time[line][:-1]) #passes only time
-            timeFilter.append(time[line]) #passes day number also
-    return var, ra, period, timeFilter
+    errorLog = []
+    dayIndex = []
+    try:
+        for line in range(8):
+            ra.append(data[line][0:10])
+        
+        for line in range(3):
+            period.append(data[line][18:30])
+        
+        #adds day number in the end of each line
+        count = 1    
+        for line in range(10,47):
+            data[line].append(count)
+            time.append(data[line])
+            count += 1
+        
+        for line in range(37):
+            sumRow = 0
+            for item in time[line][:-1]:
+                sumRow = sumRow + item
+            if sumRow > 0 and sumRow != 6: # if true, theres an error in the current line in the image
+                errorLog.append('          AVISO: erro de preenchimento ou leitura detectado no dia: ' + str(time[line][-1:]))
+            elif sumRow == 6:
+                timeFilter.append(time[line][:-1]) #passes only time
+                dayIndex.append(time[line][-1:])
+                #timeFilter.append(time[line]) #passes day number also
+    except:
+        return "DATAEXTRACT"
+    return ra, period, timeFilter, errorLog, dayIndex
 
-def timeRead(time):
+def timePositionToValue(time):
     index = []
-    for line in range(len(time)):
-        for item in range(len(time[line][:-1])):
-            if time[line][item] == 1:
-                index.append(item)
-        index.append(time[line][35])
-    count = 0
-    timeIndex = []
-    b = []
-    for item in range(len(index)):
-        if count == 6:
-            count = 0
-            b.append(index[item])
-            #b.append()
-            timeIndex = timeIndex + [b]
-            b = []
-        else:
-            count = count + 1
-            b.append(index[item])
-    return timeIndex
+    try:
+        for line in range(len(time)):
+            for item in range(len(time[line])):
+                if time[line][item] == 1:
+                    index.append(item)
+        count = 0
+        timeIndex = []
+        b = []
+        for item in range(len(index)):
+            if count == 5:
+                count = 0
+                b.append(index[item])
+                #b.append()
+                timeIndex = timeIndex + [b]
+                b = []
+            else:
+                count = count + 1
+                b.append(index[item])
+        return timeIndex
+    except:
+        return "TIMEREAD"
+    
 
-def timeCalc(const, var, time):
-    totalTime = 0
+def timeCalc(const, time, days):
+    totalTime = 0.
     timeIn = 0.
     timeOut = 0.
-    for line in time:
-        timeIn = 10*const.pattern[line[0]] + const.pattern[line[1]] + 0.25*const.pattern[line[2]]
-        timeOut = 10*const.pattern[line[3]] + const.pattern[line[4]] + 0.25*const.pattern[line[5]]
-        dayTime = timeOut - timeIn
-        if timeIn > 23.75 or timeOut > 23.75 or dayTime < 0.0:
-            dayTime = 0
-            aux1.errorLog.append('          AVISO: dia com soma maior que 24h detectado no dia: ' + str(line[-1:]))
-            var.errorCount += 1
-        totalTime = totalTime + dayTime
-    return var, totalTime
+    errorLog = []
+    try:
+        for line in range(len(time)):
+            timeIn = 10*const.pattern[time[line][0]] + const.pattern[time[line][1]] + 0.25*const.pattern[time[line][2]]
+            timeOut = 10*const.pattern[time[line][3]] + const.pattern[time[line][4]] + 0.25*const.pattern[time[line][5]]
+            dayTime = timeOut - timeIn
+            if timeIn > 23.75 or timeOut > 23.75 or dayTime < 0.0:
+                dayTime = 0
+                errorLog.append('          AVISO: dia com soma maior que 24h detectado no dia: ' + str(days[line]))
+            totalTime = totalTime + dayTime
+        return totalTime, errorLog
+    except:
+        return 0, errorLog
 
-def dataRead(const, var, ra, period, time):
+def dataRead(const, ra, period, days):
     raStr = ''
     periodStr = ''
-    timeFloat = 0.0
     
-    #Reads RA
-    for line in ra:
-        raStr = raStr + str(line.index(1))   
-    periodStr = const.months[period[2].index(1)]
-    yearStr = str(period[0].index(1)+1) + str(period[1].index(1)+1)
-    var, timeFloat = timeCalc(const, var, timeRead(time))
-    
-    return var, raStr, periodStr, yearStr, timeFloat
+    try:
+        #Reads RA
+        for line in ra:
+            raStr = raStr + str(line.index(1))   
+        periodStr = const.months[period[2].index(1)]
+        yearStr = str(period[0].index(1)+1) + str(period[1].index(1)+1)
+    except:
+        pass
+    return raStr, periodStr, yearStr
 
 class ImgRead:
     
-    def __init__(self, const, var):
-            self.var = var
-            self.imgUndist = imgUndistort(const, var)
-            self.imgOut = imgTransform(self.imgUndist)
-            self.imgData = imgToMatrix(self.imgOut)
-            self.var, self.raRaw, self.periodRaw, self.timeRaw = dataExtract(self.var, self.imgData)
-            self.var, self.ra, self.period, self.year, self.time = dataRead(const, self.var, self.raRaw, self.periodRaw, self.timeRaw)
-            self.timeStr = str(self.time)
-            self.data = [self.ra, self.period, self.time]
-            #self.errorCount = self.var.errorCount
+    def __init__(self, const, imgAddress):
+            self.imgAddress = imgAddress
+            self.status = True
+            self.terminalError = False
+            self.imgUndist = imgUndistort(const, self.imgAddress)
+            self.warningCount = 0
+            self.errorLog = []
+            if(self.imgUndist != "IMGUNDIST"):
+                self.imgOut = imgTransform(self.imgUndist)
+            else:
+                self.status = False
+                
+            if(self.imgOut != "IMGOUT" and self.status):
+                self.imgData = imgToMatrix(self.imgOut)
+            else:
+                self.status = False
+            if(self.imgData != "TOMATRIX" and self.status):
+                try:
+                    self.raRaw, self.periodRaw, self.timeRaw, self.fillingErrorLog, self.dayIndex = dataExtract(self.imgData)
+                    self.warningCount += len(self.fillingErrorLog)
+                    self.timeRead = timePositionToValue(self.timeRaw)
+                    self.time, self.sumErrorLog = timeCalc(const, self.timeRead, self.dayIndex)
+                    self.warningCount += len(self.sumErrorLog)
+                    self.ra, self.period, self.year = dataRead(const, self.raRaw, self.periodRaw, self.dayIndex)
+                    self.errorLog.extend(self.sumErrorLog)
+                    self.errorLog.extend(self.fillingErrorLog)
+                except:
+                    self.status = False
+            self.errorType = self.errorFinder()
+            
+            
+    def errorFinder(self):
+        errors = []
+        if(self.imgUndist == "IMGUNDIST"):
+            errors.append(self.imgUndist)
+            self.terminalError = True
+            return errors
+        if(self.imgOut == "IMGOUT"):
+            errors.append(self.imgOut)
+            self.terminalError = True
+            return errors
+        if(self.imgData == "TOMATRIX"):
+            errors.append(self.imgData)
+            self.terminalError = True
+            return errors
+        for line in self.raRaw:
+            if (line.count(1) != 1):
+                errors.append("RA")
+        for line in self.periodRaw:
+            if (line.count(1) != 1):
+                errors.append("PERIOD")
+        return errors
+        
+            
+    def getErrorImage(self):
+        errorImg = self.imgUndist
+        error = False
+        if("RA" in self.errorType):
+            errorImg = cv2.rectangle(errorImg, (10,3), (185,175), (250,250,250), 2)
+            error = True
+        if("PERIOD" in self.errorType):
+            errorImg = cv2.rectangle(errorImg, (300,3), (505,72), (250,250,250), 2)
+            error = True
+        if(error):
+            imgPreview(errorImg)
+            
+    def getWarningImage(self):
+        pass
+        
+        
            
 ###############################################################################
 ### PARAMETERS
@@ -439,33 +520,38 @@ def multipleFileReader(const, var, aux, db):
             var1.errorCount = 0
             filepath = subdir + os.sep + file
             if filepath.endswith(".jpeg") or filepath.endswith(".jpg"):
-                var.imgAddress = filepath
                 aux.errorLog.append('IMG: ' + file)
-                try:
-                    imgRead = ImgRead(const, var)
+                imgRead = ImgRead(const, filepath)
+                if(imgRead.status):
+                    aux.errorLog[aux.errorLog.index('IMG: ' + file)] = ('IMG: ' + file +
+                                                                        '  |  RA: ' + imgRead.ra +
+                                                                        '  |  PERIODO: ' + imgRead.period +
+                                                                        '  |  HORAS: ' + str(imgRead.time))
+                    aux.errorLog.extend(imgRead.errorLog)
                     try:
-                        aux.errorLog[aux.errorLog.index('IMG: ' + file)] = aux.errorLog[aux.errorLog.index('IMG: ' + file)] + '  |  RA: ' + str(imgRead.ra)
-                        db.database = cellWriter(imgRead.ra, imgRead.period, imgRead.time, db.database)
+                        db.database = cellWriter(str(imgRead.ra), imgRead.period, imgRead.time, db.database)
                     except:
-                        aux.errorLog.append('     ERRO: nao foi possivel encontrar o RA no banco de dados.')
-                        aux.errors += 1
-                except:
-                    aux.errorLog.append('     ERRO: nao foi possivel ler o cabecalho da imagem.')
+                        aux.errorLog.append('    ERRO: nao foi possivel encontrar o RA no banco de dados.')
+                        aux.errors += 1                
+                else:
+                    if(imgRead.terminalError):
+                        aux.errorLog.append("    Imagem nao foi reconhecida.")
+                    else:
+                        if("RA" in imgRead.errorType):
+                            aux.errorLog.append("    Erro de preenchimento no RA.")
+                        if("PERIOD" in imgRead.errorType):
+                            aux.errorLog.append("    Erro de preenchimento no Periodo.")
                     aux.errors += 1
-                if var.errorCount > 0:
+                if imgRead.warningCount > 0:
                     aux.warnings += 1
     try:
         errorLogWriter(const.errorLogFile, aux)
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         errorLogExporter(const.errorLogFile, os.path.join(const.imgDir, (const.errorLogFile[:-4] + currentTime[:14] + ".txt")))
-        
         saveDatabase(db.database, const.databaseFile)
-        popup = Popup(title='FormCV',
-                      content=Label(text='Imagens lidas: ' + str(aux.numOfFiles) + '\nErros fatais: ' + str(aux.errors) + '\nImagens com erros: ' + str(aux.warnings)),
-                      size_hint=(None, None), size=(400, 200))
-        popup.open()
+        textPopup('Imagens lidas: ' + str(aux.numOfFiles) + '\nErros fatais: ' + str(aux.errors) + '\nImagens com erros de preenchimento: ' + str(aux.warnings))
     except:
-        errorPopup()
+        textPopup("Algo deu errado ao salvar o banco de dados.\nCertifique-se de que o arquivo esta fechado.")
     
     #Resets error countings
     aux1.errorLog = []
@@ -474,33 +560,42 @@ def multipleFileReader(const, var, aux, db):
     
 def singleFileReader(const, var, aux, db):
     db = readDatabase(const.databaseFile, db)
-    if var.imgAddress.endswith(".jpeg"):
-        try:
-            imgRead = ImgRead(const, var)
+    if var.imgAddress.endswith(".jpeg") or var.imgAddress.endswith(".jpg"):
+        aux.errorLog.append('IMG: ' + var.imgAddress)
+        imgRead = ImgRead(const, var.imgAddress)
+        imgRead.getErrorImage()
+        if(imgRead.status):
+            aux.errorLog.append("    RA: " + imgRead.ra)
+            aux.errorLog.append("    PERIODO: " + imgRead.period)
+            aux.errorLog.append("    HORAS: " + str(imgRead.time))
+            aux.errorLog.extend(imgRead.errorLog)
             try:
-                db.database = cellWriter(imgRead.ra, imgRead.period, imgRead.time, db.database)
+                db.database = cellWriter(str(imgRead.ra), imgRead.period, imgRead.time, db.database)
             except:
-                aux.status = False
-                popup = Popup(title='FormCV',
-                              content=Label(text='O FormCV não encontrou o registro deste RA: ' + str(imgRead.ra) + '\nPor favor, cheque se o consultor está registrado'),
-                              size_hint=(None, None), size=(500, 200))
-                popup.open()
-        except:
-            aux.status = False
-            popup = Popup(title='FormCV',
-                          content=Label(text='O FormCV não pode ler esta imagem:\n\n' + var.imgAddress + '\n\nPor favor, cheque o formulário e tire uma nova foto.'),
-                          size_hint=(None, None), size=(500, 200))
-            popup.open()
-        if var.errorCount > 0:
-            aux.errorLog.append('AVISO: ' + var.imgAddress + ' tem ' + str(var.errorCount) + ' linhas com erros de preenchimento.')
+                aux.errorLog.append('    ERRO: nao foi possivel encontrar o RA no banco de dados.')
+                aux.errors += 1                
+        else:
+            if(imgRead.terminalError):
+                aux.errorLog.append("    Imagem nao foi reconhecida.")
+            else:
+                if("RA" in imgRead.errorType):
+                    aux.errorLog.append("    Erro de preenchimento no RA.")
+                if("PERIOD" in imgRead.errorType):
+                    aux.errorLog.append("    Erro de preenchimento no Periodo.")
+            aux.errors += 1
+        if imgRead.warningCount > 0:
             aux.warnings += 1
-    errorLogWriter(const.errorLogFile, aux)
-    saveDatabase(db.database, const.databaseFile)
-    if(aux.status):
-        popup = Popup(title='FormCV',
-                  content=Label(text='Imagem lida com sucesso!'),
-                  size_hint=(None, None), size=(400, 200))
-        popup.open()
+    try:
+        errorLogWriter(const.errorLogFile, aux)
+        saveDatabase(db.database, const.databaseFile)
+        textPopup("Leitura finalizada.\nConfira o relatorio para obter detalhes.")
+    except:
+        textPopup("Algo deu errado ao salvar o banco de dados.\nCertifique-se de que o arquivo esta fechado.")
+    
+    #Resets error countings
+    aux1.errorLog = []
+    aux1.errors = 0
+    aux1.warnings = 0
         
 ###############################################################################
 # KIVY APP
@@ -515,18 +610,50 @@ class MainMenu(Screen):
 class ChangeDatabaseDialog(FloatLayout):
     loadDatabase = ObjectProperty(None)
     cancel = ObjectProperty(None)
+    
+    class Text(Widget):
+        databaseFile = StringProperty(const1.databaseFile)
+        
+    text = Text()
+    
+    def textUpdate(self):
+        self.text.datbaseFile = const1.databaseFile
 
 class ChangeImgDialog(FloatLayout):
     loadImg = ObjectProperty(None)
     cancel = ObjectProperty(None)
     
+    class Text(Widget):
+        imgDir = StringProperty(const1.imgDir)
+        
+    text = Text()
+    
+    def textUpdate(self):
+        self.text.imgDir = const1.imgDir
+    
 class ChangeOutputDialog(FloatLayout):
     loadOutput = ObjectProperty(None)
     cancel = ObjectProperty(None)
 
+    class Text(Widget):
+        outputFile = StringProperty(const1.outputFile)
+        
+    text = Text()
+    
+    def textUpdate(self):
+        self.text.outputFile = const1.outputFile
+
 class SaveErrorLogDialog(FloatLayout):
     saveErrorLog = ObjectProperty(None)
     cancel = ObjectProperty(None)
+
+    class Text(Widget):
+        imgDir = StringProperty(const1.imgDir)
+        
+    text = Text()
+    
+    def textUpdate(self):
+        self.text.imgDir = const1.imgDir
 
 class Options(Screen):
 
@@ -619,22 +746,29 @@ class ChooseRSF(FloatLayout):
     loadRSF = ObjectProperty(None)
     cancel = ObjectProperty(None)
 
+    class Text(Widget):
+        imgDir = StringProperty(const1.imgDir)
+        
+    text = Text()
+    
+    def textUpdate(self):
+        self.text.imgDir = const1.imgDir
+
 class RSFmenu(Screen):
-#TODO - Develop Single Image Reader so it become useful.
-#    TODO - Add a more detailed output.
     
     def dismiss_popup(self):
         self._popup.dismiss()
 
     def show_load_rsf(self):
         content = ChooseRSF(loadRSF=self.runRSF, cancel=self.dismiss_popup)
+        content.textUpdate()
         self._popup = Popup(title="Selecione Imagem", content=content,
                             size_hint=(0.9, 0.9))
         self._popup.open()
         
     def runRSF(self, path, filename):
         var1.imgAddress = os.path.join(path, filename[0])
-        singleFileReader(Param.Const(), Param.Var(), Param.Aux(), Param.Db())
+        singleFileReader(Param.Const(), var1, aux1, Param.Db())
         self.dismiss_popup()        
 
 class Credit(Screen):
@@ -648,7 +782,6 @@ class Credit(Screen):
                   )
     
 class ManageConsultant(Screen):
-    # TODO - Clear fields after any function is executed.
     consultant = {'RA': '',
                   'NOME': '',
                   'CONSULTORIA': ''}
@@ -712,6 +845,7 @@ class ViewErrorLog(Screen):
     
     def show_export_errorlog(self):
         content = SaveErrorLogDialog(saveErrorLog=self.exportErrorLog, cancel=self.dismiss_popup)
+        content.textUpdate()
         self._popup = Popup(title="Salvar", content=content,
                             size_hint=(0.9, 0.9))
         self._popup.open()
