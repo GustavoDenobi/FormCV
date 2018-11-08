@@ -1,27 +1,46 @@
-Erros fatais: 5     Imagens com erros: 4
+Erros fatais: 5     Imagens com erros de preenchimento/soma: 4
 
-IMG: 12.jpeg  |  RA: 12345678  |  PERIODO: JUN  |  HORAS: 14.5
-          AVISO: dia com soma maior que 24h detectado no dia: [2]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [3]
+IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\12.jpeg
+    RA: 12345678
+    PERIODO: JUN
+    HORAS: 14.5
+        Dias com erros de preenchimento: [3]
+        Dias com horas erradas: [2]
     ERRO: nao foi possivel encontrar o RA no banco de dados.
-IMG: 13.jpeg  |  RA: 18304445  |  PERIODO: ABR  |  HORAS: 27.25
+
+IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\13.jpeg
+    RA: 18304445
+    PERIODO: ABR
+    HORAS: 27.25
     ERRO: nao foi possivel encontrar o RA no banco de dados.
-IMG: 14.jpeg  |  RA: 12345678  |  PERIODO: JUN  |  HORAS: 13.5
-          AVISO: dia com soma maior que 24h detectado no dia: [2]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [3]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [6]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [17]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [22]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [27]
+
+IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\14.jpeg
+    RA: 12345678
+    PERIODO: JUN
+    HORAS: 13.5
+        Dias com erros de preenchimento: [3, 6, 17, 22, 27]
+        Dias com horas erradas: [2]
     ERRO: nao foi possivel encontrar o RA no banco de dados.
-IMG: 15.jpeg  |  RA: 12345678  |  PERIODO: JUN  |  HORAS: 14.5
-          AVISO: dia com soma maior que 24h detectado no dia: [2]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [3]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [17]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [22]
-          AVISO: erro de preenchimento ou leitura detectado no dia: [27]
+
+IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\15.jpeg
+    RA: 12345678
+    PERIODO: JUN
+    HORAS: 14.5
+        Dias com erros de preenchimento: [3, 17, 22, 27]
+        Dias com horas erradas: [2]
     ERRO: nao foi possivel encontrar o RA no banco de dados.
-IMG: 15a.jpg
+
+IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\15a.jpg
+    RA: 1234567
+    PERIODO: 
+    HORAS: 14.5
+        Dias com erros de preenchimento: [3, 17, 22, 27]
+        Dias com horas erradas: [2]
     Erro de preenchimento no RA.
     Erro de preenchimento no Periodo.
-IMG: asd.jpeg  |  RA: 16157912  |  PERIODO: JUN  |  HORAS: 49.25
+
+IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\asd.jpeg
+    RA: 16157912
+    PERIODO: JUN
+    HORAS: 49.25
+
