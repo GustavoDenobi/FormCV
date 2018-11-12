@@ -41,6 +41,8 @@ IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\15a.jpg
 
 IMG: C:\Dropbox\INOVEC\FormsScanning\ClassAproach\IMG\asd.jpeg
     RA: 16157912
+    NOME: Gustavo Felipe Acioli Denobi
+    CONSULTORIA: Inovec
     PERIODO: JUN
     HORAS: 49.25
 

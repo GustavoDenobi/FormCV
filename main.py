@@ -122,7 +122,7 @@ class DBhandler(Var):
 
     def retrieveConsultant(self, consultantRA):
         try:
-            consultantIndex = self.raCol.index(consultantRA)
+            consultantIndex = self.raCol.index(int(consultantRA))
             return {'RA': self.raCol[consultantIndex],
                     'NOME': self.nameCol[consultantIndex],
                     'CONSULTORIA': self.consultCol[consultantIndex],
@@ -272,10 +272,14 @@ class FormCV(Var):
         self.dayWithSumError = []
         self.daysWorked = []
 
-    def imgPreview(self, img):
-        cv2.imshow('Preview', img)
+    def imgPreview(self, img, title = "Preview"):
+        cv2.imshow(title, img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+
+        k = -1
+        while(k == -1):
+            k = cv2.waitKey(0)  & 0xFF
 
     def imgUndistort(self):
         try:
@@ -331,6 +335,7 @@ class FormCV(Var):
             imgthresh = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,17,25)
             imgblur = cv2.GaussianBlur(imgthresh,(13,13),0)
             ret,imgthresh = cv2.threshold(imgblur,180,255,cv2.THRESH_BINARY)
+            self.imgThresh = imgthresh
             imgresized = cv2.resize(imgthresh,(37, 95), interpolation = cv2.INTER_AREA)
             ret,imgthresh = cv2.threshold(imgresized,192,255,cv2.THRESH_BINARY_INV)
             imgout = imgthresh[1:94, 1:36] #deletes 1 pixel at all margins
@@ -488,7 +493,7 @@ class ImgRead(FormCV):
             self.hasSumError = True
         if(len(self.dayWithFillError) > 0):
             self.hasFillError = True
-        self.imgAnottated = self.grayToBGR(self.imgUndist)
+        self.imgAnottated = self.grayToBGR(self.imgThresh)
             
             
     def errorFinder(self):
@@ -547,7 +552,6 @@ class ImgRead(FormCV):
                                              (x, 19 * x + int(x / 2) + day * x * 2),
                                              (self.imgAnottated.shape[1] - x, 19 * x + int(x / 2) + day * x * 2),
                                              (0, 250, 0), thickness=1)
-        self.imgPreview(self.imgAnottated)
 
 
 class FileReader():
@@ -599,8 +603,24 @@ class FileReader():
             imgRead = ImgRead()
             if(self.showErrorImage):
                 imgRead.getAnottatedImage(x=self.var.imgPreviewSize)
+                consultant = self.db.retrieveConsultant(imgRead.ra)
+                if(consultant != False):
+                    imgRead.imgPreview(imgRead.imgAnottated, title = str(imgRead.ra)
+                                                                 + " | "
+                                                                 + consultant['NOME']
+                                                                 + " | "
+                                                                 + consultant['CONSULTORIA']
+                                                                 + " | "
+                                                                 + str(imgRead.time)
+                                                                 + " horas")
+                else:
+                    imgRead.imgPreview(imgRead.imgAnottated, title = str(imgRead.ra) + " | " + str(imgRead.time))
             if (imgRead.status):
                 self.var.errorLog.append("    RA: " + imgRead.ra)
+                consultant = self.db.retrieveConsultant(imgRead.ra)
+                if (consultant != False):
+                    self.var.errorLog.append("    NOME: " + consultant['NOME'])
+                    self.var.errorLog.append("    CONSULTORIA: " + consultant['CONSULTORIA'])
                 self.var.errorLog.append("    PERIODO: " + imgRead.period)
                 self.var.errorLog.append("    HORAS: " + str(imgRead.time))
                 if(imgRead.hasFillError):
@@ -777,7 +797,7 @@ class RMFmenu(Screen):
         self.dismiss_popup()
     
     def rmf(self):
-        FileReader()
+        FileReader(showErrorImage=True)
 
 
 class ChooseRSF(FloatLayout):
