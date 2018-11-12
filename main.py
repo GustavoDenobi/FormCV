@@ -17,6 +17,14 @@ import unicodedata
 
 VERSION = '1.0.2'
 
+creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. A. Denobi, consultor pela iNOVEC. \n'
+                  'Agradecimentos especiais ao ICETI e à UNICESUMAR, pela oportunidade de aprender no processo '
+                  'de desenvolvimento deste aplicativo.\n\n'
+                  'O uso deste aplicativo e todo o seu conteúdo está totalmente sujeito a autorização do autor.\n\n'
+                  'Contato: gustavodenobi@gmail.com\n\n'
+                  'Versão: ' + VERSION
+                  )
+
 def errorPopup():
     popup = Popup(title='FormCV',
                   content=Label(text='Ops! Algo deu errado.'),
@@ -127,22 +135,34 @@ class DBhandler(Var):
         database.save_as(address)
 
     def addConsultant(self, consultant):
-        if (int(consultant['RA']) in self.dbdict['RA']):
-            consultCheck = self.retrieveConsultant(int(consultant['RA']))
-            textPopup("Este RA ja esta cadastrado.\n\nNome: " +
-                      consultCheck['NOME'] +
-                      "\nConsultoria: " +
-                      consultCheck['CONSULTORIA'])
-        else:
-            try:
-                for key in consultant.keys():
-                    self.dbdict[key].append(consultant[key])
-                for key in self.months:
-                    self.dbdict[key].append(0)
-                self.saveDB()
-                textPopup("Consultor adicionado com sucesso!")
-            except:
-                errorPopup()
+        status = True
+        for key in consultant.keys():
+            if consultant[key] == '':
+                status = False
+                textPopup('Preencha todos os campos.')
+        if(not consultant['RA'].isdigit()):
+            status = False
+            textPopup('Preencha o RA com numeros apenas.')
+        if(not len(consultant['RA']) == 8):
+            textPopup('Preencha o RA com 8 numeros.')
+            status = False
+        if(status):
+            if(int(consultant['RA']) in self.dbdict['RA']):
+                consultCheck = self.retrieveConsultant(int(consultant['RA']))
+                textPopup("Este RA ja esta cadastrado.\n\nNome: " +
+                          consultCheck['NOME'] +
+                          "\nConsultoria: " +
+                          consultCheck['CONSULTORIA'])
+            else:
+                try:
+                    for key in consultant.keys():
+                        self.dbdict[key].append(consultant[key])
+                    for key in self.months:
+                        self.dbdict[key].append(0)
+                    self.saveDB()
+                    textPopup("Consultor adicionado com sucesso!")
+                except:
+                    errorPopup()
 
     def delConsultant(self, consultantRA):
         try:
@@ -432,7 +452,6 @@ class FormCV(Var):
 
 
 class ImgRead(FormCV):
-    
     def __init__(self):
         super(ImgRead, self).__init__()
         self.status = True
@@ -531,16 +550,15 @@ class ImgRead(FormCV):
         self.imgPreview(self.imgAnottated)
 
 
-
 class FileReader():
-    var = Var()
-    db = DBhandler()
-    io = IOmethod()
 
     def __init__(self, multiple=True, imgAddress = "", showErrorImage = False, showPreviews = False):
         self.multi = multiple
         self.showErrorImage = showErrorImage
         self.showPreviews = showPreviews
+        self.var = Var()
+        self.db = DBhandler()
+        self.io = IOmethod()
         if(self.multi):
             self.filesToRead = self.getFilesToRead()
         else:
@@ -680,14 +698,15 @@ class Options(Screen):
         imgDir = StringProperty(var.imgDir)
         elDir = StringProperty(var.errorLogFile)
         outputDir = StringProperty(var.outputFile)
-    
+
     text = Text()
-    
+
     def textUpdate(self):
-        self.text.dbDir = self.var.databaseFile
-        self.text.imgDir = self.var.imgDir
-        self.text.elDir = self.var.errorLogFile
-        self.text.outputDir = self.var.outputFile
+        var = Var()
+        self.text.dbDir = var.databaseFile
+        self.text.imgDir = var.imgDir
+        self.text.elDir = var.errorLogFile
+        self.text.outputDir = var.outputFile
     
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -818,19 +837,7 @@ class ManageConsultant(Screen):
         self.consultant['CONSULTORIA'] = consult
 
     def runAddConsultant(self):
-        status = True
-        for key in self.consultant.keys():
-            if self.consultant[key] == '':
-                status = False
-                textPopup('Preencha todos os campos.')
-        if(not self.consultant['RA'].isdigit()):
-            status = False
-            textPopup('Preencha o RA com numeros apenas.')
-        if(not len(self.consultant['RA']) == 8):
-            textPopup('Preencha o RA com 8 numeros.')
-            status = False
-        if(status):
-            DBhandler().addConsultant(self.consultant)
+        DBhandler().addConsultant(self.consultant)
             
             
     def runDelConsultant(self):
