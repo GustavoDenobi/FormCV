@@ -1,5 +1,84 @@
-Erros fatais: 1     Imagens com erros de preenchimento/soma: 0
+Erros fatais: 5     Imagens com erros de preenchimento/soma: 7
 
-IMG: 
-    Imagem nao foi reconhecida.
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094833.jpg
+    RA: 1882
+    PERIODO: 
+    HORAS: 0.0
+        Dias com erros de preenchimento: [5, 19, 23, 30, 31]
+    Erro de preenchimento no RA.
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094838.jpg
+    RA: 1
+    PERIODO: 
+    HORAS: 0.0
+        Dias com erros de preenchimento: [1, 5, 8, 15, 22, 29, 30]
+    Erro de preenchimento no RA.
+    Erro de preenchimento no Periodo.
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094846.jpg
+    RA: 1
+    PERIODO: 
+    HORAS: 5.0
+        Dias com erros de preenchimento: [1, 4]
+    Erro de preenchimento no RA.
+    Erro de preenchimento no Periodo.
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094909.jpg
+    RA: 16062412
+    NOME: Mariana Campos Giosa
+    CONSULTORIA: Uniagro
+    PERIODO: OUT
+    HORAS: 53.0
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094917.jpg
+    RA: 18581282
+    NOME: Lucas Martins Arruda
+    CONSULTORIA: Uniagro
+    PERIODO: OUT
+    HORAS: 3.0
+        Dias com erros de preenchimento: [5, 10, 17]
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094926.jpg
+    RA: 18252202
+    NOME: Lorrayne dos Santos Alves
+    CONSULTORIA: Uniagro
+    PERIODO: OUT
+    HORAS: 0.0
+        Dias com erros de preenchimento: [2, 5, 17, 30]
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094938.jpg
+    RA: 18261222
+    NOME: Joao Lucas Costa Fernandes
+    CONSULTORIA: Uniagro
+    PERIODO: OUT
+    HORAS: 0.0
+        Dias com erros de preenchimento: [2, 5, 6, 10, 17, 19, 23, 30, 31]
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094946.jpg
+    RA: 17374872
+    PERIODO: OUT
+    HORAS: 0.0
+        Dias com erros de preenchimento: [17, 30]
+    ERRO: nao foi possivel encontrar o RA no banco de dados.
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_094956.jpg
+    RA: 17216382
+    NOME: Gabriel Pereira Pacheco
+    CONSULTORIA: Uniagro
+    PERIODO: OUT
+    HORAS: 15.0
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_095003.jpg
+    RA: 
+    PERIODO: 
+    HORAS: 18.5
+    Erro de preenchimento no RA.
+    Erro de preenchimento no Periodo.
+
+IMG: C:\Dropbox\INOVEC\FormCV\IMG\Outubro\Uniagro\20181113_095012.jpg
+    RA: 17351662
+    NOME: Guilherme Dos Santos Lima 
+    CONSULTORIA: Uniagro
+    PERIODO: OUT
+    HORAS: 6.75
 

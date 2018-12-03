@@ -10,7 +10,7 @@ import unicodedata
 VERSION = '1.0.2'
 
 creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. A. Denobi, consultor pela iNOVEC. \n'
-                  'Agradecimentos especiais ao ICETI e à UNICESUMAR, pela oportunidade de aprender no processo '
+                  'Agradecimentos especiais ao ICETI e à UNICESUMAR, pela oportunidade de aprendizado no processo '
                   'de desenvolvimento deste aplicativo.\n\n'
                   'O uso deste aplicativo e todo o seu conteúdo está totalmente sujeito a autorização do autor.\n\n'
                   'Contato: gustavodenobi@gmail.com\n\n'
@@ -297,6 +297,12 @@ class errorLogHandler(Var):
     """
     def __init__(self):
         super(errorLogHandler, self).__init__()
+        self.errorLogText = self.errorLogLoader(self.errorLogFile)
+
+    def errorLogLoader(self, file):
+        with open(file) as stream:
+            text = stream.read()
+            return text
 
     def errorLogWriter(self, errors, warnings, errorLog):
         """
