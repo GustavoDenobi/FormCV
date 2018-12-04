@@ -51,12 +51,48 @@ class MyTableWidget(QWidget):
         self.tabs.addTab(self.tab5, "Sobre")
 
         # LEITURA
-        self.tab1.layout = QVBoxLayout(self)
+        self.tab1.layout = QHBoxLayout(self)
+        self.tab1.sub1 = QWidget()
+        self.tab1.sub2 = QWidget()
+        self.tab1.sub1.layout = QVBoxLayout(self)
+        self.tab1.sub2.layout = QVBoxLayout(self)
+
+        ## sub1
         self.label1 = QLabel(self.var.imgDir)
-        self.pushButton1 = QPushButton("Iniciar leitura")
-        self.pushButton1.clicked.connect(self.run_FileReader)
-        self.tab1.layout.addWidget(self.label1)
-        self.tab1.layout.addWidget(self.pushButton1)
+        self.btn_Folder = QPushButton("Selecionar pasta")
+        self.btn_Folder.clicked.connect(self.getFolder)
+        self.btn_Files = QPushButton("Selecionar imagens")
+        self.btn_Files.clicked.connect(self.getFiles)
+        self.tab1.sub1.layout.addWidget(self.label1)
+        self.tab1.sub1.layout.addWidget(self.btn_Folder)
+        self.tab1.sub1.layout.addWidget(self.btn_Files)
+        self.tab1.sub1.setLayout(self.tab1.sub1.layout)
+
+        ## sub2
+        self.tab1.tabs = QTabWidget()
+        self.tab1.tab1 = QWidget()
+        self.tab1.tab2 = QWidget()
+        self.tab1.tab3 = QWidget()
+        self.tab1.tab4 = QWidget()
+        self.tab1.tab5 = QWidget()
+        self.tab1.tabs.addTab(self.tab1.tab1, "1")
+        self.tab1.tabs.addTab(self.tab1.tab2, "2")
+        self.tab1.tabs.addTab(self.tab1.tab3, "3")
+        self.tab1.tabs.addTab(self.tab1.tab4, "4")
+        self.tab1.tabs.addTab(self.tab1.tab5, "5")
+
+        self.tab1.tab1.layout = QVBoxLayout()
+        self.tab1.tab1.img1 = QLabel()
+        self.tab1.tab1.img1.setPixmap(QPixmap(self.cv_to_qt(ImgRead().imgAnottated)))
+        self.tab1.tab1.layout.addWidget(self.tab1.tab1.img1)
+        self.tab1.tab1.setLayout(self.tab1.tab1.layout)
+
+
+        self.tab1.sub2.layout.addWidget(self.tab1.tabs)
+        self.tab1.sub2.setLayout(self.tab1.sub2.layout)
+
+        self.tab1.layout.addWidget(self.tab1.sub1)
+        self.tab1.layout.addWidget(self.tab1.sub2)
         self.tab1.setLayout(self.tab1.layout)
 
         # RELATORIO
@@ -65,28 +101,20 @@ class MyTableWidget(QWidget):
         self.errorLog = QLabel(self.errorLogText)
         self.errorLog.setWordWrap(False)
         self.errorLog.setMargin(16)
-        self.scroll = QScrollArea()
-        self.scroll.setWidget(self.errorLog)
-        self.tab2.layout.addWidget(self.scroll)
+        self.scrollErrorLog = QScrollArea()
+        self.scrollErrorLog.setWidget(self.errorLog)
+        self.tab2.layout.addWidget(self.scrollErrorLog)
         self.tab2.setLayout(self.tab2.layout)
 
         # BANCO DE HORAS
-        self.fileName = self.var.databaseFile
-        self.model = QStandardItemModel(self)
-        self.tableView = QTableView(self)
-        self.tableView.setModel(self.model)
-        self.tableView.horizontalHeader().setStretchLastSection(True)
-        self.pushButtonLoad = QPushButton(self)
-        self.pushButtonLoad.setText("Load Csv File!")
-        self.pushButtonLoad.clicked.connect(self.on_pushButtonLoad_clicked)
-        self.pushButtonWrite = QPushButton(self)
-        self.pushButtonWrite.setText("Write Csv File!")
-        self.pushButtonWrite.clicked.connect(self.on_pushButtonWrite_clicked)
-        self.tab3.layoutVertical = QVBoxLayout(self)
-        self.tab3.layoutVertical.addWidget(self.tableView)
-        self.tab3.layoutVertical.addWidget(self.pushButtonLoad)
-        self.tab3.layoutVertical.addWidget(self.pushButtonWrite)
-        self.tab3.setLayout(self.tab3.layoutVertical)
+        self.database = DBhandler()
+        self.tab3.layout = QVBoxLayout()
+        self.table = QTableWidget()
+        self.setMyData(self.database.dbdict)
+        #self.scrollDatabase = QScrollArea()
+        #self.scrollDatabase.setWidget(self.table)
+        self.tab3.layout.addWidget(self.table)
+        self.tab3.setLayout(self.tab3.layout)
 
         # CONFIGS
         self.tab4.layout = QFormLayout(self)
@@ -111,44 +139,46 @@ class MyTableWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
-    def loadCsv(self, fileName):
-        with open(fileName, "rb") as fileInput:
-            for row in csv.reader(fileInput):
-                items = [
-                    QStandardItem(field)
-                    for field in row
-                ]
-                self.model.appendRow(items)
+    def cv_to_qt(self, img):
+        height, width, channel = img.shape
+        bytesPerLine = 3 * width
+        qImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+        return qImg
 
-    def writeCsv(self, fileName):
-        with open(fileName, "wb") as fileOutput:
-            writer = csv.writer(fileOutput)
-            for rowNumber in range(self.model.rowCount()):
-                fields = [
-                    self.model.data(
-                        self.model.index(rowNumber, columnNumber),
-                        Qt.DisplayRole
-                    )
-                    for columnNumber in range(self.model.columnCount())
-                ]
-                writer.writerow(fields)
+    def setMyData(self, dict):
+        self.table.setColumnCount(len(dict.items()))
+        self.table.setHorizontalHeaderLabels(dict.keys())
+        self.table.setRowCount(self.database.length)
+        for column, key in enumerate(dict):
+            self.table.horizontalHeaderItem(column).setTextAlignment(Qt.AlignHCenter)
+            for row, item in enumerate(dict[key]):
+                newitem = QTableWidgetItem(str(item))
+                newitem.setTextAlignment(Qt.AlignCenter)
+                self.table.setItem(row, column, newitem)
+        self.table.resizeColumnsToContents()
 
-    @pyqtSlot()
-    def on_pushButtonWrite_clicked(self):
-        self.writeCsv(self.fileName)
+    def getFolder(self):
+        dlg = QFileDialog()
+        dlg.setFileMode(QFileDialog.Directory)
+        #dlg.setFilter(self.var.cvFormats)
+        path = QStringListModel()
 
-    @pyqtSlot()
-    def on_pushButtonLoad_clicked(self):
-        self.loadCsv(self.fileName)
+        if dlg.exec_():
+            path = dlg.selectedFiles()
+            self.var.paramTuner('imgDir', path[0])
+            self.label1.setText(path[0])
+            FileReader()
 
-    @pyqtSlot()
-    def run_FileReader(self):
-        self.var.imgDir = "C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Ambivet\\arroz"
-        self.label1.setText(self.var.imgDir)
-        FileReader(multiple=False,
-                   imgAddress="C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Ambivet\\20181113_143229.jpg",
-                   showErrorImage=True)
+    def getFiles(self):
+        dlg = QFileDialog()
+        dlg.setFileMode(QFileDialog.ExistingFiles)
+        #dlg.setFilter(self.var.cvFormats)
+        filenames = QStringListModel()
 
+        if dlg.exec_():
+            filenames = dlg.selectedFiles()
+            self.label1.setText(str(filenames))
+            FileReader(fromImgDir=False, imgAddress=filenames, showErrorImage=True)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -629,7 +629,7 @@ class ImgRead(FormCV):
         if(len(self.dayWithFillError) > 0):
             self.hasFillError = True
         if(self.imgUndist != "IMGUNDIST"):
-            self.imgAnottated = self.grayToBGR(self.imgthresh)
+            self.imgAnottated = self.grayToBGR(self.imgnormal)
             
             
     def errorFinder(self):
@@ -699,8 +699,8 @@ class FileReader():
         bool showErrorImage: defaults to False, defines wether an image with annotations should be showed or not.
         bool showPreviews: defaults to False, defines wether previews of the image should be showed as it is processed.
     """
-    def __init__(self, multiple=True, imgAddress = "", showErrorImage = False, showPreviews = False):
-        self.multi = multiple
+    def __init__(self, fromImgDir=True, imgAddress = [], showErrorImage = False, showPreviews = False):
+        self.multi = fromImgDir
         self.showErrorImage = showErrorImage
         self.showPreviews = showPreviews
         self.var = Var()
@@ -709,7 +709,7 @@ class FileReader():
         if(self.multi):
             self.filesToRead = self.getFilesToRead()
         else:
-            self.filesToRead = [imgAddress]
+            self.filesToRead = imgAddress
         self.readImages()
 
     def getFilesToRead(self):
@@ -744,7 +744,9 @@ class FileReader():
             self.db.saveDB()
             if(self.multi):
                 currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
-                self.io.errorLogExporter(os.path.join(self.var.imgDir, (self.var.errorLogFile[:-4] + currentTime[:14] + ".txt")))
+                self.io.errorLogExporter(os.path.join(self.var.imgDir, (self.var.errorLogFile[:-4]
+                                                                        + currentTime[:14]
+                                                                        + ".txt")))
                 textPopup('Imagens lidas: ' +
                           str(self.var.numOfFiles) +
                           '\nErros fatais: ' +
