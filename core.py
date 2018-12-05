@@ -36,16 +36,15 @@ class Var:
         config = configparser.ConfigParser()
         config.read('config.ini')
         self.rootDir = os.path.dirname(__file__)
-        self.imgDir = config['const']['imgDir']  # The directory that should be scanned for images
-        self.imgAddress = config['const']['imgAddress']  # Path to the image to be read
+        self.logDir = config['const']['logDir']  # The directory that should be scanned for images
         self.databaseFile = config['const']['databaseFile']  # Location of the current active database
         self.errorLogFile = config['const']['errorLogFile']  # Standard location of the error log
         self.outputFile = config['const']['outputFile']  # Where the SaidaParaCertificados.csv file is stored
         self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
-        self.numOfFiles = self.fileCount(self.imgDir)  # Number of valid images (see cvFormats) in imgDir
         self.errorLog = []  # Used to store a sequence of lines which contain details about every read image
         self.errors = 0  # Number of errors to be used in the error log
         self.warnings = 0  # NUmber of filling errors to be used in the error log
+        self.inDatabase = True # To check if a RA was found in the database
 
     def paramTuner(self, variable, value):
         """
@@ -94,9 +93,16 @@ class DBhandler(Var):
         self.consultantIndex = 0  # whenever a operation finds a consultant index, it is stored here
         self.dbdict = self.readDatabaseDict()  # stores the database as e dict where the key is the label of each row
         self.length = len(self.dbdict['NOME'])  # number of consultants in database
-        self.raCol = self.dbdict['RA']  # stores the list of RAs
+        self.raColInt = self.dbdict['RA']
+        self.raCol = self.intToStr(self.raColInt)  # stores the list of RAs
         self.nameCol = self.dbdict['NOME']  # stores the list of names
         self.consultCol = self.dbdict['CONSULTORIA']  # stores the list of consulting names
+
+    def intToStr(self, intList):
+        strList = []
+        for item in intList:
+            strList.append(str(item))
+        return strList
 
     def readDatabaseDict(self):
         """ Used to read a csv file and return it as a dict in which the keys are the labels of each column and the
@@ -118,7 +124,7 @@ class DBhandler(Var):
         str period: 3-letter code according to Var.months
         float time: sum of time of a consultant in a month
         """
-        self.consultantIndex = self.raCol.index(int(ra))
+        self.consultantIndex = self.raCol.index(str(ra))
         self.dbdict[period][self.consultantIndex] = time
 
     def saveDB(self):
@@ -131,7 +137,7 @@ class DBhandler(Var):
         str consultantRA: the RA to be searched
         """
         try:
-            self.consultantIndex = self.raCol.index(int(consultantRA))
+            self.consultantIndex = self.raCol.index(str(consultantRA))
             return {'RA': self.raCol[self.consultantIndex],
                     'NOME': self.nameCol[self.consultantIndex],
                     'CONSULTORIA': self.consultCol[self.consultantIndex]}
@@ -337,6 +343,7 @@ class FormCV(Var):
         self.imgread = None  # imported image
         self.imggray = None  # transformed to gray
         self.imgresize = None  # resized to a normalized size
+        self.imgcontour = None
         self.imgblur = None  # gaussian blur filter applied
         self.imgthresh = None  # inverted threshold image
         self.imgundist = None  # undistorted version of imgresize
@@ -358,7 +365,7 @@ class FormCV(Var):
         while(k == -1):
             k = cv2.waitKey(0)  & 0xFF
 
-    def imgUndistort(self):
+    def imgUndistort(self, file):
         """
         Reads an image, converts it to grayscale, finds its contour and returns the undistorted version of it.
         There's a major problem with this function, as it is unable to handle any input image that is not exactly stand-
@@ -366,7 +373,7 @@ class FormCV(Var):
         :return:  the undistorted version of the input image, or a failure string "IMGUNDIST"
         """
         try:
-            self.imgread = cv2.imread(self.imgAddress)
+            self.imgread = cv2.imread(file)
             self.imggray = cv2.cvtColor(self.imgread, cv2.COLOR_BGR2GRAY)  #import and convert into grayscale
             width, height = self.imggray.shape
             maxheight = 1024
@@ -385,10 +392,17 @@ class FormCV(Var):
             epsilon = 0.1*cv2.arcLength(cnt,True)
             approx = cv2.approxPolyDP(cnt,epsilon,True)
 
+            self.imgcontour = cv2.drawContours(cv2.cvtColor(self.imgresize, cv2.COLOR_GRAY2BGR),
+                                               [approx],
+                                               0,
+                                               (0, 255, 0),
+                                               2)
+
             #transforms polygon that contains data into rectangle
             #
             pts1 = np.float32(approx) #coordinates from contour
             pts2 = np.float32(self.getCoordOrder(approx))
+
             M = cv2.getPerspectiveTransform(pts1,pts2)
             self.imgundist = cv2.warpPerspective(self.imgresize,M,(self.w, self.h))
             return self.imgundist
@@ -591,7 +605,7 @@ class ImgRead(FormCV):
     """
     Extends FormCV class and actually runs it.
     """
-    def __init__(self):
+    def __init__(self, file):
         super(ImgRead, self).__init__()
         self.status = True
         self.terminalError = False
@@ -600,7 +614,8 @@ class ImgRead(FormCV):
         self.hasWarnings = False
         self.hasFillError = False
         self.hasSumError = False
-        self.imgUndist = self.imgUndistort()
+        self.file = file
+        self.imgUndist = self.imgUndistort(self.file)
         if(self.imgUndist != "IMGUNDIST"):
             self.imgOut = self.imgTransform(self.imgUndist)
         else:
@@ -630,6 +645,8 @@ class ImgRead(FormCV):
             self.hasFillError = True
         if(self.imgUndist != "IMGUNDIST"):
             self.imgAnottated = self.grayToBGR(self.imgnormal)
+        else:
+            self.imgAnottated = None
             
             
     def errorFinder(self):
@@ -662,68 +679,105 @@ class ImgRead(FormCV):
         return cv2.resize(src, dsize=None, fx=factor, fy=factor, interpolation=cv2.INTER_AREA)
 
     def getAnottatedImage(self, x=5):
-        self.imgAnottated = self.resizeImg(self.imgAnottated, 95 * x)
-        if("RA" in self.errorType):
-            self.imgAnottated = cv2.rectangle(self.imgAnottated, (x,1), (17*x,17*x), (0,0,250), 2)
-        else:
-            self.imgAnottated = cv2.rectangle(self.imgAnottated, (x, 1), (17*x,17*x), (250, 0, 0), 1)
-        if("PERIOD" in self.errorType):
-            self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (0,0,250), 2)
-        else:
-            self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (250, 0, 0), 1)
-        for line in range(1,38):
-            self.imgAnottated = cv2.line(self.imgAnottated,
-                                             (x,19*x + int(x/2) + line*x*2),
-                                             (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ line*x*2),
-                                             (150,150,150), thickness=1)
-        if(len(self.dayWithError) > 0):
-            for day in self.dayWithError:
+        try:
+            self.imgAnottated = self.resizeImg(self.imgAnottated, 95 * x)
+            if("RA" in self.errorType):
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (x,1), (17*x,17*x), (0,0,250), 2)
+            else:
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (x, 1), (17*x,17*x), (250, 0, 0), 1)
+            if("PERIOD" in self.errorType):
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (0,0,250), 2)
+            else:
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (250, 0, 0), 1)
+            for line in range(1,38):
                 self.imgAnottated = cv2.line(self.imgAnottated,
-                                             (x,19*x + int(x/2) + day*x*2),
-                                             (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ day*x*2),
-                                             (0,0,250), thickness=1)
-        if (len(self.daysWorked) > 0):
-            for day in self.daysWorked:
-                self.imgAnottated = cv2.line(self.imgAnottated,
-                                             (x, 19 * x + int(x / 2) + day * x * 2),
-                                             (self.imgAnottated.shape[1] - x, 19 * x + int(x / 2) + day * x * 2),
-                                             (0, 250, 0), thickness=1)
+                                                 (x,19*x + int(x/2) + line*x*2),
+                                                 (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ line*x*2),
+                                                 (150,150,150), thickness=1)
+            if(len(self.dayWithError) > 0):
+                for day in self.dayWithError:
+                    self.imgAnottated = cv2.line(self.imgAnottated,
+                                                 (x,19*x + int(x/2) + day*x*2),
+                                                 (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ day*x*2),
+                                                 (0,0,250), thickness=1)
+            if (len(self.daysWorked) > 0):
+                for day in self.daysWorked:
+                    self.imgAnottated = cv2.line(self.imgAnottated,
+                                                 (x, 19 * x + int(x / 2) + day * x * 2),
+                                                 (self.imgAnottated.shape[1] - x, 19 * x + int(x / 2) + day * x * 2),
+                                                 (0, 250, 0), thickness=1)
+        except:
+            pass
+
+    def logAppend(self, txt):
+        """
+        Appends a string to the errorLog.
+        :param txt: string with some log information.
+        :return: nothing
+        """
+        self.errorLog.append(txt)
 
 
 class FileReader():
-    """
-    Uses all previous classes to read the forms.
-    :param:
-        bool multiple: defaults to True, defines if a single or multiple image will be read.
-        str imgAddress: defaults to "", defines the address of a single read image.
-        bool showErrorImage: defaults to False, defines wether an image with annotations should be showed or not.
-        bool showPreviews: defaults to False, defines wether previews of the image should be showed as it is processed.
-    """
-    def __init__(self, fromImgDir=True, imgAddress = [], showErrorImage = False, showPreviews = False):
-        self.multi = fromImgDir
-        self.showErrorImage = showErrorImage
-        self.showPreviews = showPreviews
+    def __init__(self, files):
         self.var = Var()
         self.db = DBhandler()
         self.io = errorLogHandler()
-        if(self.multi):
-            self.filesToRead = self.getFilesToRead()
-        else:
-            self.filesToRead = imgAddress
-        self.readImages()
+        self.numImages = len(files)
+        self.forms = []
+        self.readImages(files)
+        self.info = self.getInfo()
+        self.writeInfo()
+        self.log = self.getLog()
+        self.outputLog()
 
-    def getFilesToRead(self):
-        """
-        Retrieves a list of compatible image files contained in the imgDir.
-        :return: list of strings containing paths to compatible images.
-        """
-        fileList = []
-        for subdir, dirs, files in os.walk(self.var.imgDir):
-            for file in files:
-                filepath = subdir + os.sep + file
-                if (file[file.index('.'):] in self.var.cvFormats):
-                    fileList.append(filepath)
-        return fileList
+    def readImages(self, files):
+        for file in files:
+            read = ImgRead(file)
+            read.getAnottatedImage(x=10)
+            self.forms.append(read)
+
+
+    def getInfo(self):
+        info = {'IMG': [],
+                'RA': [],
+                'NOME': [],
+                'CONSULTORIA': [],
+                'MES': [],
+                'ANO': [],
+                'HORAS': []}
+        for form in self.forms:
+            info['IMG'].append(form.file)
+            try:
+                info['RA'].append(form.ra)
+                info['MES'].append(form.period)
+                info['ANO'].append(form.year)
+                info['HORAS'].append(str(form.time))
+                consultant = self.db.retrieveConsultant(form.ra)
+                if(consultant is not False):
+                    info['NOME'].append(consultant['NOME'])
+                    info['CONSULTORIA'].append(consultant['CONSULTORIA'])
+                else:
+                    info['NOME'].append('?')
+                    info['CONSULTORIA'].append('?')
+            except:
+                info['RA'].append('?')
+                info['MES'].append('?')
+                info['ANO'].append('?')
+                info['HORAS'].append('?')
+                info['NOME'].append('?')
+                info['CONSULTORIA'].append('?')
+        return info
+
+    def writeInfo(self):
+        for form in self.forms:
+            if (len(form.errorType) == 0) and (str(form.ra) in self.db.raCol):
+                self.db.cellWriter(form.ra, form.period, form.time)
+            elif(str(form.ra) in self.db.raCol):
+                form.inDatabase = False
+
+    def saveInfo(self):
+        self.db.saveDB()
 
     def logAppend(self, txt):
         """
@@ -733,82 +787,50 @@ class FileReader():
         """
         self.var.errorLog.append(txt)
 
-    def outputInfo(self):
-        """
-        Saves information in various channels (database, errorlog), considering particularities for bot single or multi
-        modes.
-        :return: nothing.
-        """
-        try:
-            self.io.errorLogWriter(self.var.errors, self.var.warnings, self.var.errorLog)
-            self.db.saveDB()
-            if(self.multi):
-                currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
-                self.io.errorLogExporter(os.path.join(self.var.imgDir, (self.var.errorLogFile[:-4]
-                                                                        + currentTime[:14]
-                                                                        + ".txt")))
-                textPopup('Imagens lidas: ' +
-                          str(self.var.numOfFiles) +
-                          '\nErros fatais: ' +
-                          str(self.var.errors) +
-                          '\nImagens com erros de preenchimento: ' +
-                          str(self.var.warnings))
-            else:
-                textPopup("Leitura completa. Confira detalhes no relatorio.")
-        except:
-            textPopup("Algo deu errado ao salvar o banco de dados.\nCertifique-se de que o arquivo esta fechado.")
+    def getLog(self):
+        errorLog = []
+        for form in self.forms:
+            log = []
+            log.append("IMAGEM: " + form.file)
+            if (form.status):
+                log.append("    RA: " + form.ra)
+                log.append("    NOME: " + self.info['NOME'][self.info['RA'].index(form.ra)])
+                log.append("    CONSULTORIA: " + self.info['CONSULTORIA'][self.info['RA'].index(form.ra)])
+                log.append("    PERIODO: " + form.period)
+                log.append("    ANO: " + form.year)
+                log.append("    HORAS: " + str(form.time))
+                if(len(form.dayWithFillError) > 0):
+                    log.append("        Dias com erros de preenchimento: " + str(form.dayWithFillError))
+                if(len(form.dayWithSumError) > 0):
+                    log.append("        Dias com horas erradas: " + str(form.dayWithSumError))
+            if("RA" in form.errorType):
+                log.append("    Erro de preenchimento no RA.")
+            elif(not form.inDatabase):
+                log.append("    RA não encontrado no banco de dados.")
+            if("PERIOD" in form.errorType):
+                log.append("    Erro de preenchimento no Período.")
+            if(form.terminalError):
+                log.append("    Imagem não reconhecida.")
+            form.errorLog.extend(log)
+            errorLog.extend(log)
+            errorLog.append("")
+        return errorLog
 
-    def readImages(self):
-        """
-        Defines how the program handles all the information it can get through other classes.
-        :return: nothing.
-        """
-        for file in self.filesToRead:
-            self.var.paramTuner('imgAddress', file)
-            self.var.errorLog.append('IMG: ' + file)
-            imgRead = ImgRead()
-            if(self.showErrorImage and imgRead.imgUndist != "IMGUNDIST"):
-                imgRead.getAnottatedImage(x=self.var.imgPreviewSize)
-                consultant = self.db.retrieveConsultant(imgRead.ra)
-                if(consultant != False):
-                    imgRead.imgPreview(imgRead.imgAnottated, title = str(imgRead.ra)
-                                                                 + " | "
-                                                                 + consultant['NOME']
-                                                                 + " | "
-                                                                 + consultant['CONSULTORIA']
-                                                                 + " | "
-                                                                 + str(imgRead.time)
-                                                                 + " horas")
-                else:
-                    imgRead.imgPreview(imgRead.imgAnottated, title = str(imgRead.ra) + " | " + str(imgRead.time))
-            if (imgRead.status):
-                self.logAppend("    RA: " + imgRead.ra)
-                consultant = self.db.retrieveConsultant(imgRead.ra)
-                if (consultant != False):
-                    self.logAppend("    NOME: " + consultant['NOME'])
-                    self.logAppend("    CONSULTORIA: " + consultant['CONSULTORIA'])
-                self.logAppend("    PERIODO: " + imgRead.period)
-                self.logAppend("    HORAS: " + str(imgRead.time))
-                if(imgRead.hasFillError):
-                    self.logAppend("        Dias com erros de preenchimento: " + str(imgRead.dayWithFillError))
-                if(imgRead.hasSumError):
-                    self.logAppend("        Dias com horas erradas: " + str(imgRead.dayWithSumError))
-                if(len(imgRead.errorType) == 0):
-                    try:
-                        self.db.cellWriter(imgRead.ra, imgRead.period, imgRead.time)
-                    except:
-                        self.logAppend('    ERRO: nao foi possivel encontrar o RA no banco de dados.')
-                        self.var.errors += 1
-                else:
-                    if ("RA" in imgRead.errorType):
-                        self.logAppend("    Erro de preenchimento no RA.")
-                    if ("PERIOD" in imgRead.errorType):
-                        self.logAppend("    Erro de preenchimento no Periodo.")
-                    self.var.errors += 1
-            elif (imgRead.terminalError):
-                self.logAppend("    Imagem nao foi reconhecida.")
-                self.var.errors += 1
-            if imgRead.hasWarnings:
-                self.var.warnings += 1
-            self.logAppend("")
-        self.outputInfo()
+    def outputLog(self):
+        self.io.errorLogWriter(self.var.errors, self.var.warnings, self.log)
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        self.io.errorLogExporter(os.path.join(self.var.logDir,
+                                              (self.var.errorLogFile[:-4]
+                                               + currentTime[:14]
+                                               + ".txt")))
+
+    def saveDB(self):
+        try:
+            self.db.saveDB()
+            return True
+        except:
+            return False
+
+#a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg",
+#               "C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\MM Design\\20181113_142432.jpg"])
+#print(a.info)

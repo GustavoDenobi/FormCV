@@ -1,10 +1,97 @@
-Erros fatais: 0     Imagens com erros de preenchimento/soma: 1
+Erros fatais: 0     Imagens com erros de preenchimento/soma: 0
 
-IMG: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec/20181113_152135.jpg
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152041.jpg
+    RA: 16157912
+    NOME: Gustavo Felipe Acioli Denobi
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 61.25
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152058.jpg
+    RA: 1
+    NOME: ?
+    CONSULTORIA: ?
+    PERIODO: 
+    ANO: 
+    HORAS: 143.0
+        Dias com erros de preenchimento: [3, 7]
+    Erro de preenchimento no RA.
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152106.jpg
+    RA: 15022652
+    NOME: ?
+    CONSULTORIA: ?
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 16.75
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152116.jpg
+    RA: 15015602
+    NOME: Gustavo Pires Liberati
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 67.0
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152124.jpg
+    RA: 14022952
+    NOME: ?
+    CONSULTORIA: ?
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 14.0
+        Dias com erros de preenchimento: [18, 22, 24]
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152135.jpg
     RA: 16058382
     NOME: Isadora Fonseca Araujo
     CONSULTORIA: Inovec
     PERIODO: OUT
+    ANO: 18
     HORAS: 70.25
         Dias com erros de preenchimento: [22]
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152145.jpg
+    RA: 18015872
+    NOME: Fabricio Simonelli Tanguas
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 25.0
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152155.jpg
+    RA: 17449602
+    NOME: Abel Tonon Segundo
+    CONSULTORIA: Inovec
+    PERIODO: 
+    ANO: 
+    HORAS: 13.75
+    RA não encontrado no banco de dados.
+    Erro de preenchimento no Período.
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152205.jpg
+    RA: 16074832
+    NOME: Lucas Gustavo Fritzen
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 22.5
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152217.jpg
+    RA: 18258382
+    NOME: Ruan Felipe Siqueira Antunes
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 26.0
+        Dias com erros de preenchimento: [18]
+
+IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152225.jpg
+    RA: 18376562
+    NOME: Joao Victor K. Moura
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 44.5
 
