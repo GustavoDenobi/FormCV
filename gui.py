@@ -15,10 +15,11 @@ class App(QMainWindow):
         self.title = 'FormCV'
         self.left = 0
         self.top = 0
-        self.width = 900
-        self.height = 600
+        #self.width = 900
+        #self.height = 600
         self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
+        #self.setGeometry(self.left, self.top, self.width, self.height)
+        self.setWindowState(Qt.WindowMaximized)
 
         self.table_widget = MyTableWidget(self)
         self.setCentralWidget(self.table_widget)
@@ -32,6 +33,8 @@ class MyTableWidget(QWidget):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
         self.var = Var()
+        self.height = self.height()
+        self.width = self.width()
 
         # Initialize tab screen
         self.initUI()
@@ -95,59 +98,55 @@ class MyTableWidget(QWidget):
             self.getList()
 
     def getList(self):
+        self.pendingReading = True
         self.listedFiles.clear()
         for item in self.tab1.fileList:
             self.listedFiles.addItem(QListWidgetItem(item))
 
     def runFileReader(self):
-        self.tab1.readings = FileReader(self.tab1.fileList)
-        self.changeViews()
-        self.refreshLog()
+        if(len(self.tab1.fileList) > 0):
+            self.pendingReading = False
+            self.tab1.readings = FileReader(self.tab1.fileList)
+            self.changeViews()
+            self.refreshLog()
 
     def changeViews(self):
-        row = self.listedFiles.currentRow()
-        if(row == -1):
-            row = 0
-        try:
-            img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgcontour)).scaled(self.tab1.tab1.img1.width(),
-                                                                                          self.tab1.tab1.img1.height(),
-                                                                                         Qt.KeepAspectRatio,
-                                                                                         Qt.SmoothTransformation)
-            self.tab1.tab1.img1.setPixmap(img)
-        except:
-            self.tab1.tab1.img1.setText("Erro ao ler imagem.")
-        try:
-            img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgthresh)).scaled(self.tab1.tab1.img1.width(),
-                                                                                          self.tab1.tab1.img1.height(),
-                                                                                         Qt.KeepAspectRatio,
-                                                                                         Qt.SmoothTransformation)
-            self.tab1.tab2.img1.setPixmap(img)
-        except:
-            self.tab1.tab2.img1.setText("Erro ao ler imagem.")
-        try:
-            img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgundist)).scaled(self.tab1.tab1.img1.width(),
-                                                                                          self.tab1.tab1.img1.height(),
-                                                                                         Qt.KeepAspectRatio,
-                                                                                         Qt.SmoothTransformation)
-            self.tab1.tab3.img1.setPixmap(img)
-        except:
-            self.tab1.tab3.img1.setText("Erro ao ler imagem.")
-        try:
-            img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgnormal)).scaled(self.tab1.tab1.img1.width(),
-                                                                                          self.tab1.tab1.img1.height(),
-                                                                                         Qt.KeepAspectRatio,
-                                                                                         Qt.SmoothTransformation)
-            self.tab1.tab4.img1.setPixmap(img)
-        except:
-            self.tab1.tab4.img1.setText("Erro ao ler imagem.")
-        try:
-            img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgAnottated)).scaled(self.tab1.tab1.img1.width(),
-                                                                                          self.tab1.tab1.img1.height(),
-                                                                                         Qt.KeepAspectRatio,
-                                                                                         Qt.SmoothTransformation)
-            self.tab1.tab5.img1.setPixmap(img)
-        except:
-            self.tab1.tab5.img1.setText("Erro ao ler imagem.")
+        if(not self.pendingReading):
+            row = self.listedFiles.currentRow()
+            if(row == -1):
+                row = 0
+            self.tab1.sub2.info.setText(self.tab1.readings.logToStr(self.tab1.readings.forms[row].errorLog))
+
+            try:
+                img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgread))
+                img = img.scaled(int(self.width * 18), int(self.height * 18), Qt.KeepAspectRatio)
+                self.tab1.tab1.img1.setPixmap(img)
+            except:
+                self.tab1.tab1.img1.setText("Erro ao ler imagem.")
+            try:
+                img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgcontour))
+                img = img.scaled(int(self.width * 18), int(self.height * 18), Qt.KeepAspectRatio)
+                self.tab1.tab2.img1.setPixmap(img)
+            except:
+                self.tab1.tab2.img1.setText("Erro ao ler imagem.")
+            try:
+                img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgundist))
+                img = img.scaled(int(self.width * 18), int(self.height * 18), Qt.KeepAspectRatio)
+                self.tab1.tab3.img1.setPixmap(img)
+            except:
+                self.tab1.tab3.img1.setText("Erro ao ler imagem.")
+            try:
+                img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgnormal))
+                img = img.scaled(int(self.width * 18), int(self.height * 18), Qt.KeepAspectRatio)
+                self.tab1.tab4.img1.setPixmap(img)
+            except:
+                self.tab1.tab4.img1.setText("Erro ao ler imagem.")
+            try:
+                img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgAnottated))
+                img = img.scaled(int(self.width*18), int(self.height*18), Qt.KeepAspectRatio)
+                self.tab1.tab5.img1.setPixmap(img)
+            except:
+                self.tab1.tab5.img1.setText("Erro ao ler imagem.")
 
     def refreshLog(self):
         self.errorLog.clear()
@@ -160,7 +159,9 @@ class MyTableWidget(QWidget):
         self.tab3 = QWidget()
         self.tab4 = QWidget()
         self.tab5 = QWidget()
-        self.tabs.resize(900, 600)
+        self.showMaximized()
+        #self.setWindowState(Qt.WindowMaximized)
+        #self.tabs.resize(900, 600)
 
     def setTabs(self):
         self.tabs.addTab(self.tab1, "Leitura")
@@ -234,6 +235,10 @@ class MyTableWidget(QWidget):
         self.tab1.tab3.layout.addWidget(self.tab1.tab3.img1)
         self.tab1.tab4.layout.addWidget(self.tab1.tab4.img1)
         self.tab1.tab5.layout.addWidget(self.tab1.tab5.img1)
+
+
+        self.tab1.sub2.info = QLabel("Aguardando leitura." + ("\n"*12))
+
         self.tab1.tab1.setLayout(self.tab1.tab1.layout)
         self.tab1.tab2.setLayout(self.tab1.tab2.layout)
         self.tab1.tab3.setLayout(self.tab1.tab3.layout)
@@ -242,6 +247,7 @@ class MyTableWidget(QWidget):
 
 
         self.tab1.sub2.layout.addWidget(self.tab1.tabs)
+        self.tab1.sub2.layout.addWidget(self.tab1.sub2.info)
         self.tab1.sub2.setLayout(self.tab1.sub2.layout)
 
         self.tab1.layout.addWidget(self.tab1.sub1)

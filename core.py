@@ -7,7 +7,7 @@ import shutil
 from datetime import datetime
 import unicodedata
 
-VERSION = '1.0.2'
+VERSION = '2.0.0'
 
 creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. A. Denobi, consultor pela iNOVEC. \n'
                   'Agradecimentos especiais ao ICETI e à UNICESUMAR, pela oportunidade de aprendizado no processo '
@@ -41,6 +41,7 @@ class Var:
         self.errorLogFile = config['const']['errorLogFile']  # Standard location of the error log
         self.outputFile = config['const']['outputFile']  # Where the SaidaParaCertificados.csv file is stored
         self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
+        self.threshold = float(config['const']['threshold'])
         self.errorLog = []  # Used to store a sequence of lines which contain details about every read image
         self.errors = 0  # Number of errors to be used in the error log
         self.warnings = 0  # NUmber of filling errors to be used in the error log
@@ -337,6 +338,7 @@ class FormCV(Var):
     """
     def __init__(self):
         super(FormCV, self).__init__()
+        self.f = 8
         self.dayWithFillError = []  # filled in dataExtract(), stores days with other than 6 marks
         self.dayWithSumError = []  # filled in timeCalc(), stores days with impossible values
         self.daysWorked = []  # filled in timeCalc(), stores days that were successfully read
@@ -348,7 +350,8 @@ class FormCV(Var):
         self.imgthresh = None  # inverted threshold image
         self.imgundist = None  # undistorted version of imgresize
         self.imgnormal = None  # normalized image
-        self.imgshrink = None  # shrinked image
+        self.imgshrink1 = None  # shrinked image
+        self.imgshrink2 = None
         self.imgout = None  # output image
 
     def imgPreview(self, img, title = "Preview"):
@@ -452,9 +455,11 @@ class FormCV(Var):
             imgthresh = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,17,25)
             imgblur = cv2.GaussianBlur(imgthresh,(13,13),0)
             ret,self.imgnormal = cv2.threshold(imgblur,180,255,cv2.THRESH_BINARY)
-            self.imgshrink = cv2.resize(self.imgnormal,(37, 95), interpolation = cv2.INTER_AREA)
-            ret,imgthresh = cv2.threshold(self.imgshrink,192,255,cv2.THRESH_BINARY_INV)
-            self.imgout = imgthresh[1:94, 1:36] #deletes 1 pixel at all margins
+            self.imgshrink1 = cv2.resize(self.imgnormal,(37, 95*self.f), interpolation = cv2.INTER_AREA)
+            ret,self.imgshrink1 = cv2.threshold(self.imgshrink1,180,255,cv2.THRESH_BINARY)
+            self.imgshrink2 = cv2.resize(self.imgshrink1, (37, 95*self.f), interpolation=cv2.INTER_AREA)
+            ret, imgshrink2 = cv2.threshold(self.imgshrink2, 220, 255, cv2.THRESH_BINARY_INV)
+            self.imgout = imgshrink2[1*self.f:94*self.f, 1:36] #deletes 1 pixel at all margins
             return self.imgout
         except:
             return "IMGOUT"
@@ -468,20 +473,51 @@ class FormCV(Var):
         imgcut = img
         row,col = imgcut.shape
 
+
         try:
             #turns 255 values into 1
             for x in range(row):
                 for y in range(col):
                     imgcut[x,y] = imgcut[x,y]/255
 
-            #delete odd lines (blank)
-            data = []
-            for line in range(93):
-                if line%2 == 0:
-                    data.append(imgcut[line].tolist())
-            #Returns matrix of 0s and 1s
+            for line in range(row):
+                imgcut[line] = imgcut[line].tolist()
+                #print(imgcut[line])
 
-            return data
+            batchSize = self.f
+
+            data = []
+
+            count = 0
+            batch = []
+            for line in range(row):
+                if(line%batchSize == batchSize-1):
+                    batch.append(imgcut[line].tolist())
+                    data.append(batch)
+                    batch = []
+                else:
+                    batch.append(imgcut[line].tolist())
+
+            out = []
+            count = 0
+            for batch in data:
+                if(count%2 == 0):
+                    zipped = [(a + b + c + d + e + f + g + h) / 8 for a, b, c, d, e, f, g, h in
+                              zip(batch[0], batch[1], batch[2], batch[3],
+                                  batch[4], batch[5], batch[6], batch[7])]
+                    count += 1
+                    out.append(zipped)
+                else:
+                    count += 1
+
+            for row in range(len(out)):
+                for item in range(len(out[row])):
+                    if out[row][item] > self.threshold:
+                        out[row][item] = 1
+                    else:
+                        out[row][item] = 0
+
+            return out
         except:
             return "TOMATRIX"
 
@@ -495,11 +531,10 @@ class FormCV(Var):
         try:
             for line in range(8):
                 ra.append(data[line][0:10])
-
             for line in range(3):
                 period.append(data[line][18:30])
-
             #adds day number at the end of each line
+
             count = 1
             for line in range(10,47):
                 data[line].append(count)
@@ -616,17 +651,17 @@ class ImgRead(FormCV):
         self.hasSumError = False
         self.file = file
         self.imgUndist = self.imgUndistort(self.file)
-        if(self.imgUndist != "IMGUNDIST"):
+        if(len(self.imgUndist) != len("IMGUNDIST")):
             self.imgOut = self.imgTransform(self.imgUndist)
         else:
             self.status = False
             self.imgOut = 0
-        if(self.imgOut != "IMGOUT" and self.status):
+        if(len(self.imgOut) != len("IMGOUT")) and self.status:
             self.imgData = self.imgToMatrix(self.imgOut)
         else:
             self.status = False
             self.imgData = 0
-        if(self.imgData != "TOMATRIX" and self.status):
+        if(len(self.imgData) != len("TOMATRIX")) and self.status:
             try:
                 self.raRaw, self.periodRaw, self.timeRaw, self.dayIndex = self.dataExtract(self.imgData)
                 self.timeRead = self.timePositionToValue(self.timeRaw)
@@ -643,7 +678,7 @@ class ImgRead(FormCV):
             self.hasSumError = True
         if(len(self.dayWithFillError) > 0):
             self.hasFillError = True
-        if(self.imgUndist != "IMGUNDIST"):
+        if(len(self.imgUndist) != len("IMGUNDIST")):
             self.imgAnottated = self.grayToBGR(self.imgnormal)
         else:
             self.imgAnottated = None
@@ -651,15 +686,15 @@ class ImgRead(FormCV):
             
     def errorFinder(self):
         errors = []
-        if(self.imgUndist == "IMGUNDIST"):
+        if(len(self.imgUndist) == len("IMGUNDIST")):
             errors.append(self.imgUndist)
             self.terminalError = True
             return errors
-        if(self.imgOut == "IMGOUT"):
+        if(len(self.imgOut) == len("IMGOUT")):
             errors.append(self.imgOut)
             self.terminalError = True
             return errors
-        if(self.imgData == "TOMATRIX"):
+        if(len(self.imgData) == len("TOMATRIX")):
             errors.append(self.imgData)
             self.terminalError = True
             return errors
@@ -699,7 +734,7 @@ class ImgRead(FormCV):
                     self.imgAnottated = cv2.line(self.imgAnottated,
                                                  (x,19*x + int(x/2) + day*x*2),
                                                  (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ day*x*2),
-                                                 (0,0,250), thickness=1)
+                                                 (0,0,250), thickness=2)
             if (len(self.daysWorked) > 0):
                 for day in self.daysWorked:
                     self.imgAnottated = cv2.line(self.imgAnottated,
@@ -716,6 +751,16 @@ class ImgRead(FormCV):
         :return: nothing
         """
         self.errorLog.append(txt)
+
+    def saveImg(self, dir, img):
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        currentTime = currentTime[:14]
+        if(self.status):
+            ra = str(self.ra)
+        else:
+            ra = "x"
+        path = os.path.join(dir, (ra + "-" + currentTime + ".jpg"))
+        cv2.imwrite(path, img)
 
 
 class FileReader():
@@ -734,9 +779,8 @@ class FileReader():
     def readImages(self, files):
         for file in files:
             read = ImgRead(file)
-            read.getAnottatedImage(x=10)
+            read.getAnottatedImage(x=self.var.imgPreviewSize)
             self.forms.append(read)
-
 
     def getInfo(self):
         info = {'IMG': [],
@@ -771,10 +815,11 @@ class FileReader():
 
     def writeInfo(self):
         for form in self.forms:
-            if (len(form.errorType) == 0) and (str(form.ra) in self.db.raCol):
-                self.db.cellWriter(form.ra, form.period, form.time)
-            elif(str(form.ra) in self.db.raCol):
-                form.inDatabase = False
+            if(not form.terminalError):
+                if (len(form.errorType) == 0) and (str(form.ra) in self.db.raCol):
+                    self.db.cellWriter(form.ra, form.period, form.time)
+                elif(str(form.ra) in self.db.raCol):
+                    form.inDatabase = False
 
     def saveInfo(self):
         self.db.saveDB()
@@ -799,10 +844,14 @@ class FileReader():
                 log.append("    PERIODO: " + form.period)
                 log.append("    ANO: " + form.year)
                 log.append("    HORAS: " + str(form.time))
-                if(len(form.dayWithFillError) > 0):
-                    log.append("        Dias com erros de preenchimento: " + str(form.dayWithFillError))
-                if(len(form.dayWithSumError) > 0):
-                    log.append("        Dias com horas erradas: " + str(form.dayWithSumError))
+                if(form.hasFillError or form.hasSumError):
+                    self.var.warnings += 1
+                    if(form.hasFillError):
+                        log.append("        Dias com erros de preenchimento: " + str(form.dayWithFillError))
+                    if(form.hasSumError):
+                        log.append("        Dias com horas erradas: " + str(form.dayWithSumError))
+            else:
+                self.var.errors += 1
             if("RA" in form.errorType):
                 log.append("    Erro de preenchimento no RA.")
             elif(not form.inDatabase):
@@ -824,6 +873,15 @@ class FileReader():
                                                + currentTime[:14]
                                                + ".txt")))
 
+    def logToStr(self, log, numOfLines = 12):
+        logList = log
+        for item in range(numOfLines - len(logList)):
+            logList.append("")
+        logStr = ""
+        for line in logList:
+            logStr = logStr + line + "\n"
+        return logStr
+
     def saveDB(self):
         try:
             self.db.saveDB()
@@ -831,6 +889,15 @@ class FileReader():
         except:
             return False
 
-#a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg",
+#a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg"])
 #               "C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\MM Design\\20181113_142432.jpg"])
-#print(a.info)
+#a.forms[0].imgPreview(a.forms[0].imgshrink1)
+#a.forms[0].imgPreview(a.forms[0].imgshrink2)
+#a.forms[0].imgPreview(a.forms[0].imgout)
+#a.forms[0].getAnottatedImage()
+#a.forms[0].imgPreview(a.forms[0].imgAnottated)
+#a.forms[0].saveImg("C:\Dropbox\INOVEC\FormCV", a.forms[0].imgAnottated)
+
+#img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgread))
+#img = img.scaled(self.tab1.tab1.img1.width(), self.tab1.tab1.img1.height(), Qt.KeepAspectRatio,
+#                 Qt.SmoothTransformation)

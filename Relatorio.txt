@@ -1,4 +1,4 @@
-Erros fatais: 0     Imagens com erros de preenchimento/soma: 0
+Erros fatais: 0     Imagens com erros de preenchimento/soma: 3
 
 IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152041.jpg
     RA: 16157912
@@ -9,14 +9,13 @@ IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152041.jpg
     HORAS: 61.25
 
 IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152058.jpg
-    RA: 1
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 143.0
-        Dias com erros de preenchimento: [3, 7]
-    Erro de preenchimento no RA.
+    RA: 18309082
+    NOME: Gabrielle de Castro Santos
+    CONSULTORIA: Inovec
+    PERIODO: DEZ
+    ANO: 18
+    HORAS: 151.0
+        Dias com erros de preenchimento: [7]
 
 IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152106.jpg
     RA: 15022652
@@ -40,8 +39,7 @@ IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152124.jpg
     CONSULTORIA: ?
     PERIODO: OUT
     ANO: 18
-    HORAS: 14.0
-        Dias com erros de preenchimento: [18, 22, 24]
+    HORAS: 23.0
 
 IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro/Inovec\20181113_152135.jpg
     RA: 16058382
