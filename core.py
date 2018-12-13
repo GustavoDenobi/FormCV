@@ -279,7 +279,7 @@ class DBoutput(DBhandler):
 
         sortedList = [b[0]] + sorted(b[1::], key=takeSecond)
         pe.save_as(array=sortedList, dest_file_name=self.outputFile)
-        textPopup('Sucesso!\n\n' + str(certificateCount) + ' certificado(s) gerados.')
+        #textPopup('Sucesso!\n\n' + str(certificateCount) + ' certificado(s) gerados.')
         return sortedList, certificateCount
 
     def strip_accents(self, text):
@@ -399,7 +399,7 @@ class FormCV(Var):
                                                [approx],
                                                0,
                                                (0, 255, 0),
-                                               2)
+                                               4)
 
             #transforms polygon that contains data into rectangle
             #
@@ -656,12 +656,12 @@ class ImgRead(FormCV):
         else:
             self.status = False
             self.imgOut = 0
-        if(len(self.imgOut) != len("IMGOUT")) and self.status:
+        if(self.imgOut != "IMGOUT" and self.status):
             self.imgData = self.imgToMatrix(self.imgOut)
         else:
             self.status = False
             self.imgData = 0
-        if(len(self.imgData) != len("TOMATRIX")) and self.status:
+        if(self.imgData != "TOMATRIX" and self.status):
             try:
                 self.raRaw, self.periodRaw, self.timeRaw, self.dayIndex = self.dataExtract(self.imgData)
                 self.timeRead = self.timePositionToValue(self.timeRaw)
@@ -717,30 +717,30 @@ class ImgRead(FormCV):
         try:
             self.imgAnottated = self.resizeImg(self.imgAnottated, 95 * x)
             if("RA" in self.errorType):
-                self.imgAnottated = cv2.rectangle(self.imgAnottated, (x,1), (17*x,17*x), (0,0,250), 2)
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (x,1), (17*x,17*x), (0,0,250), 4)
             else:
-                self.imgAnottated = cv2.rectangle(self.imgAnottated, (x, 1), (17*x,17*x), (250, 0, 0), 1)
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (x, 1), (17*x,17*x), (250, 0, 0), 3)
             if("PERIOD" in self.errorType):
-                self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (0,0,250), 2)
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (0,0,250), 4)
             else:
-                self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (250, 0, 0), 1)
+                self.imgAnottated = cv2.rectangle(self.imgAnottated, (28*x,1), (49*x,7*x), (250, 0, 0), 3)
             for line in range(1,38):
                 self.imgAnottated = cv2.line(self.imgAnottated,
                                                  (x,19*x + int(x/2) + line*x*2),
                                                  (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ line*x*2),
-                                                 (150,150,150), thickness=1)
+                                                 (150,150,150), thickness=3)
             if(len(self.dayWithError) > 0):
                 for day in self.dayWithError:
                     self.imgAnottated = cv2.line(self.imgAnottated,
                                                  (x,19*x + int(x/2) + day*x*2),
                                                  (self.imgAnottated.shape[1]-x,19*x + int(x/2)+ day*x*2),
-                                                 (0,0,250), thickness=2)
+                                                 (0,0,250), thickness=4)
             if (len(self.daysWorked) > 0):
                 for day in self.daysWorked:
                     self.imgAnottated = cv2.line(self.imgAnottated,
                                                  (x, 19 * x + int(x / 2) + day * x * 2),
                                                  (self.imgAnottated.shape[1] - x, 19 * x + int(x / 2) + day * x * 2),
-                                                 (0, 250, 0), thickness=1)
+                                                 (0, 250, 0), thickness=3)
         except:
             pass
 
@@ -873,7 +873,7 @@ class FileReader():
                                                + currentTime[:14]
                                                + ".txt")))
 
-    def logToStr(self, log, numOfLines = 12):
+    def logToStr(self, log, numOfLines = 25):
         logList = log
         for item in range(numOfLines - len(logList)):
             logList.append("")
@@ -889,7 +889,7 @@ class FileReader():
         except:
             return False
 
-#a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg"])
+#a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg",
 #               "C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\MM Design\\20181113_142432.jpg"])
 #a.forms[0].imgPreview(a.forms[0].imgshrink1)
 #a.forms[0].imgPreview(a.forms[0].imgshrink2)
