@@ -42,10 +42,24 @@ class Var:
         self.outputFile = config['const']['outputFile']  # Where the SaidaParaCertificados.csv file is stored
         self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
         self.threshold = float(config['const']['threshold'])
+        self.imgDir = config['const']['imgDir']
+        self.minimumHours = int(config['const']['minimumHours'])
         self.errorLog = []  # Used to store a sequence of lines which contain details about every read image
         self.errors = 0  # Number of errors to be used in the error log
         self.warnings = 0  # NUmber of filling errors to be used in the error log
         self.inDatabase = True # To check if a RA was found in the database
+
+    def refreshParams(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        self.logDir = config['const']['logDir']  # The directory that should be scanned for images
+        self.databaseFile = config['const']['databaseFile']  # Location of the current active database
+        self.errorLogFile = config['const']['errorLogFile']  # Standard location of the error log
+        self.outputFile = config['const']['outputFile']  # Where the SaidaParaCertificados.csv file is stored
+        self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
+        self.threshold = float(config['const']['threshold'])
+        self.imgDir = config['const']['imgDir']
+        self.minimumHours = int(config['const']['minimumHours'])
 
     def paramTuner(self, variable, value):
         """
@@ -57,6 +71,7 @@ class Var:
         config['const'][variable] = value
         with open('config.ini', 'w') as configFile:
             config.write(configFile)
+        self.refreshParams()
 
     # pattern: Defines the values of every cell in a row in the time field of the forms
     # months: defines the standard name for converting the number of a month to a key, which is the same of the database
@@ -70,6 +85,9 @@ class Var:
     h = 47 * 21
     coordOrder = {0: [0, 0], 1: [w, 0], 2: [w, h], 3: [0, h]}
     cvFormats = ['.jpeg', '.jpg', '.png', '.bmp']
+    resetParams = {"imgPreviewSize" : 12,
+                   "threshold" : 0.2,
+                   "minimumHours" : 20}
 
     def fileCount(self, dir):
         """ Returns the number of valid images in the given directory
@@ -109,9 +127,13 @@ class DBhandler(Var):
         """ Used to read a csv file and return it as a dict in which the keys are the labels of each column and the
         values are lists related to each label
         """
-
-        return pe.get_dict(file_name = self.databaseFile, encoding = 'utf-8-sig')
+        try:
+            return pe.get_dict(file_name = self.databaseFile, encoding = 'utf-8-sig')
         # encoding = 'utf-8-sig' -> prevent the 'RA' to become '\ufeffRA' when the database is read
+        except:
+            return {"RA" : ["ARQUIVO INEXISTENTE"],
+                    "NOME" : ["ARQUIVO INEXISTENTE"],
+                    "CONSULTORIA" : ["ARQUIVO INEXISTENTE"]}
 
     def readDatabaseSheet(self):
         """ Used to read a csv file and return it as a sheet. Information is accessed by pyexcel methods"""
@@ -152,7 +174,7 @@ class DBhandler(Var):
         database = pe.get_sheet(adict = self.dbdict)
         database.save_as(address)
 
-    def addConsultant(self, consultant):
+    def saveConsultant(self, consultant):
         """
         Appends a new consultant to the database
         :param consultant: dict containing consultant's ra, consulting and name
@@ -161,20 +183,20 @@ class DBhandler(Var):
         for key in consultant.keys():
             if consultant[key] == '':  # checks if all fields are filled
                 status = False
-                textPopup('Preencha todos os campos.')
         if(not consultant['RA'].isdigit()):  # checks if RA is number
             status = False
-            textPopup('Preencha o RA com numeros apenas.')
         if(not len(consultant['RA']) == 8):  # checks if RA has 8 numbers
-            textPopup('Preencha o RA com 8 numeros.')
             status = False
         if(status):  # if validation passed, proceed
             if(int(consultant['RA']) in self.dbdict['RA']):  # checks if consultant is already in database
-                consultCheck = self.retrieveConsultant(int(consultant['RA']))
-                textPopup("Este RA ja esta cadastrado.\n\nNome: " +
-                          consultCheck['NOME'] +
-                          "\nConsultoria: " +
-                          consultCheck['CONSULTORIA'])
+                try:
+                    index = self.dbdict["RA"].index(int(consultant["RA"]))
+                    self.dbdict["NOME"][index] = consultant["NOME"]
+                    self.dbdict["CONSULTORIA"][index] = consultant["CONSULTORIA"]
+                    self.saveDB()
+                    return 1
+                except:
+                    return 0
             else:
                 try:  # adds consultant to the database
                     for key in consultant.keys():
@@ -182,9 +204,9 @@ class DBhandler(Var):
                     for key in self.months:
                         self.dbdict[key].append(0)
                     self.saveDB()
-                    textPopup("Consultor adicionado com sucesso!")
+                    return 1
                 except:
-                    errorPopup()
+                    return 0
 
     def delConsultant(self, consultantRA):
         """
@@ -219,12 +241,12 @@ class DBoutput(DBhandler):
                   'NOV': 'Novembro',
                   'DEZ': 'Dezembro'}
 
-    def __init__(self, threshold, months):
+    def __init__(self, months):
         super(DBoutput, self).__init__()
-        self.certToGenerate = self.filterSumTime(threshold, months)  # dict containing elligible consultants
+        self.certToGenerate = self.filterSumTime(months)  # dict containing elligible consultants
         self.outputFile, self.certificateCount = self.outputDatabase()  # reorder and saves the output
 
-    def filterSumTime(self, threshold, months):
+    def filterSumTime(self, months):
         output = {'RA': self.dbdict['RA'],
                   'NOME': self.dbdict['NOME'],
                   'CONSULTORIA': self.dbdict['CONSULTORIA'],
@@ -253,7 +275,7 @@ class DBoutput(DBhandler):
 
         # The following loop selects only the consultants with more than 20 hours in the selected 2 months
         for i in range(len(self.dbdict['NOME'])):
-            if(output['TOTAL'][i] >= float(threshold)):
+            if(output['TOTAL'][i] >= float(self.minimumHours)):
                 for key in output.keys():
                     newoutput[key].append(output[key][i])
         return newoutput
@@ -655,12 +677,12 @@ class ImgRead(FormCV):
             self.imgOut = self.imgTransform(self.imgUndist)
         else:
             self.status = False
-            self.imgOut = 0
+            self.imgOut = []
         if(self.imgOut != "IMGOUT" and self.status):
             self.imgData = self.imgToMatrix(self.imgOut)
         else:
             self.status = False
-            self.imgData = 0
+            self.imgData = []
         if(self.imgData != "TOMATRIX" and self.status):
             try:
                 self.raRaw, self.periodRaw, self.timeRaw, self.dayIndex = self.dataExtract(self.imgData)
@@ -682,6 +704,11 @@ class ImgRead(FormCV):
             self.imgAnottated = self.grayToBGR(self.imgnormal)
         else:
             self.imgAnottated = None
+
+        self.db = DBhandler()
+        self.getAnottatedImage(x=self.imgPreviewSize)
+        self.info = self.getInfo()
+        self.log = self.getLog()
             
             
     def errorFinder(self):
@@ -762,26 +789,6 @@ class ImgRead(FormCV):
         path = os.path.join(dir, (ra + "-" + currentTime + ".jpg"))
         cv2.imwrite(path, img)
 
-
-class FileReader():
-    def __init__(self, files):
-        self.var = Var()
-        self.db = DBhandler()
-        self.io = errorLogHandler()
-        self.numImages = len(files)
-        self.forms = []
-        self.readImages(files)
-        self.info = self.getInfo()
-        self.writeInfo()
-        self.log = self.getLog()
-        self.outputLog()
-
-    def readImages(self, files):
-        for file in files:
-            read = ImgRead(file)
-            read.getAnottatedImage(x=self.var.imgPreviewSize)
-            self.forms.append(read)
-
     def getInfo(self):
         info = {'IMG': [],
                 'RA': [],
@@ -790,28 +797,67 @@ class FileReader():
                 'MES': [],
                 'ANO': [],
                 'HORAS': []}
-        for form in self.forms:
-            info['IMG'].append(form.file)
-            try:
-                info['RA'].append(form.ra)
-                info['MES'].append(form.period)
-                info['ANO'].append(form.year)
-                info['HORAS'].append(str(form.time))
-                consultant = self.db.retrieveConsultant(form.ra)
-                if(consultant is not False):
-                    info['NOME'].append(consultant['NOME'])
-                    info['CONSULTORIA'].append(consultant['CONSULTORIA'])
-                else:
-                    info['NOME'].append('?')
-                    info['CONSULTORIA'].append('?')
-            except:
-                info['RA'].append('?')
-                info['MES'].append('?')
-                info['ANO'].append('?')
-                info['HORAS'].append('?')
+        info['IMG'].append(self.file)
+        try:
+            info['RA'].append(self.ra)
+            info['MES'].append(self.period)
+            info['ANO'].append(self.year)
+            info['HORAS'].append(str(self.time))
+            consultant = self.db.retrieveConsultant(self.ra)
+            if(consultant is not False):
+                info['NOME'].append(consultant['NOME'])
+                info['CONSULTORIA'].append(consultant['CONSULTORIA'])
+            else:
                 info['NOME'].append('?')
                 info['CONSULTORIA'].append('?')
+        except:
+            info['RA'].append('?')
+            info['MES'].append('?')
+            info['ANO'].append('?')
+            info['HORAS'].append('?')
+            info['NOME'].append('?')
+            info['CONSULTORIA'].append('?')
         return info
+
+    def getLog(self):
+        log = []
+        log.append("IMAGEM: " + self.file)
+        if (self.status):
+            log.append("    RA: " + self.ra)
+            log.append("    NOME: " + self.info['NOME'][self.info['RA'].index(self.ra)])
+            log.append("    CONSULTORIA: " + self.info['CONSULTORIA'][self.info['RA'].index(self.ra)])
+            log.append("    PERIODO: " + self.period)
+            log.append("    ANO: " + self.year)
+            log.append("    HORAS: " + str(self.time))
+            if(self.hasFillError or self.hasSumError):
+                self.warnings += 1
+                if(self.hasFillError):
+                    log.append("        Dias com erros de preenchimento: " + str(self.dayWithFillError))
+                if(self.hasSumError):
+                    log.append("        Dias com horas erradas: " + str(self.dayWithSumError))
+        else:
+            self.errors += 1
+        if("RA" in self.errorType):
+            log.append("    Erro de preenchimento no RA.")
+        elif(not self.inDatabase):
+            log.append("    RA não encontrado no banco de dados.")
+        if("PERIOD" in self.errorType):
+            log.append("    Erro de preenchimento no Período.")
+        if(self.terminalError):
+            log.append("    Imagem não reconhecida.")
+        return log
+
+
+class FileReader():
+    def __init__(self, forms):
+        self.var = Var()
+        self.db = DBhandler()
+        self.io = errorLogHandler()
+        self.numImages = len(forms)
+        self.forms = forms
+        self.writeInfo()
+        self.log = self.getLog()
+        self.outputLog()
 
     def writeInfo(self):
         for form in self.forms:
@@ -820,9 +866,6 @@ class FileReader():
                     self.db.cellWriter(form.ra, form.period, form.time)
                 elif(str(form.ra) in self.db.raCol):
                     form.inDatabase = False
-
-    def saveInfo(self):
-        self.db.saveDB()
 
     def logAppend(self, txt):
         """
@@ -835,33 +878,7 @@ class FileReader():
     def getLog(self):
         errorLog = []
         for form in self.forms:
-            log = []
-            log.append("IMAGEM: " + form.file)
-            if (form.status):
-                log.append("    RA: " + form.ra)
-                log.append("    NOME: " + self.info['NOME'][self.info['RA'].index(form.ra)])
-                log.append("    CONSULTORIA: " + self.info['CONSULTORIA'][self.info['RA'].index(form.ra)])
-                log.append("    PERIODO: " + form.period)
-                log.append("    ANO: " + form.year)
-                log.append("    HORAS: " + str(form.time))
-                if(form.hasFillError or form.hasSumError):
-                    self.var.warnings += 1
-                    if(form.hasFillError):
-                        log.append("        Dias com erros de preenchimento: " + str(form.dayWithFillError))
-                    if(form.hasSumError):
-                        log.append("        Dias com horas erradas: " + str(form.dayWithSumError))
-            else:
-                self.var.errors += 1
-            if("RA" in form.errorType):
-                log.append("    Erro de preenchimento no RA.")
-            elif(not form.inDatabase):
-                log.append("    RA não encontrado no banco de dados.")
-            if("PERIOD" in form.errorType):
-                log.append("    Erro de preenchimento no Período.")
-            if(form.terminalError):
-                log.append("    Imagem não reconhecida.")
-            form.errorLog.extend(log)
-            errorLog.extend(log)
+            errorLog.extend(form.log)
             errorLog.append("")
         return errorLog
 
@@ -875,8 +892,8 @@ class FileReader():
 
     def logToStr(self, log, numOfLines = 25):
         logList = log
-        for item in range(numOfLines - len(logList)):
-            logList.append("")
+        #for item in range(numOfLines - len(logList)):
+        #    logList.append("")
         logStr = ""
         for line in logList:
             logStr = logStr + line + "\n"
@@ -888,6 +905,11 @@ class FileReader():
             return True
         except:
             return False
+
+#forms = []
+#forms.append(ImgRead("C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg"))
+#forms[0].imgPreview(forms[0].imgAnottated)
+
 
 #a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg",
 #               "C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\MM Design\\20181113_142432.jpg"])

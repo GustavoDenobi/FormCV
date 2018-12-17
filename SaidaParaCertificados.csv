@@ -1,57 +1,7 @@
-CONSULTORIA,MES1,MES2,NOME,NOV,OUT,RA,TOTAL
-Ambivet,Outubro,Novembro,Alana Oliveira Fernandes,4.0,16.75,15016382,21
-Ambivet,Outubro,Novembro,Aline Erika S. Yui,12.5,20.0,14034602,32
-Ambivet,Outubro,Novembro,Amanda Christiane O. Moro,2.0,24.75,15022742,27
-Ambivet,Outubro,Novembro,Ana Cecilia C. Piaza,2.0,18.75,17395462,21
-Ambivet,Outubro,Novembro,Armandio Campagnolo Neto,2.0,22.75,17180572,25
-Ambivet,Outubro,Novembro,Debora Telles Campos Lucas,13.25,20.75,14021972,34
-Ambivet,Outubro,Novembro,Fernanda Luiza Buzzo Petry,6.5,19.0,16409932,25
-Ambivet,Outubro,Novembro,Heverton Loquetti Fernandes,4.0,22.0,15216552,26
-Ambivet,Outubro,Novembro,Larissa Santana Wolff,2.5,20.25,17053642,23
-Ambivet,Outubro,Novembro,Maria Stefani de Brito,5.75,21.0,18131762,27
-Ambivet,Outubro,Novembro,Matheus Marroni Bodnariuc,3.25,17.5,16139412,21
-Ambivet,Outubro,Novembro,Paula Karolaine B. dos Santos,14.25,26.75,15010752,41
-Ambivet,Outubro,Novembro,Thais Cristina Biaji,8.5,18.25,17345232,27
-Ambivet,Outubro,Novembro,Beatriz Carolyne Quina Valente,3.75,19.5,17012932,23
-Consec,Outubro,Novembro,Alisson Diogo dos Santos,0,56.0,14184272,56
-Consec,Outubro,Novembro,Ana Carolina da Costa Valdevieso,0,27.0,18258422,27
-Consec,Outubro,Novembro,Gabriel Correia da Silva,11.25,33.0,15166242,44
-Consec,Outubro,Novembro,Gabrielly Souza Chagas,0,30.5,15140842,30
-Consec,Outubro,Novembro,Juan Carlo Canonico S. Valladares,4.0,19.5,15011592,23
-Consec,Outubro,Novembro,Mathues Davi da Costa Manholer,0,44.0,15176502,44
-Consec,Outubro,Novembro,Mathueus Nunes Sato,0,27.5,14139882,27
-Consec,Outubro,Novembro,Northon Aldrovandi Paganella,0,34.75,14327222,35
-Consec,Outubro,Novembro,Pedro Henrique de Farias Niza,0,63.25,15005912,63
-Ecovida,Outubro,Novembro,Micaeli Silva Belgamazzi,4.0,21.0,18276902,25
-Inovec,Outubro,Novembro,Fabricio Simonelli Tanguas,16.25,25.0,18015872,41
-Inovec,Outubro,Novembro,Gustavo Felipe Acioli Denobi,0,61.25,16157912,61
-Inovec,Outubro,Novembro,Gustavo Pires Liberati,0,67.0,15015602,67
-Inovec,Outubro,Novembro,Isadora Fonseca Araujo,0,70.25,16058382,70
-Inovec,Outubro,Novembro,Joao Victor K. Moura,0,44.5,18376562,44
-Inovec,Outubro,Novembro,Lucas Gustavo Fritzen,0,22.5,16074832,22
-Inovec,Outubro,Novembro,Ruan Felipe Siqueira Antunes,0,26.0,18258382,26
-MM Design ,Outubro,Novembro,Alan Douglas C. Morais,9.5,13.25,18058102,23
-Oriente,Outubro,Novembro,Aparecida N. Silva,0,22.25,15385822,22
-Oriente,Outubro,Novembro,Bruna Yurie Arata,0,44.5,16449272,44
-Oriente,Outubro,Novembro,Dieli Corsi Pontes,0,41.25,16064282,41
-Oriente,Outubro,Novembro,Ediely Ferreira Casagrande ,0,55.0,15203402,55
-Oriente,Outubro,Novembro,Jackeline baraldo Zampar,0,22.25,15085452,22
-Oriente,Outubro,Novembro,Karina Andrea Ishihara Tsuneto,0,40.0,15388362,40
-Oriente,Outubro,Novembro,Lairyani Marques Corsi,0,46.5,15018272,46
-Oriente,Outubro,Novembro,Luana Rohling Silva,0,64.5,15166372,64
-Oriente,Outubro,Novembro,Marilia da Mata Silva,0,61.25,15015692,61
-Oriente,Outubro,Novembro,Thays de Fatima Zandona,0,48.5,15029162,48
-Oriente,Outubro,Novembro,Raissa Borelli Ferraneto,0,23.0,17224952,23
-Projecta ,Outubro,Novembro,Fernanda Gaio Balestrim,0,26.5,16308002,26
-Projecta ,Outubro,Novembro,Hellen Braido Avanco,17.5,19.5,15012612,37
-Projecta ,Outubro,Novembro,Isabella A. Garcia Souza,12.25,24.75,17329942,37
-Projecta ,Outubro,Novembro,Mariana Wendausen Donega,19.25,17.75,17054102,37
-Projecta ,Outubro,Novembro,Renan Rodrigues Gomes,8.5,27.25,15006012,36
-Projecta ,Outubro,Novembro,Thais Cristiane C. Rampasi,0,29.0,17247012,29
-Projecta ,Outubro,Novembro,Tony Franca Cargnin,9.5,23.0,15007692,32
-Uniagro,Outubro,Novembro,Denis Dantas,20.0,9.5,17229812,29
-Uniagro,Outubro,Novembro,Gabriel Pereira Pacheco,26.25,15.0,17216382,41
-Uniagro,Outubro,Novembro,Guilherme Dos Santos Lima ,22.0,6.75,17351662,29
-Uniagro,Outubro,Novembro,Joao Lucas Costa Fernandes,29.0,0.0,18261222,29
-Uniagro,Outubro,Novembro,Mariana Campos Giosa,0,53.0,16062412,53
-Uniagro,Outubro,Novembro,Matheus Martinhao ,24.0,0,17229042,24
+CONSULTORIA,JUN,MAI,MES1,MES2,NOME,RA,TOTAL
+Inovec,22,0,Maio,Junho,Andre Vinicius Rebice,18014862,22
+Inovec,30.5,0,Maio,Junho,Denis Yudi Ueno,16158322,30
+Inovec,23.5,0,Maio,Junho,Flavio Junior Calegari Zanatta,18017202,23
+Inovec,26,0,Maio,Junho,Gabrielle de Castro Santos,18309082,26
+Inovec,62,0,Maio,Junho,Gustavo Felipe Acioli Denobi,16157912,62
+Inovec,20,0,Maio,Junho,Ruan Felipe Siqueira Antunes,18258382,20
