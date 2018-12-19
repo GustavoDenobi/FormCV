@@ -6,6 +6,10 @@ import configparser
 import shutil
 from datetime import datetime
 import unicodedata
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw
+import textwrap
 
 VERSION = '2.0.0'
 
@@ -39,11 +43,11 @@ class Var:
         self.logDir = config['const']['logDir']  # The directory that should be scanned for images
         self.databaseFile = config['const']['databaseFile']  # Location of the current active database
         self.errorLogFile = config['const']['errorLogFile']  # Standard location of the error log
-        self.outputFile = config['const']['outputFile']  # Where the SaidaParaCertificados.csv file is stored
         self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
         self.threshold = float(config['const']['threshold'])
         self.imgDir = config['const']['imgDir']
         self.minimumHours = int(config['const']['minimumHours'])
+        self.certificateDir = config['const']['certificateDir']
         self.errorLog = []  # Used to store a sequence of lines which contain details about every read image
         self.errors = 0  # Number of errors to be used in the error log
         self.warnings = 0  # NUmber of filling errors to be used in the error log
@@ -55,11 +59,11 @@ class Var:
         self.logDir = config['const']['logDir']  # The directory that should be scanned for images
         self.databaseFile = config['const']['databaseFile']  # Location of the current active database
         self.errorLogFile = config['const']['errorLogFile']  # Standard location of the error log
-        self.outputFile = config['const']['outputFile']  # Where the SaidaParaCertificados.csv file is stored
         self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
         self.threshold = float(config['const']['threshold'])
         self.imgDir = config['const']['imgDir']
         self.minimumHours = int(config['const']['minimumHours'])
+        self.certificateDir = config['const']['certificateDir']
 
     def paramTuner(self, variable, value):
         """
@@ -222,12 +226,59 @@ class DBhandler(Var):
             errorPopup()
 
 
-class DBoutput(DBhandler):
-    """
-    Used to create the csv file that feeds the certificates
-    float threshold: the minimum sum of time a consultant has to achieve to ge a certificate
-    list months: 2-string long list that defines the months to be summed
-    """
+class pdfCreator():
+
+    def __init__(self, certificateInfo, dir):
+        self.template = Image.open("template.png")
+        self.draw = ImageDraw.Draw(self.template)
+        self.x = 500
+        self.y = 800
+        self.certificateInfo = certificateInfo
+        self.writeText(self.certificateInfo)
+        self.savePDF(dir)
+
+
+    def writeText(self, fdict):
+        text = ("    Certifico que "
+                + fdict["NOME"]
+                + ", sob o RA "
+                + fdict["RA"] +
+                ", participou das atividades acadêmicas da Consultoria Júnior "
+                + fdict["CONSULTORIA"]
+                + ", cumprindo uma carga horária de "
+                + fdict["TOTAL"]
+                + " horas, nos meses de "
+                + fdict["MES1"]
+                + " e "
+                + fdict["MES2"]
+                + " no ano de "
+                + fdict["ANO"]
+                + ".")
+
+        text = textwrap.wrap(text)
+        selectFont = ImageFont.truetype("consola.ttf", size=72)
+        linespace = 0
+        for line in text:
+            self.draw.text((self.x, self.y + linespace), line, (0, 0, 0), font=selectFont)
+            linespace += 88
+
+    def writeDate(self):
+        pass
+
+    def savePDF(self, dir):
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        filepath = os.path.join(dir, (self.certificateInfo["CONSULTORIA"]
+                                      + " - "
+                                      + self.certificateInfo["NOME"]
+                                      + " - "
+                                      + self.certificateInfo["RA"]
+                                      + " - "
+                                      + currentTime[0:14]
+                                      + ".pdf"))
+        self.template.save(filepath, "PDF", resolution=300.0)
+
+
+class certificateGenerator(DBhandler):
     monthTrans = {'JAN': 'Janeiro',
                   'FEV': 'Fevereiro',
                   'MAR': 'Março',
@@ -242,19 +293,23 @@ class DBoutput(DBhandler):
                   'DEZ': 'Dezembro'}
 
     def __init__(self, months):
-        super(DBoutput, self).__init__()
-        self.certToGenerate = self.filterSumTime(months)  # dict containing elligible consultants
-        self.outputFile, self.certificateCount = self.outputDatabase()  # reorder and saves the output
+        super(certificateGenerator, self).__init__()
+        self.fdict = {"RA" : "",
+                      "NOME" : "",
+                      "CONSULTORIA" : "",
+                      "TOTAL" : "",
+                      "MES1" : "",
+                      "MES2" : "",
+                      "ANO" : ""}
+        self.months = months
+        self.certToGenerate = self.filterSumTime(months)
+        self.certCount = len(self.certToGenerate["RA"])
 
     def filterSumTime(self, months):
         output = {'RA': self.dbdict['RA'],
                   'NOME': self.dbdict['NOME'],
                   'CONSULTORIA': self.dbdict['CONSULTORIA'],
-                  months[0]: self.dbdict[months[0]],
-                  months[1]: self.dbdict[months[1]],
-                  'TOTAL': ([0] * self.length),
-                  'MES1': ([self.monthTrans[months[0]]] * self.length),
-                  'MES2': ([self.monthTrans[months[1]]] * self.length)}
+                  'TOTAL': ([0] * self.length)}
 
         for i in range(len(self.dbdict['NOME'])):
             sumTime = self.dbdict[months[0]][i] + self.dbdict[months[1]][i]
@@ -265,59 +320,39 @@ class DBoutput(DBhandler):
             output['TOTAL'][i] = sumTime
 
         newoutput = {'RA': [],
-                  'NOME': [],
-                  'CONSULTORIA': [],
-                  months[0]: [],
-                  months[1]: [],
-                  'TOTAL': [],
-                  'MES1': [],
-                  'MES2': []}
+                     'NOME': [],
+                     'CONSULTORIA': [],
+                     'TOTAL': []}
 
         # The following loop selects only the consultants with more than 20 hours in the selected 2 months
         for i in range(len(self.dbdict['NOME'])):
-            if(output['TOTAL'][i] >= float(self.minimumHours)):
+            if (output['TOTAL'][i] >= float(self.minimumHours)):
                 for key in output.keys():
                     newoutput[key].append(output[key][i])
         return newoutput
 
-    def outputDatabase(self):
-        """
-        Updates the outputFile
-        :return: the sorted output, the number of certificates generated
-        :rtype: dict, int
-        """
+    def saveCertificate(self, index):
+        currentCertificate = self.fdict
+        currentCertificate["RA"] = str(self.certToGenerate["RA"][index])
+        currentCertificate["NOME"] = self.certToGenerate["NOME"][index]
+        currentCertificate["CONSULTORIA"] = self.certToGenerate["CONSULTORIA"][index]
+        currentCertificate["MES1"] = self.monthTrans[self.months[0]]
+        currentCertificate["MES2"] = self.monthTrans[self.months[1]]
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        currentCertificate["ANO"] = currentTime[0:4]
+        pdfCreator(currentCertificate, self.certificateDir)
 
-        certificateCount = len(self.certToGenerate['NOME'])
-        output = pe.get_sheet(adict = self.certToGenerate) # Transforms the dict created above in csv format
-        output.save_as(self.outputFile) # Saves the csv into file
-
-        # sorts SaidaParaCertificados by Consulting names
-        b = pe.get_array(file_name = self.outputFile)
-        indexConsult = b[0].index('CONSULTORIA')
-
-        def takeSecond(b):
-            element = b[indexConsult]
-            return element
-
-        sortedList = [b[0]] + sorted(b[1::], key=takeSecond)
-        pe.save_as(array=sortedList, dest_file_name=self.outputFile)
-        #textPopup('Sucesso!\n\n' + str(certificateCount) + ' certificado(s) gerados.')
-        return sortedList, certificateCount
-
-    def strip_accents(self, text):
-        """
-        Strip accents from input String.
-
-        :param text: The input string.
-        :type text: String.
-
-        :returns: The processed String.
-        :rtype: String.
-        """
-        text = unicodedata.normalize('NFD', text)
-        text = text.encode('ascii', 'ignore')
-        text = text.decode("utf-8")
-        return str(text)
+    def saveCertificates(self):
+        for current in range(len(self.certToGenerate["RA"])):
+            currentCertificate = self.fdict
+            currentCertificate["RA"] = str(self.certToGenerate["RA"][current])
+            currentCertificate["NOME"] = self.certToGenerate["NOME"][current]
+            currentCertificate["CONSULTORIA"] = self.certToGenerate["CONSULTORIA"][current]
+            currentCertificate["MES1"] = self.monthTrans[self.months[0]]
+            currentCertificate["MES2"] = self.monthTrans[self.months[1]]
+            currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+            currentCertificate["ANO"] = currentTime[0:4]
+            pdfCreator(currentCertificate, self.certificateDir)
 
 
 class errorLogHandler(Var):
@@ -923,3 +958,10 @@ class FileReader():
 #img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgread))
 #img = img.scaled(self.tab1.tab1.img1.width(), self.tab1.tab1.img1.height(), Qt.KeepAspectRatio,
 #                 Qt.SmoothTransformation)
+
+#a = certificateGenerator(['AGO', 'SET'])
+#count = 1
+#for cert in range(len(a.certToGenerate['RA'])):
+#    a.saveCertificate(cert)
+#    print(count)
+#    count += 1

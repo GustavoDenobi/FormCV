@@ -1,6 +1,5 @@
 from core import *
 
-from time import sleep
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -138,6 +137,8 @@ class MainWidget(QWidget):
             self.loadDatabase()
             self.listedFiles.clear()
             self.tab1.fileList = []
+            self.tab1.forms = []
+            self.tab1.reading = None
             self.clearViews()
             self.outputToConsole("Banco de horas atualizado com sucesso.")
             self.btn_Save.setEnabled(False)
@@ -169,9 +170,18 @@ class MainWidget(QWidget):
         months = []
         months.append(self.tab3.firstMonth)
         months.append(self.tab3.secondMonth)
-        db = DBoutput(months)
+        gen = certificateGenerator(months)
+        count = 0
+        for cert in range(gen.certCount):
+            gen.saveCertificate(cert)
+            count += 1
+            self.refreshCertProgBar(max=gen.certCount, current=count)
+
         self.tab3.btn_Generate.setEnabled(False)
-        self.outputToConsole(str(db.certificateCount) + " certificados gerados.")
+        self.outputToConsole("Sucesso! "
+                             + str(gen.certCount)
+                             + " certificados gerados. Arquivos salvos em:  "
+                             + self.var.certificateDir)
 
     def runConsultantManager(self):
         txt = self.tab3.box3.lineRA.text()
@@ -260,16 +270,25 @@ class MainWidget(QWidget):
             self.progBar.setRange(min, max)
             self.progBar.setValue(current)
 
+    def refreshCertProgBar(self, min = 0, max = 1, current = 0, reset = False):
+        if(reset):
+            self.tab3.certProgBar.reset()
+        else:
+            self.tab3.certProgBar.setRange(min, max)
+            self.tab3.certProgBar.setValue(current)
+
     def selMonth1(self, index):
         self.tab3.firstMonth = self.var.months[index]
         if(len(self.tab3.firstMonth) > 0 and len(self.tab3.secondMonth) > 0):
             self.tab3.btn_Generate.setEnabled(True)
+            self.refreshCertProgBar(reset = True)
         self.outputToConsole("Primeiro mês selecionado: " + self.tab3.firstMonth)
 
     def selMonth2(self, index):
         self.tab3.secondMonth = self.var.months[index]
         if(len(self.tab3.firstMonth) > 0 and len(self.tab3.secondMonth) > 0):
             self.tab3.btn_Generate.setEnabled(True)
+            self.refreshCertProgBar(reset=True)
         self.outputToConsole("Segundo mês selecionado: " + self.tab3.secondMonth)
 
     def searchDB(self):
@@ -568,19 +587,25 @@ class MainWidget(QWidget):
         self.tab3.box1.setLayout(self.tab3.box1.layout)
 
         self.tab3.box2 = QGroupBox("Gerar Certificados")
-        self.tab3.box2.layout = QHBoxLayout(self)
+        self.tab3.box2.layout = QVBoxLayout(self)
+        self.tab3.box2.buttons = QWidget()
+        self.tab3.box2.buttons.layout = QHBoxLayout()
         self.tab3.monthSel1 = QComboBox()
         self.tab3.monthSel1.addItems(self.var.months)
         self.tab3.monthSel1.activated.connect(self.selMonth1)
-        self.tab3.box2.layout.addWidget(self.tab3.monthSel1)
+        self.tab3.box2.buttons.layout.addWidget(self.tab3.monthSel1)
         self.tab3.monthSel2 = QComboBox()
         self.tab3.monthSel2.addItems(self.var.months)
         self.tab3.monthSel2.activated.connect(self.selMonth2)
-        self.tab3.box2.layout.addWidget(self.tab3.monthSel2)
+        self.tab3.box2.buttons.layout.addWidget(self.tab3.monthSel2)
         self.tab3.btn_Generate = QPushButton('Gerar Certificados')
         self.tab3.btn_Generate.setEnabled(False)
         self.tab3.btn_Generate.clicked.connect(self.runGenerateCertificates)
-        self.tab3.box2.layout.addWidget(self.tab3.btn_Generate)
+        self.tab3.box2.buttons.layout.addWidget(self.tab3.btn_Generate)
+        self.tab3.box2.buttons.setLayout(self.tab3.box2.buttons.layout)
+        self.tab3.box2.layout.addWidget(self.tab3.box2.buttons)
+        self.tab3.certProgBar = QProgressBar()
+        self.tab3.box2.layout.addWidget(self.tab3.certProgBar)
         self.tab3.box2.setLayout(self.tab3.box2.layout)
 
         self.tab3.box3 = QGroupBox("Gerenciar consultor")
@@ -643,18 +668,15 @@ class MainWidget(QWidget):
 
     def changeConfig1(self):
         dlg1 = QFileDialog()
-        dlg.setFileMode(QFileDialog.ExistingFile)
+        dlg1.setFileMode(QFileDialog.Directory)
         filenames = QStringListModel()
 
         if dlg1.exec_():
-            dlg1.setDirectory(self.var.outputFile)
+            dlg1.setDirectory(self.var.certificateDir)
             filename = dlg1.selectedFiles()[0]
-            if(filename.endswith(".csv")):
-                self.var.paramTuner("outputFile", filename)
-                self.tab4.label1.setText(self.var.outputFile)
-                self.outputToConsole("Configuração atualizada.")
-            else:
-                self.outputToConsole("Tipo de arquivo inválido.")
+            self.var.paramTuner("certificateDir", filename)
+            self.tab4.label1.setText(self.var.certificateDir)
+            self.outputToConsole("Configuração atualizada.")
 
     def changeConfig2(self):
         dlg2 = QFileDialog()
@@ -728,14 +750,8 @@ class MainWidget(QWidget):
             self.outputToConsole("Arquivo inexistente.")
 
     def changeLabel1(self):
-        txt = self.tab4.label1.text()
-        if(self.checkFileExists(txt)):
-            self.var.paramTuner("outputFile", txt)
-            self.tab4.label1.setStyleSheet("")
-            self.outputToConsole("Configuração atualizada:   Arquivo de Certificados - " + txt )
-        else:
-            self.tab4.label1.setStyleSheet("color: red;")
-            self.outputToConsole("Arquivo inexistente.")
+        self.var.paramTuner("certificateDir", self.tab4.label1.text())
+        self.outputToConsole("Configuração atualizada.")
 
     def changeLabel2(self):
         self.var.paramTuner("logDir", self.tab4.label2.text())
@@ -747,7 +763,6 @@ class MainWidget(QWidget):
 
     def get_tab4(self):
         self.tab4.layout = QFormLayout(self)
-        #self.tab4.layout.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
         self.tab4.layout.setLabelAlignment(Qt.AlignLeft)
         self.tab4.layout.setRowWrapPolicy(QFormLayout.DontWrapRows)
 
@@ -771,11 +786,7 @@ class MainWidget(QWidget):
             self.tab4.label0.setStyleSheet("color: red;")
             self.outputToConsole("Configurações inválidas.")
             self.tabs.setCurrentWidget(self.tab4)
-        self.tab4.label1 = QLineEdit(self.var.outputFile)
-        if(not self.checkFileExists(self.var.outputFile)):
-            self.tab4.label1.setStyleSheet("color: red;")
-            self.outputToConsole("Configurações inválidas.")
-            self.tabs.setCurrentWidget(self.tab4)
+        self.tab4.label1 = QLineEdit(self.var.certificateDir)
         self.tab4.label2 = QLineEdit(self.var.logDir)
         self.tab4.label3 = QLineEdit(self.var.imgDir)
 
