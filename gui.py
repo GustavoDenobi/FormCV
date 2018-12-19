@@ -1,6 +1,5 @@
 from core import *
 
-import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -11,7 +10,7 @@ class App(QMainWindow):
     def __init__(self):
         super().__init__()
         scriptDir = os.path.dirname(os.path.realpath(__file__))
-        self.setWindowIcon(QIcon(scriptDir + os.path.sep + 'Icon.ico'))
+        self.setWindowIcon(QIcon(scriptDir + os.path.sep + 'img/Icon.ico'))
         self.title = 'FormCV'
         self.left = 0
         self.top = 0
@@ -86,8 +85,7 @@ class MainWidget(QWidget):
         self.table.resizeColumnsToContents()
 
     def getFolder(self):
-        dlg = QFileDialog()
-        dlg.setDirectory(self.var.imgDir)
+        dlg = QFileDialog(directory=self.var.imgDir)
         dlg.setFileMode(QFileDialog.Directory)
         #dlg.setFilter(self.var.cvFormats)
         path = QStringListModel()
@@ -102,20 +100,23 @@ class MainWidget(QWidget):
                         fileList.append(filepath)
             self.tab1.fileList = fileList
             self.getList()
-            self.outputToConsole(str(len(fileList)) + " novos arquivos adicionadas à lista. Aguardando leitura.")
+            self.outputToConsole(str(len(self.tab1.fileList)) + " arquivos válidos adicionadas à lista. "
+                                 + "Aguardando leitura.")
 
     def getFiles(self):
-        dlg = QFileDialog()
-        dlg.setDirectory(self.var.imgDir)
+        dlg = QFileDialog(directory=self.var.imgDir)
         dlg.setFileMode(QFileDialog.ExistingFiles)
-        #dlg.setFilter(self.var.cvFormats)
         filenames = QStringListModel()
 
         if dlg.exec_():
             filenames = dlg.selectedFiles()
-            self.tab1.fileList = filenames
+            for file in filenames:
+                for format in self.var.cvFormats:
+                    if file.endswith(format):
+                        self.tab1.fileList.append(file)
             self.getList()
-            self.outputToConsole(str(len(filenames)) + " novos arquivos adicionadas à lista. Aguardando leitura.")
+            self.outputToConsole(str(len(self.tab1.fileList)) + " arquivos válidos adicionadas à lista. "
+                                 + "Aguardando leitura.")
 
     def getList(self):
         self.pendingReading = True
@@ -931,11 +932,6 @@ class MainWidget(QWidget):
 #        self.tab5.layout.addWidget(self.tab5.logos)
 
         self.tab5.setLayout(self.tab5.layout)
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
 
 
 

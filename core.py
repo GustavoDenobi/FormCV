@@ -52,6 +52,23 @@ class Var:
         self.errors = 0  # Number of errors to be used in the error log
         self.warnings = 0  # NUmber of filling errors to be used in the error log
         self.inDatabase = True # To check if a RA was found in the database
+        self.checkBackup()
+
+    def checkBackup(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        lastBackup = config['backup']['lastbackup']
+        backupDir = config['backup']['backupdir']
+        maxTime = int(config['backup']['maxtime'])
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        currentTime = int(currentTime[:14])
+        diff = currentTime - int(lastBackup)
+        if(diff >= maxTime):
+            config['backup']['lastbackup'] = str(currentTime)
+            with open('config.ini', 'w') as configFile:
+                config.write(configFile)
+
+            shutil.copy(self.databaseFile, os.path.join(backupDir + os.sep + str(currentTime)) + ".csv")
 
     def refreshParams(self):
         config = configparser.ConfigParser()
@@ -230,7 +247,7 @@ class DBhandler(Var):
 class pdfCreator():
 
     def __init__(self, certificateInfo, dir):
-        self.template = Image.open("template.png")
+        self.template = Image.open("/img/template.png")
         self.draw = ImageDraw.Draw(self.template)
         self.x = 500
         self.y = 800
@@ -943,27 +960,5 @@ class FileReader():
         except:
             return False
 
-#forms = []
-#forms.append(ImgRead("C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg"))
-#forms[0].imgPreview(forms[0].imgAnottated)
-
-
-#a = FileReader(["C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\Inovec\\20181113_152041.jpg",
-#               "C:\\Dropbox\\INOVEC\\FormCV\\IMG\\Outubro\\MM Design\\20181113_142432.jpg"])
-#a.forms[0].imgPreview(a.forms[0].imgshrink1)
-#a.forms[0].imgPreview(a.forms[0].imgshrink2)
-#a.forms[0].imgPreview(a.forms[0].imgout)
-#a.forms[0].getAnottatedImage()
-#a.forms[0].imgPreview(a.forms[0].imgAnottated)
-#a.forms[0].saveImg("C:\Dropbox\INOVEC\FormCV", a.forms[0].imgAnottated)
-
-#img = QPixmap(self.cv_to_qt(self.tab1.readings.forms[row].imgread))
-#img = img.scaled(self.tab1.tab1.img1.width(), self.tab1.tab1.img1.height(), Qt.KeepAspectRatio,
-#                 Qt.SmoothTransformation)
-
-#a = certificateGenerator(['AGO', 'SET'])
-#count = 1
-#for cert in range(len(a.certToGenerate['RA'])):
-#    a.saveCertificate(cert)
-#    print(count)
-#    count += 1
+a = Var()
+a.checkBackup()

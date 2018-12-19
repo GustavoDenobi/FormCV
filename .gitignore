@@ -99,6 +99,8 @@ ENV/
 .mypy_cache/
 
 # database and personal info
-.csv
-.docx
-.doc
+*.csv
+*.docx
+*.doc
+
+
