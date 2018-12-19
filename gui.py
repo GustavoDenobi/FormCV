@@ -163,6 +163,7 @@ class MainWidget(QWidget):
                 else:
                     self.listedFiles.item(count).setBackground(QBrush(QColor(150, 250, 150)))
                 count += 1
+                self.update()
                 self.outputToConsole("Lendo imagem " + str(count) + " de " + str(imgCount) + "...")
                 self.refreshProgBar(max = imgCount, current = count)
 
@@ -195,6 +196,7 @@ class MainWidget(QWidget):
             for cert in range(gen.certCount):
                 gen.saveCertificate(cert)
                 count += 1
+                self.update()
                 self.refreshCertProgBar(max=gen.certCount, current=count)
 
             self.tab3.btn_Generate.setEnabled(False)
@@ -350,13 +352,13 @@ class MainWidget(QWidget):
         factor = 0.68
         self.tab1.sub2.setFixedSize(self.tab1.sub2.size())
         boxSize = self.tab1.sub2
-        scale = QSize(int(boxSize.width()* factor), int(boxSize.height() * factor))
+        scale = QSize(int(boxSize.width() * factor), int(boxSize.height() * factor))
         row = self.listedFiles.currentRow()
         if (row == -1):
             row = 0
         if(not self.pendingReading):
             try:
-                img = QPixmap(self.imgToPixmap(self.tab1.forms[row].imgread))
+                img = QPixmap(self.imgToPixmap(self.tab1.forms[row].imgresize))
                 img = img.scaled(scale, Qt.KeepAspectRatio)
                 self.tab1.tab1.img1.setPixmap(img)
             except:
@@ -368,7 +370,7 @@ class MainWidget(QWidget):
             except:
                 self.tab1.tab2.img1.setText("Erro ao ler imagem.")
             try:
-                img = QPixmap(self.imgToPixmap(self.tab1.forms[row].imgundist))
+                img = QPixmap(self.imgToPixmap(self.tab1.forms[row].imgUndist))
                 img = img.scaled(scale, Qt.KeepAspectRatio)
                 self.tab1.tab3.img1.setPixmap(img)
             except:

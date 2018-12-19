@@ -406,17 +406,9 @@ class FormCV(Var):
         self.dayWithFillError = []  # filled in dataExtract(), stores days with other than 6 marks
         self.dayWithSumError = []  # filled in timeCalc(), stores days with impossible values
         self.daysWorked = []  # filled in timeCalc(), stores days that were successfully read
-        self.imgread = None  # imported image
-        self.imggray = None  # transformed to gray
-        self.imgresize = None  # resized to a normalized size
+        self.imgresize = None  # imported image
         self.imgcontour = None
-        self.imgblur = None  # gaussian blur filter applied
-        self.imgthresh = None  # inverted threshold image
-        self.imgundist = None  # undistorted version of imgresize
         self.imgnormal = None  # normalized image
-        self.imgshrink1 = None  # shrinked image
-        self.imgshrink2 = None
-        self.imgout = None  # output image
 
     def imgPreview(self, img, title = "Preview"):
         """
@@ -440,15 +432,15 @@ class FormCV(Var):
         :return:  the undistorted version of the input image, or a failure string "IMGUNDIST"
         """
         try:
-            self.imgread = cv2.imread(file)
-            self.imggray = cv2.cvtColor(self.imgread, cv2.COLOR_BGR2GRAY)  #import and convert into grayscale
-            width, height = self.imggray.shape
+            imgread = cv2.imread(file)
+            imggray = cv2.cvtColor(imgread, cv2.COLOR_BGR2GRAY)  #import and convert into grayscale
+            width, height = imggray.shape
             maxheight = 1024
             maxwidth = int(maxheight/(width/height))
-            self.imgresize = cv2.resize(self.imggray,(maxwidth, maxheight), interpolation = cv2.INTER_AREA)
-            self.imgblur = cv2.GaussianBlur(self.imgresize,(9,9),0) #apply gaussian blur
-            self.imgthresh = cv2.adaptiveThreshold(self.imgblur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV,3,2)
-            im2, contours, hierarchy = cv2.findContours(self.imgthresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #detect contours
+            self.imgresize = cv2.resize(imggray,(maxwidth, maxheight), interpolation = cv2.INTER_AREA)
+            imgblur = cv2.GaussianBlur(self.imgresize,(9,9),0) #apply gaussian blur
+            imgthresh = cv2.adaptiveThreshold(imgblur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV,3,2)
+            im2, contours, hierarchy = cv2.findContours(imgthresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #detect contours
             #Select contour with biggest area:
             cnt = contours[0]
             for c in contours:
@@ -471,8 +463,8 @@ class FormCV(Var):
             pts2 = np.float32(self.getCoordOrder(approx))
 
             M = cv2.getPerspectiveTransform(pts1,pts2)
-            self.imgundist = cv2.warpPerspective(self.imgresize,M,(self.w, self.h))
-            return self.imgundist
+            imgundist = cv2.warpPerspective(self.imgresize,M,(self.w, self.h))
+            return imgundist
         except:
             return "IMGUNDIST"
     
@@ -519,12 +511,12 @@ class FormCV(Var):
             imgthresh = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,17,25)
             imgblur = cv2.GaussianBlur(imgthresh,(13,13),0)
             ret,self.imgnormal = cv2.threshold(imgblur,180,255,cv2.THRESH_BINARY)
-            self.imgshrink1 = cv2.resize(self.imgnormal,(37, 95*self.f), interpolation = cv2.INTER_AREA)
-            ret,self.imgshrink1 = cv2.threshold(self.imgshrink1,180,255,cv2.THRESH_BINARY)
-            self.imgshrink2 = cv2.resize(self.imgshrink1, (37, 95*self.f), interpolation=cv2.INTER_AREA)
-            ret, imgshrink2 = cv2.threshold(self.imgshrink2, 220, 255, cv2.THRESH_BINARY_INV)
-            self.imgout = imgshrink2[1*self.f:94*self.f, 1:36] #deletes 1 pixel at all margins
-            return self.imgout
+            imgshrink1 = cv2.resize(self.imgnormal,(37, 95*self.f), interpolation = cv2.INTER_AREA)
+            ret,imgshrink1 = cv2.threshold(imgshrink1,180,255,cv2.THRESH_BINARY)
+            imgshrink2 = cv2.resize(imgshrink1, (37, 95*self.f), interpolation=cv2.INTER_AREA)
+            ret, imgshrink2 = cv2.threshold(imgshrink2, 220, 255, cv2.THRESH_BINARY_INV)
+            imgout = imgshrink2[1*self.f:94*self.f, 1:36] #deletes 1 pixel at all margins
+            return imgout
         except:
             return "IMGOUT"
 
