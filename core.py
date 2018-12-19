@@ -120,6 +120,7 @@ class DBhandler(Var):
         self.raCol = self.intToStr(self.raColInt)  # stores the list of RAs
         self.nameCol = self.dbdict['NOME']  # stores the list of names
         self.consultCol = self.dbdict['CONSULTORIA']  # stores the list of consulting names
+        self.consultList = sorted(set(self.consultCol))
 
     def intToStr(self, intList):
         strList = []
@@ -292,7 +293,7 @@ class certificateGenerator(DBhandler):
                   'NOV': 'Novembro',
                   'DEZ': 'Dezembro'}
 
-    def __init__(self, months):
+    def __init__(self, months, consult):
         super(certificateGenerator, self).__init__()
         self.fdict = {"RA" : "",
                       "NOME" : "",
@@ -302,22 +303,30 @@ class certificateGenerator(DBhandler):
                       "MES2" : "",
                       "ANO" : ""}
         self.months = months
-        self.certToGenerate = self.filterSumTime(months)
+        self.certToGenerate = self.filterSumTime(months, consult)
         self.certCount = len(self.certToGenerate["RA"])
 
-    def filterSumTime(self, months):
+    def filterSumTime(self, months, consult):
         output = {'RA': self.dbdict['RA'],
                   'NOME': self.dbdict['NOME'],
                   'CONSULTORIA': self.dbdict['CONSULTORIA'],
                   'TOTAL': ([0] * self.length)}
 
         for i in range(len(self.dbdict['NOME'])):
-            sumTime = self.dbdict[months[0]][i] + self.dbdict[months[1]][i]
-            if (sumTime % 1) <= 0.5:
-                sumTime = int(sumTime)
-            else:
-                sumTime = int(sumTime) + 1
-            output['TOTAL'][i] = sumTime
+            if(consult == "Todas"):
+                sumTime = self.dbdict[months[0]][i] + self.dbdict[months[1]][i]
+                if (sumTime % 1) <= 0.5:
+                    sumTime = int(sumTime)
+                else:
+                    sumTime = int(sumTime) + 1
+                output['TOTAL'][i] = sumTime
+            elif(self.dbdict["CONSULTORIA"][i] == consult):
+                sumTime = self.dbdict[months[0]][i] + self.dbdict[months[1]][i]
+                if (sumTime % 1) <= 0.5:
+                    sumTime = int(sumTime)
+                else:
+                    sumTime = int(sumTime) + 1
+                output['TOTAL'][i] = sumTime
 
         newoutput = {'RA': [],
                      'NOME': [],
@@ -368,7 +377,7 @@ class errorLogHandler(Var):
             text = stream.read()
             return text
 
-    def errorLogWriter(self, errors, warnings, errorLog):
+    def errorLogWriter(self, errorLog):
         """
         Writes the errorLog.txt.
         :param errors: number of errors detected
@@ -376,8 +385,6 @@ class errorLogHandler(Var):
         :param errorLog: list of operations completed
         """
         with open(self.errorLogFile, 'w') as file_handler:
-            file_handler.write("Erros fatais: {}     ".format(str(errors)))
-            file_handler.write("Imagens com erros de preenchimento/soma: {}\n\n".format(str(warnings)))
             for item in errorLog:
                 file_handler.write("{}\n".format(item))
 
@@ -706,6 +713,7 @@ class ImgRead(FormCV):
         self.hasWarnings = False
         self.hasFillError = False
         self.hasSumError = False
+        self.hasHeaderError = False
         self.file = file
         self.imgUndist = self.imgUndistort(self.file)
         if(len(self.imgUndist) != len("IMGUNDIST")):
@@ -763,9 +771,11 @@ class ImgRead(FormCV):
         for line in self.raRaw:
             if (line.count(1) != 1):
                 errors.append("RA")
+                self.hasHeaderError = True
         for line in self.periodRaw:
             if (line.count(1) != 1):
                 errors.append("PERIOD")
+                self.hasHeaderError = True
         return errors
 
     def grayToBGR(self, src):
@@ -918,7 +928,7 @@ class FileReader():
         return errorLog
 
     def outputLog(self):
-        self.io.errorLogWriter(self.var.errors, self.var.warnings, self.log)
+        self.io.errorLogWriter(self.log)
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         self.io.errorLogExporter(os.path.join(self.var.logDir,
                                               (self.var.errorLogFile[:-4]

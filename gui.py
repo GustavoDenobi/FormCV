@@ -151,12 +151,23 @@ class MainWidget(QWidget):
             self.pendingReading = False
             imgCount = len(self.tab1.fileList)
             self.tab1.forms = []
-            count = 1
+            count = 0
             for file in self.tab1.fileList:
+                self.tab1.forms.append(ImgRead(file))
+                if(self.tab1.forms[count].terminalError):
+                    self.listedFiles.item(count).setBackground(QBrush(QColor(250, 150, 150)))
+                elif(self.tab1.forms[count].hasHeaderError):
+                    self.listedFiles.item(count).setBackground(QBrush(QColor(250, 200, 100)))
+                elif(self.tab1.forms[count].hasWarnings):
+                    self.listedFiles.item(count).setBackground(QBrush(QColor(250, 250, 50)))
+                else:
+                    self.listedFiles.item(count).setBackground(QBrush(QColor(150, 250, 150)))
+                count += 1
                 self.outputToConsole("Lendo imagem " + str(count) + " de " + str(imgCount) + "...")
                 self.refreshProgBar(max = imgCount, current = count)
-                count += 1
-                self.tab1.forms.append(ImgRead(file))
+
+
+
             self.tab1.reading = FileReader(self.tab1.forms)
             self.changeViews()
             self.refreshLog()
@@ -167,21 +178,30 @@ class MainWidget(QWidget):
             self.outputToConsole("Nenhuma imagem foi selecionada.")
 
     def runGenerateCertificates(self):
-        months = []
-        months.append(self.tab3.firstMonth)
-        months.append(self.tab3.secondMonth)
-        gen = certificateGenerator(months)
-        count = 0
-        for cert in range(gen.certCount):
-            gen.saveCertificate(cert)
-            count += 1
-            self.refreshCertProgBar(max=gen.certCount, current=count)
+        dlg1 = QFileDialog(caption = "Local para salvar certificados", directory=self.var.certificateDir)
+        dlg1.setFileMode(QFileDialog.Directory)
+        filenames = QStringListModel()
 
-        self.tab3.btn_Generate.setEnabled(False)
-        self.outputToConsole("Sucesso! "
-                             + str(gen.certCount)
-                             + " certificados gerados. Arquivos salvos em:  "
-                             + self.var.certificateDir)
+        if dlg1.exec_():
+            filename = dlg1.selectedFiles()[0]
+            self.var.paramTuner("certificateDir", filename)
+            self.tab4.label1.setText(self.var.certificateDir)
+
+            months = []
+            months.append(self.tab3.firstMonth)
+            months.append(self.tab3.secondMonth)
+            gen = certificateGenerator(months, self.tab3.consult)
+            count = 0
+            for cert in range(gen.certCount):
+                gen.saveCertificate(cert)
+                count += 1
+                self.refreshCertProgBar(max=gen.certCount, current=count)
+
+            self.tab3.btn_Generate.setEnabled(False)
+            self.outputToConsole("Sucesso! "
+                                 + str(gen.certCount)
+                                 + " certificados gerados. Arquivos salvos em:  "
+                                 + self.var.certificateDir)
 
     def runConsultantManager(self):
         txt = self.tab3.box3.lineRA.text()
@@ -290,6 +310,13 @@ class MainWidget(QWidget):
             self.tab3.btn_Generate.setEnabled(True)
             self.refreshCertProgBar(reset=True)
         self.outputToConsole("Segundo mês selecionado: " + self.tab3.secondMonth)
+
+    def selConsult(self, index):
+        if(index > 0):
+            self.tab3.consult = self.database.consultList[index - 1]
+        else:
+            self.tab3.consult = "Todas"
+        self.outputToConsole("Consultoria selecionada: " + self.tab3.consult)
 
     def searchDB(self):
         if(len(self.tab3.foundItems) > 0):
@@ -555,6 +582,7 @@ class MainWidget(QWidget):
     def get_tab3(self):
         self.tab3.firstMonth = []
         self.tab3.secondMonth = []
+        self.tab3.consult = "Todas"
         self.tab3.searchText = ""
         self.tab3.foundItems = []
 
@@ -567,6 +595,7 @@ class MainWidget(QWidget):
         self.tab3.box1.searchBar = QWidget()
         self.tab3.box1.searchBar.layout = QHBoxLayout()
         self.tab3.search = QLineEdit()
+        self.tab3.search.setPlaceholderText(" Pesquise pelo RA, nome ou consultoria...")
         self.tab3.search.textChanged.connect(self.changeSearchText)
         self.tab3.btn_Search = QPushButton("Pesquisar")
         self.tab3.btn_Search.clicked.connect(self.searchDB)
@@ -588,6 +617,10 @@ class MainWidget(QWidget):
 
         self.tab3.box2 = QGroupBox("Gerar Certificados")
         self.tab3.box2.layout = QVBoxLayout(self)
+        self.tab3.label_Generate = QLabel("Selecione 2 meses de exercício e uma consultoria."
+                                          + " Para gerar os certificados, clique em Gerar Certificados.")
+        self.tab3.label_Generate.setAlignment(Qt.AlignCenter)
+        self.tab3.box2.layout.addWidget(self.tab3.label_Generate)
         self.tab3.box2.buttons = QWidget()
         self.tab3.box2.buttons.layout = QHBoxLayout()
         self.tab3.monthSel1 = QComboBox()
@@ -598,6 +631,11 @@ class MainWidget(QWidget):
         self.tab3.monthSel2.addItems(self.var.months)
         self.tab3.monthSel2.activated.connect(self.selMonth2)
         self.tab3.box2.buttons.layout.addWidget(self.tab3.monthSel2)
+        self.tab3.consultSel = QComboBox()
+        self.tab3.consultSel.addItem("Todas")
+        self.tab3.consultSel.addItems(self.database.consultList)
+        self.tab3.consultSel.activated.connect(self.selConsult)
+        self.tab3.box2.buttons.layout.addWidget(self.tab3.consultSel)
         self.tab3.btn_Generate = QPushButton('Gerar Certificados')
         self.tab3.btn_Generate.setEnabled(False)
         self.tab3.btn_Generate.clicked.connect(self.runGenerateCertificates)
@@ -667,36 +705,33 @@ class MainWidget(QWidget):
                 self.outputToConsole("Tipo de arquivo inválido.")
 
     def changeConfig1(self):
-        dlg1 = QFileDialog()
+        dlg1 = QFileDialog(directory=self.var.certificateDir)
         dlg1.setFileMode(QFileDialog.Directory)
         filenames = QStringListModel()
 
         if dlg1.exec_():
-            dlg1.setDirectory(self.var.certificateDir)
             filename = dlg1.selectedFiles()[0]
             self.var.paramTuner("certificateDir", filename)
             self.tab4.label1.setText(self.var.certificateDir)
             self.outputToConsole("Configuração atualizada.")
 
     def changeConfig2(self):
-        dlg2 = QFileDialog()
+        dlg2 = QFileDialog(directory=self.var.logDir)
         dlg2.setFileMode(QFileDialog.Directory)
         filenames = QStringListModel()
 
         if dlg2.exec_():
-            dlg2.setDirectory(self.var.logDir)
             filename = dlg2.selectedFiles()[0]
             self.var.paramTuner("logDir", filename)
             self.tab4.label2.setText(self.var.logDir)
             self.outputToConsole("Configuração atualizada.")
 
     def changeConfig3(self):
-        dlg3 = QFileDialog()
+        dlg3 = QFileDialog(directory=self.var.imgDir)
         dlg3.setFileMode(QFileDialog.Directory)
         filenames = QStringListModel()
 
         if dlg3.exec_():
-            dlg3.setDirectory(self.var.imgDir)
             filename = dlg3.selectedFiles()[0]
             self.var.paramTuner("imgDir", filename)
             self.tab4.label3.setText(self.var.imgDir)
@@ -745,6 +780,9 @@ class MainWidget(QWidget):
             self.tab4.label0.setStyleSheet("")
             self.outputToConsole("Configuração atualizada:   Banco de Horas - " + txt)
             self.loadDatabase()
+            self.tab3.consultSel.clear()
+            self.tab3.consultSel.addItems(self.database.consultList)
+            self.tab3.consult = "Todas"
         else:
             self.tab4.label0.setStyleSheet("color: red;")
             self.outputToConsole("Arquivo inexistente.")
@@ -869,12 +907,26 @@ class MainWidget(QWidget):
         self.about.setMargin(16)
         self.tab5.layout.addWidget(self.about)
 
-        self.tab5.logos = QWidget()
-        self.tab5.logos.layout = QHBoxLayout()
-        #LOGO INOVEC
-        #LOGO ICETI
-        #LOGO UNICESUMAR
-        self.tab5.layout.addWidget(self.tab5.logos)
+#        self.tab5.logos = QWidget()
+#        self.tab5.logos.layout = QVBoxLayout()
+#        self.tab5.logos.empresarial = QLabel()
+#        self.tab5.logos.empresarial.img = QPixmap("EMPRESARIAL.png")
+#        self.tab5.logos.empresarial.img.scaled(5,1, Qt.KeepAspectRatio)
+#        self.tab5.logos.empresarial.setPixmap(self.tab5.logos.empresarial.img)
+#        self.tab5.logos.inovec = QLabel()
+#        self.tab5.logos.inovec.img = QPixmap("LOGO.png")
+#        self.tab5.logos.inovec.img.scaled(5,1, Qt.KeepAspectRatio)
+#        self.tab5.logos.inovec.setPixmap(self.tab5.logos.inovec.img)
+#        self.tab5.logos.formcv = QLabel()
+#        self.tab5.logos.formcv.img = QPixmap("FORMCV.png")
+#        self.tab5.logos.formcv.img.scaled(5,1, Qt.KeepAspectRatio)
+#        self.tab5.logos.formcv.setPixmap(self.tab5.logos.formcv.img)
+#        self.tab5.logos.layout.addWidget(self.tab5.logos.empresarial)
+#        self.tab5.logos.layout.addWidget(self.tab5.logos.inovec)
+#        self.tab5.logos.layout.addWidget(self.tab5.logos.formcv)
+#        self.tab5.logos.setLayout(self.tab5.logos.layout)
+
+#        self.tab5.layout.addWidget(self.tab5.logos)
 
         self.tab5.setLayout(self.tab5.layout)
 
