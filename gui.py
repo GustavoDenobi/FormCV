@@ -82,7 +82,10 @@ class MainWidget(QWidget):
         for column, key in enumerate(self.database.dbdict):
             self.table.horizontalHeaderItem(column).setTextAlignment(Qt.AlignHCenter)
             for row, item in enumerate(self.database.dbdict[key]):
-                newitem = QTableWidgetItem(str(item))
+                if(key in self.var.months):
+                    newitem = QTableWidgetItem(str(float(item)))
+                else:
+                    newitem = QTableWidgetItem(str(item))
                 newitem.setTextAlignment(Qt.AlignCenter)
                 self.table.setItem(row, column, newitem)
         self.table.resizeColumnsToContents()
@@ -100,7 +103,7 @@ class MainWidget(QWidget):
                 for file in files:
                     filepath = subdir + os.sep + file
                     if (file[file.index('.'):] in self.var.cvFormats):
-                        fileList.append(filepath)
+                        fileList.append(QDir.toNativeSeparators(filepath))
             self.tab1.fileList = fileList
             self.getList()
             self.outputToConsole(str(len(self.tab1.fileList)) + " arquivos válidos adicionadas à lista. "
@@ -116,7 +119,7 @@ class MainWidget(QWidget):
             for file in filenames:
                 for format in self.var.cvFormats:
                     if file.endswith(format):
-                        self.tab1.fileList.append(file)
+                        self.tab1.fileList.append(QDir.toNativeSeparators(file))
             self.getList()
             self.outputToConsole(str(len(self.tab1.fileList)) + " arquivos válidos adicionadas à lista. "
                                  + "Aguardando leitura.")
@@ -143,6 +146,7 @@ class MainWidget(QWidget):
             self.tab1.fileList = []
             self.tab1.forms = []
             self.tab1.reading = None
+            self.pendingReading = False
             self.clearViews()
             self.outputToConsole("Banco de horas atualizado com sucesso.")
             self.btn_Save.setEnabled(False)
@@ -177,7 +181,7 @@ class MainWidget(QWidget):
             self.changeViews()
             self.refreshLog()
             self.btn_Save.setEnabled(True)
-            self.btn_Save.clicked.connect(self.saveDB)
+
             self.outputToConsole("Leitura de imagens completa. Confira os detalhes e clique em 'Salvar Dados'.")
         else:
             self.outputToConsole("Nenhuma imagem foi selecionada.")
@@ -189,6 +193,7 @@ class MainWidget(QWidget):
 
         if dlg1.exec_():
             filename = dlg1.selectedFiles()[0]
+            filename = QDir.toNativeSeparators(filename)
             self.var.paramTuner("certificateDir", filename)
             self.tab4.label1.setText(self.var.certificateDir)
 
@@ -197,6 +202,7 @@ class MainWidget(QWidget):
             months.append(self.tab3.secondMonth)
             gen = certificateGenerator(months, self.tab3.consult)
             count = 0
+
             for cert in range(gen.certCount):
                 gen.saveCertificate(cert)
                 count += 1
@@ -480,6 +486,7 @@ class MainWidget(QWidget):
         self.progBar = QProgressBar()
         self.btn_Save = QPushButton("Salvar dados")
         self.btn_Save.setEnabled(False)
+        self.btn_Save.clicked.connect(self.saveDB)
         self.tab1.sub1.manageSelection.layout.addWidget(self.btn_Folder)
         self.tab1.sub1.manageSelection.layout.addWidget(self.btn_Files)
         self.tab1.sub1.manageSelection.layout.addWidget(self.btn_Clear)
@@ -702,6 +709,7 @@ class MainWidget(QWidget):
         if dlg0.exec_():
             dlg0.setDirectory(self.var.databaseFile)
             filename = dlg0.selectedFiles()[0]
+            filename = QDir.toNativeSeparators(filename)
             if(filename.endswith(".csv")):
                 self.var.paramTuner("databaseFile", filename)
                 self.outputToConsole("Configuração atualizada.")
@@ -717,6 +725,7 @@ class MainWidget(QWidget):
 
         if dlg1.exec_():
             filename = dlg1.selectedFiles()[0]
+            filename = QDir.toNativeSeparators(filename)
             self.var.paramTuner("certificateDir", filename)
             self.tab4.label1.setText(self.var.certificateDir)
             self.outputToConsole("Configuração atualizada.")
@@ -728,6 +737,7 @@ class MainWidget(QWidget):
 
         if dlg2.exec_():
             filename = dlg2.selectedFiles()[0]
+            filename = QDir.toNativeSeparators(filename)
             self.var.paramTuner("logDir", filename)
             self.tab4.label2.setText(self.var.logDir)
             self.outputToConsole("Configuração atualizada.")
@@ -739,6 +749,7 @@ class MainWidget(QWidget):
 
         if dlg3.exec_():
             filename = dlg3.selectedFiles()[0]
+            filename = QDir.toNativeSeparators(filename)
             self.var.paramTuner("imgDir", filename)
             self.tab4.label3.setText(self.var.imgDir)
             self.outputToConsole("Configuração atualizada.")
@@ -782,6 +793,7 @@ class MainWidget(QWidget):
     def changeLabel0(self):
         txt = self.tab4.label0.text()
         if(self.checkFileExists(txt)):
+            self.tab4.label0.setText(QDir.toNativeSeparators(txt))
             self.var.paramTuner("databaseFile", txt)
             self.tab4.label0.setStyleSheet("")
             self.outputToConsole("Configuração atualizada:   Banco de Horas - " + txt)
@@ -795,14 +807,17 @@ class MainWidget(QWidget):
 
     def changeLabel1(self):
         self.var.paramTuner("certificateDir", self.tab4.label1.text())
+        self.tab4.label1.setText(QDir.toNativeSeparators(self.tab4.label1.text()))
         self.outputToConsole("Configuração atualizada.")
 
     def changeLabel2(self):
         self.var.paramTuner("logDir", self.tab4.label2.text())
+        self.tab4.label2.setText(QDir.toNativeSeparators(self.tab4.label2.text()))
         self.outputToConsole("Configuração atualizada.")
 
     def changeLabel3(self):
         self.var.paramTuner("imgDir", self.tab4.label3.text())
+        self.tab4.label3.setText(QDir.toNativeSeparators(self.tab4.label3.text()))
         self.outputToConsole("Configuração atualizada.")
 
     def get_tab4(self):

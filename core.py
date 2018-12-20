@@ -21,6 +21,9 @@ creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. 
                   'Versão: ' + VERSION
                   )
 
+
+
+
 def errorPopup():
     """ Returns an error message in a popup """
     print('ERROR')
@@ -249,7 +252,7 @@ class DBhandler(Var):
 class pdfCreator():
 
     def __init__(self, certificateInfo, dir):
-        self.template = Image.open("/img/template.png")
+        self.template = Image.open("img\\template.png")
         self.draw = ImageDraw.Draw(self.template)
         self.x = 500
         self.y = 800
@@ -429,6 +432,15 @@ class FormCV(Var):
         self.imgcontour = None
         self.imgnormal = None  # normalized image
 
+    def imread(self, filename, flags=cv2.IMREAD_COLOR, dtype=np.uint8):
+        try:
+            n = np.fromfile(filename, dtype)
+            img = cv2.imdecode(n, flags)
+            return img
+        except Exception as e:
+            print(e)
+            return None
+
     def imgPreview(self, img, title = "Preview"):
         """
         Shows a window with the given image
@@ -451,7 +463,7 @@ class FormCV(Var):
         :return:  the undistorted version of the input image, or a failure string "IMGUNDIST"
         """
         try:
-            imgread = cv2.imread(file)
+            imgread = self.imread(file)
             imggray = cv2.cvtColor(imgread, cv2.COLOR_BGR2GRAY)  #import and convert into grayscale
             width, height = imggray.shape
             maxheight = 1024
@@ -483,6 +495,7 @@ class FormCV(Var):
 
             M = cv2.getPerspectiveTransform(pts1,pts2)
             imgundist = cv2.warpPerspective(self.imgresize,M,(self.w, self.h))
+
             return imgundist
         except:
             return "IMGUNDIST"
@@ -961,3 +974,4 @@ class FileReader():
             return True
         except:
             return False
+

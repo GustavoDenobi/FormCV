@@ -1,889 +1,170 @@
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143200.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151254.jpg
     RA: 15016382
     NOME: Alana Oliveira Fernandes
     CONSULTORIA: Ambivet
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
-    HORAS: 16.75
+    HORAS: 4.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143215.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151304.jpg
     RA: 14034602
     NOME: Aline Erika S. Yui
     CONSULTORIA: Ambivet
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
-    HORAS: 20.0
-        Dias com erros de preenchimento: [27]
+    HORAS: 12.5
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143223.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151310.jpg
     RA: 15022742
     NOME: Amanda Christiane O. Moro
     CONSULTORIA: Ambivet
     PERIODO: NOV
     ANO: 18
+    HORAS: 4.0
+        Dias com erros de preenchimento: [15]
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151317.jpg
+    RA: 17395462
+    NOME: Ana Cecília C. Piaza
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
+    ANO: 18
     HORAS: 2.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143229.jpg
-    RA: 15022742
-    NOME: Amanda Christiane O. Moro
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 24.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143238.jpg
-    RA: 17395462
-    NOME: Ana Cecilia C. Piaza
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 18.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143254.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151323.jpg
     RA: 17180572
     NOME: Armandio Campagnolo Neto
     CONSULTORIA: Ambivet
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
-    HORAS: 22.75
+    HORAS: 2.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143303.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151329.jpg
     RA: 17012932
     NOME: Beatriz Carolyne Quina Valente
     CONSULTORIA: Ambivet
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
-    HORAS: 19.5
+    HORAS: 3.75
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143312.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151335.jpg
     RA: 14021972
-    NOME: Debora Telles Campos Lucas
+    NOME: Debora Telles campos Lucas
     CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 20.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143321.jpg
-    RA: 16409932
-    NOME: Fernanda Luiza Buzzo Petry
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 19.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143329.jpg
-    RA: 15216552
-    NOME: Heverton Loquetti Fernandes
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 22.0
-        Dias com erros de preenchimento: [18]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143345.jpg
-    RA: 17048492
-    NOME: Isabela Brujnolo de Moraes
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143356.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 0.0
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143405.jpg
-    RA: 17302112
-    NOME: Larissa Silva de Oliveira
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 6.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143413.jpg
-    RA: 17053642
-    NOME: Larissa Santana Wolff
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 20.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143422.jpg
-    RA: 15209782
-    NOME: Mariana Martinato Guelles
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143431.jpg
-    RA: 18131762
-    NOME: Maria Stefani de Brito
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 21.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143443.jpg
-    RA: 16139412
-    NOME: Matheus Marroni Bodnariuc
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.5
-        Dias com erros de preenchimento: [26]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143454.jpg
-    RA: 15386672
-    NOME: Natalia de Souza Sbampato
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 10.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143524.jpg
-    RA: 15010752
-    NOME: Paula Karolaine B. dos Santos
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 26.75
-        Dias com erros de preenchimento: [18]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143539.jpg
-    RA: 17345232
-    NOME: Thais Cristina Biaji
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 18.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ambivet\20181113_143604.jpg
-    RA: 16073612
-    NOME: Yasmin Camilo Leones
-    CONSULTORIA: Ambivet
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ComJr\20181113_112829.jpg
-    RA: 18401292
-    NOME: Beatriz Brunetta Pires
-    CONSULTORIA: ComJr
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 4.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ComJr\20181113_112840.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 13.0
-        Dias com erros de preenchimento: [1]
-    Erro de preenchimento no RA.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ComJr\20181113_112848.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 6.0
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150424.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 17.0
-    Erro de preenchimento no RA.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150514.jpg
-    RA: 17187962
-    NOME: Hugo Felype
-    CONSULTORIA: ConModa
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 15.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150554.jpg
-    RA: 17517832
-    NOME: Barbara Fouto Zanoni
-    CONSULTORIA: ConModa
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150605.jpg
-    RA: 17041962
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150613.jpg
-    RA: 18531772
-    NOME: Marcela Muller
-    CONSULTORIA: ConModa
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 14.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150631.jpg
-    RA: 17192432
-    NOME: Larissa Evangelista
-    CONSULTORIA: ConModa
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 8.0
-        Dias com erros de preenchimento: [16, 18, 25]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150641.jpg
-    RA: 17170412
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150657.jpg
-    RA: 17141852
-    NOME: Luan Henrique Apolinario Alves
-    CONSULTORIA: ConModa
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\ConModa\20181113_150705.jpg
-    RA: 18012702
-    NOME: Giulia Bortolon Peres
-    CONSULTORIA: ConModa
-    PERIODO: 
-    ANO: 
-    HORAS: 15.0
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151321.jpg
-    RA: 14184272
-    NOME: Alisson Diogo dos Santos
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 56.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151328.jpg
-    RA: 18258422
-    NOME: Ana Carolina da Costa Valdevieso
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 27.0
-        Dias com erros de preenchimento: [4]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151336.jpg
-    RA: 15012892
-    NOME: Claudia Rafaela Zolli Paula
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 19.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151352.jpg
-    RA: 15166242
-    NOME: Gabriel Correia da Silva
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 33.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151359.jpg
-    RA: 15140842
-    NOME: Gabrielly Souza Chagas
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 30.5
-        Dias com erros de preenchimento: [2, 3, 29]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151411.jpg
-    RA: 15011592
-    NOME: Juan Carlo Canonico S. Valladares
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 19.5
-        Dias com erros de preenchimento: [8, 22]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151422.jpg
-    RA: 15391192
-    NOME: Kaue Felix de Santana
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 9.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151431.jpg
-    RA: 15176502
-    NOME: Mathues Davi da Costa Manholer
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 44.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151441.jpg
-    RA: 14139882
-    NOME: Mathueus Nunes Sato
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 27.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151452.jpg
-    RA: 14327222
-    NOME: Northon Aldrovandi Paganella
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 34.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151500.jpg
-    RA: 15005912
-    NOME: Pedro Henrique de Farias Niza
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 63.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151507.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 0.0
-        Dias com erros de preenchimento: [4, 5, 7]
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Consec\20181113_151517.jpg
-    RA: 14051592
-    NOME: Thuany Renata da Silva
-    CONSULTORIA: Consec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 5.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115416.jpg
-    RA: 16481332
-    NOME: Guilherme Mendonca Alegria
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 12.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115424.jpg
-    RA: 17220782
-    NOME: Isabela Goulart de Oliveira
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 14.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115436.jpg
-    RA: 17018122
-    NOME: Amanda R. do Nascimento
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 6.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115444.jpg
-    RA: 17053542
-    NOME: Loiani Oliveira Santana 
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 11.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115452.jpg
-    RA: 17222892
-    NOME: Matheus Zirondi Roloff
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 11.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115508.jpg
-    RA: 18276902
-    NOME: Micaeli Silva Belgamazzi
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 21.0
-        Dias com erros de preenchimento: [14]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115522.jpg
-    RA: 17092762
-    NOME: Mariana Conceicao da Silva 
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 18.25
-        Dias com erros de preenchimento: [9]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_115529.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 2.25
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_132318.jpg
-    RA: 15271802
-    NOME: Gionava Cordioli
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 2.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Ecovida\20181113_132330.jpg
-    RA: 14145932
-    NOME: Adrielli Maria dos Reis 
-    CONSULTORIA: Ecovida
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 2.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152041.jpg
-    RA: 16157912
-    NOME: Gustavo Fellipe Acioli Denobi
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 61.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152058.jpg
-    RA: 18309082
-    NOME: Gabrielle de Castro Santos
-    CONSULTORIA: Inovec
-    PERIODO: DEZ
-    ANO: 18
-    HORAS: 151.0
-        Dias com erros de preenchimento: [7]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152106.jpg
-    RA: 15022652
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 16.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152116.jpg
-    RA: 15015602
-    NOME: Gustavo Pires Liberati
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 67.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152124.jpg
-    RA: 14022952
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 23.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152135.jpg
-    RA: 16058382
-    NOME: Isadora Fonseca Araujo
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 70.25
-        Dias com erros de preenchimento: [22]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152145.jpg
-    RA: 18015872
-    NOME: Fabricio Simonelli Tanguas
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 25.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152155.jpg
-    RA: 17449602
-    NOME: Abel Tonon Segundo
-    CONSULTORIA: Inovec
-    PERIODO: 
-    ANO: 
-    HORAS: 13.75
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152205.jpg
-    RA: 16074832
-    NOME: Lucas Gustavo Fritzen
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 22.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152217.jpg
-    RA: 18258382
-    NOME: Ruan Felipe Siqueira Antunes
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 26.0
-        Dias com erros de preenchimento: [18]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Inovec\20181113_152225.jpg
-    RA: 18376562
-    NOME: Joao Victor K. Moura
-    CONSULTORIA: Inovec
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 44.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142239.jpg
-    RA: 18058102
-    NOME: Alan Douglas C. Morais
-    CONSULTORIA: MM Design
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
     HORAS: 13.25
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142258.jpg
-    RA: 18290692
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151341.jpg
+    RA: 16409932
+    NOME: Fernanda Luiza Buzzo Petry
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 14.0
+    HORAS: 6.5
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142309.jpg
-    RA: 17480292
-    NOME: Nathalia Lopes Doro
-    CONSULTORIA: MM Design
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 7.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142317.jpg
-    RA: 17376262
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 6.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142432.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142443.jpg
-    RA: 16312382
-    NOME: Gisela de Moura R. Marques
-    CONSULTORIA: MM Design
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 6.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142451.jpg
-    RA: 16417322
-    NOME: Bruno Mollinari da Rocha
-    CONSULTORIA: MM Design
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151348.jpg
+    RA: 15216552
+    NOME: Heverton Loquetti Fernandes
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
     HORAS: 4.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\MM design\20181113_142501.jpg
-    RA: 18012200
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151355.jpg
+    RA: 17048492
+    NOME: Isabela Brujnolo de Moraes
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 10.0
+    HORAS: 0.0
+        Dias com erros de preenchimento: [8]
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Nutricon\20181113_145728.jpg
-    RA: 16223852
-    NOME: Jessica Franco da Silva
-    CONSULTORIA: Nutricon
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151402.jpg
+    RA: 15100122
+    NOME: Larissa Alves de Oliveira
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 2.75
+    HORAS: 4.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Nutricon\20181113_145736.jpg
-    RA: 16064492
-    NOME: Barbara Ribeiro Tonsic
-    CONSULTORIA: Nutricon
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151409.jpg
+    RA: 17053642
+    NOME: Larissa Santana Wolff
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 11.0
+    HORAS: 2.5
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Nutricon\20181113_145744.jpg
-    RA: 16064462
-    NOME: Gabriela F. da Silva Lima
-    CONSULTORIA: Nutricon
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151418.jpg
+    RA: 18131762
+    NOME: Maria Stefani de Brito
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 8.0
+    HORAS: 5.75
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Nutricon\20181113_145751.jpg
-    RA: 17025312
-    NOME: Carolina Zanconi Goncalves 
-    CONSULTORIA: Nutricon
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 1.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Nutricon\20181113_145803.jpg
-    RA: 17013962
-    NOME: Vanessa Recalte 
-    CONSULTORIA: Nutricon
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 3.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Nutricon\20181113_145815.jpg
-    RA: 16228872
-    NOME: Rafaela Gilo Sanches
-    CONSULTORIA: Nutricon
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151427.jpg
+    RA: 15209782
+    NOME: Mariana Martinato Guelles
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
     HORAS: 2.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144515.jpg
-    RA: 15166372
-    NOME: Luana Rohling Silva
-    CONSULTORIA: Oriente
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151440.jpg
+    RA: 16139412
+    NOME: Matheus Marroni Bodnariuc
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 64.5
+    HORAS: 3.25
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144524.jpg
-    RA: 15203402
-    NOME: Ediely Ferreira Casagrande 
-    CONSULTORIA: Oriente
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151449.jpg
+    RA: 15010752
+    NOME: Paula Karolaine B. dos Santos
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 55.0
+    HORAS: 14.25
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144540.jpg
-    RA: 15085452
-    NOME: Jackeline baraldo Zampar
-    CONSULTORIA: Oriente
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151506.jpg
+    RA: 15386672
+    NOME: Natália de Souza Sbampato
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 22.25
+    HORAS: 2.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144556.jpg
-    RA: 15029162
-    NOME: Thays de Fatima Zandona
-    CONSULTORIA: Oriente
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ambivet\20181207_151515.jpg
+    RA: 17345232
+    NOME: Thaís Cristina Biaji
+    CONSULTORIA: Ambivet
+    PERIODO: NOV
     ANO: 18
-    HORAS: 48.5
+    HORAS: 8.5
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144604.jpg
-    RA: 16449272
-    NOME: Bruna Yurie Arata
-    CONSULTORIA: Oriente
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Conage\20181207_160121.jpg
+    RA: 12208472
+    NOME: ?
+    CONSULTORIA: ?
+    PERIODO: NOV
     ANO: 18
-    HORAS: 44.5
-        Dias com erros de preenchimento: [24]
+    HORAS: 4.0
+    Erro de preenchimento no RA.
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144612.jpg
-    RA: 15018272
-    NOME: Lairyani Marques Corsi
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 46.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144621.jpg
-    RA: 15015692
-    NOME: Marilia da Mata Silva
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 61.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144633.jpg
-    RA: 17224952
-    NOME: Raissa Borelli Ferraneto
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 23.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144641.jpg
-    RA: 15388362
-    NOME: Karina Andrea Ishihara Tsuneto
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 40.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144701.jpg
-    RA: 16064282
-    NOME: Dieli Corsi Pontes
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 41.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144710.jpg
-    RA: 16074282
-    NOME: Marian Monteiro Nagi
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 3.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181113_144726.jpg
-    RA: 17188452
-    NOME: Carolina Tavela 
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 13.0
-        Dias com erros de preenchimento: [3]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181116_113815.jpg
-    RA: 15385822
-    NOME: Aparecida N. Silva
-    CONSULTORIA: Oriente
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 22.25
-        Dias com erros de preenchimento: [17]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Oriente\20181116_113823.jpg
-    RA: 
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Conage\20181207_160131.jpg
+    RA: 109672
     NOME: ?
     CONSULTORIA: ?
     PERIODO: 
     ANO: 
-    HORAS: 22.5
-        Dias com erros de preenchimento: [31]
+    HORAS: 0.0
+        Dias com erros de preenchimento: [12]
+        Dias com horas erradas: [13, 19]
     Erro de preenchimento no RA.
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093024.jpg
-    RA: 17247012
-    NOME: Thais Cristiane C. Rampasi
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 29.0
-        Dias com erros de preenchimento: [30]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093037.jpg
-    RA: 16308002
-    NOME: Fernanda Gaio Balestrim
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 26.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093052.jpg
-    RA: 16203842
-    NOME: Jeniffer Zampoli Martins
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 6.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093121.jpg
-    RA: 15012612
-    NOME: Hellen Braido Avanco
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 19.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093130.jpg
-    RA: 13003832
-    NOME: Nicoly Tardiola Pereira
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 10.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093156.jpg
-    RA: 17054102
-    NOME: Mariana Wendausen Donega
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 17.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093205.jpg
-    RA: 15007692
-    NOME: Tony Franca Cargnin
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 23.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093213.jpg
-    RA: 17329942
-    NOME: Isabella A. Garcia Souza
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 24.75
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093222.jpg
-    RA: 0825252
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 17.0
-    Erro de preenchimento no RA.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Projecta\20181113_093230.jpg
-    RA: 15006012
-    NOME: Renan Rodrigues Gomes
-    CONSULTORIA: Projecta 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 27.25
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Toque Gourmet\20181113_153627.jpg
-    RA: 18061152
-    NOME: Maria Luiza Zampar de Souza
-    CONSULTORIA: Toque Gourmet 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 6.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Toque Gourmet\20181113_153635.jpg
-    RA: 18124392
-    NOME: Juliana Rodrigues de Oliveira Aldrigue
-    CONSULTORIA: Toque Gourmet 
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 5.5
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Trading\20181207_160429.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Consec\20181207_160429.jpg
     RA: 15166242
     NOME: Gabriel Correia da Silva
     CONSULTORIA: Consec
@@ -891,7 +172,7 @@ IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Trading\20181207_160429.jpg
     ANO: 18
     HORAS: 11.25
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Trading\20181207_160443.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Consec\20181207_160443.jpg
     RA: 15011592
     NOME: Juan Carlo Canonico S. Valladares
     CONSULTORIA: Consec
@@ -899,7 +180,7 @@ IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Trading\20181207_160443.jpg
     ANO: 18
     HORAS: 4.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Trading\20181207_160554.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Consec\20181207_160554.jpg
     RA: 17216752
     NOME: Pedro Henrique Quirino dos Santos
     CONSULTORIA: Consec
@@ -907,104 +188,182 @@ IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Trading\20181207_160554.jpg
     ANO: 18
     HORAS: 11.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094833.jpg
-    RA: 18825522
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: JAN
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Ecovida\20181207_150835.jpg
+    RA: 18276902
+    NOME: Micaeli Silva Belgamazzi
+    CONSULTORIA: Ecovida
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 4.0
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Inovec\20181207_145639.jpg
+    RA: 18015872
+    NOME: Fabrício Simonelli Tanguas
+    CONSULTORIA: Inovec
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 16.25
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\MM dedign\20181207_155052.jpg
+    RA: 18376262
+    NOME: Dhonatan Urzulino Biik
+    CONSULTORIA: MM Design 
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 2.75
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\MM dedign\20181207_155101.jpg
+    RA: 18058102
+    NOME: Alan Douglas C. Morais
+    CONSULTORIA: MM Design 
+    PERIODO: NOV
+    ANO: 28
+    HORAS: 9.5
+        Dias com erros de preenchimento: [13, 21]
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\MM dedign\20181207_155110.jpg
+    RA: 17480292
+    NOME: Nathalia Lopes Doro
+    CONSULTORIA: MM Design 
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 2.0
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Nutricon\20181207_155643.jpg
+    RA: 16223852
+    NOME: Jéssica Franco da Silva
+    CONSULTORIA: Nutricon
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 1.5
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Nutricon\20181207_155658.jpg
+    RA: 17025312
+    NOME: Carolina Zanconi Gonçalves 
+    CONSULTORIA: Nutricon
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 1.5
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Nutricon\20181207_155709.jpg
+    RA: 16228872
+    NOME: Rafaela Gilo Sanches
+    CONSULTORIA: Nutricon
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 1.5
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Nutricon\20181207_155718.jpg
+    RA: 16064462
+    NOME: Gabriela F. da Silva Lima
+    CONSULTORIA: Nutricon
+    PERIODO: NOV
     ANO: 18
     HORAS: 1.0
-        Dias com erros de preenchimento: [19, 23, 30, 31]
-    Erro de preenchimento no Período.
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094838.jpg
-    RA: 17229042
-    NOME: Matheus Martinhao 
-    CONSULTORIA: Uniagro
-    PERIODO: JAN
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Nutricon\20181207_155750.jpg
+    RA: 17013962
+    NOME: Vanessa Recalte 
+    CONSULTORIA: Nutricon
+    PERIODO: NOV
     ANO: 18
-    HORAS: 0.0
-        Dias com erros de preenchimento: [1, 5, 8, 15, 22, 29, 30]
-    Erro de preenchimento no Período.
+    HORAS: 1.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094846.jpg
-    RA: 18560192
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 6.0
-        Dias com erros de preenchimento: [4]
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094909.jpg
-    RA: 16062412
-    NOME: Mariana Campos Giosa
-    CONSULTORIA: Uniagro
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\projecta\20181207_153707.jpg
+    RA: 16203842
+    NOME: Jeniffer Zampoli Martins
+    CONSULTORIA: Projecta 
+    PERIODO: NOV
     ANO: 18
-    HORAS: 53.0
+    HORAS: 4.0
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094917.jpg
-    RA: 18581282
-    NOME: Lucas Martins Arruda
-    CONSULTORIA: Uniagro
-    PERIODO: OUT
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\projecta\20181207_153719.jpg
+    RA: 15012612
+    NOME: Hellen Braido Avanço
+    CONSULTORIA: Projecta 
+    PERIODO: NOV
     ANO: 18
-    HORAS: 3.0
-        Dias com erros de preenchimento: [5, 10, 17]
-    Erro de preenchimento no Período.
+    HORAS: 17.5
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094926.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\projecta\20181207_153727.jpg
+    RA: 15006012
+    NOME: Renan Rodrigues Gomes
+    CONSULTORIA: Projecta 
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 8.5
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\projecta\20181207_153736.jpg
+    RA: 15007692
+    NOME: Tony França Cargnin
+    CONSULTORIA: Projecta 
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 9.5
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\projecta\20181207_153746.jpg
+    RA: 17329942
+    NOME: Isabella A. Garcia Souza
+    CONSULTORIA: Projecta 
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 12.25
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\projecta\20181207_153755.jpg
+    RA: 17054102
+    NOME: Mariana Wendausen Donegá
+    CONSULTORIA: Projecta 
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 19.25
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Uneagro\20181207_154510.jpg
     RA: 18252202
     NOME: Lorrayne dos Santos Alves
     CONSULTORIA: Uniagro
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
-    HORAS: 0.0
-        Dias com erros de preenchimento: [2, 5, 17, 30]
+    HORAS: 17.25
 
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094938.jpg
-    RA: 18261222
-    NOME: Joao Lucas Costa Fernandes
-    CONSULTORIA: Uniagro
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 0.0
-        Dias com erros de preenchimento: [2, 5, 6, 10, 17, 19, 23, 30, 31]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094946.jpg
-    RA: 17374872
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 0.0
-        Dias com erros de preenchimento: [15, 17, 19, 30]
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_094956.jpg
-    RA: 17216382
-    NOME: Gabriel Pereira Pacheco
-    CONSULTORIA: Uniagro
-    PERIODO: OUT
-    ANO: 18
-    HORAS: 15.0
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_095003.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 18.5
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
-
-IMAGEM: C:/Dropbox/INOVEC/FormCV/IMG/Outubro\Uniagro\20181113_095012.jpg
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Uneagro\20181207_154517.jpg
     RA: 17351662
     NOME: Guilherme Dos Santos Lima 
     CONSULTORIA: Uniagro
-    PERIODO: OUT
+    PERIODO: NOV
     ANO: 18
-    HORAS: 6.75
+    HORAS: 22.0
+        Dias com horas erradas: [13]
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Uneagro\20181207_154536.jpg
+    RA: 17229042
+    NOME: Matheus Martinhão 
+    CONSULTORIA: Uniagro
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 24.0
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Uneagro\20181207_154543.jpg
+    RA: 17229812
+    NOME: Denis Dantas
+    CONSULTORIA: Uniagro
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 20.0
+        Dias com horas erradas: [5]
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Uneagro\20181207_154553.jpg
+    RA: 18261222
+    NOME: João Lucas Costa Fernandes
+    CONSULTORIA: Uniagro
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 29.0
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Novembro\Uneagro\20181207_154601.jpg
+    RA: 17216382
+    NOME: Gabriel Pereira Pacheco
+    CONSULTORIA: Uniagro
+    PERIODO: NOV
+    ANO: 18
+    HORAS: 26.25
 
