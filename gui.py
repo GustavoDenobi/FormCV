@@ -51,6 +51,9 @@ class MainWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.layout.addWidget(self.console)
         self.setLayout(self.layout)
+        self.outputToConsole("Inicialização completa.")
+        if(self.var.checkBackup()):
+            self.outputToConsole("Backup realizado.")
 
     def getCurrentTime(self):
         currentTime = str(datetime.today())#.replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
@@ -58,7 +61,7 @@ class MainWidget(QWidget):
 
     def outputToConsole(self, txt):
         time = self.getCurrentTime()
-        self.console.setText(time + " >> " + str(txt))
+        self.console.setText(time + " >>\t" + str(txt))
         self.console.repaint()
 
     def imgToPixmap(self, img):

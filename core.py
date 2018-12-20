@@ -52,7 +52,6 @@ class Var:
         self.errors = 0  # Number of errors to be used in the error log
         self.warnings = 0  # NUmber of filling errors to be used in the error log
         self.inDatabase = True # To check if a RA was found in the database
-        self.checkBackup()
 
     def checkBackup(self):
         config = configparser.ConfigParser()
@@ -69,6 +68,9 @@ class Var:
                 config.write(configFile)
 
             shutil.copy(self.databaseFile, os.path.join(backupDir + os.sep + str(currentTime)) + ".csv")
+            return True
+        else:
+            return False
 
     def refreshParams(self):
         config = configparser.ConfigParser()
@@ -959,6 +961,3 @@ class FileReader():
             return True
         except:
             return False
-
-a = Var()
-a.checkBackup()
