@@ -99,11 +99,15 @@ class MainWidget(QWidget):
 
         if dlg.exec_():
             path = dlg.selectedFiles()
+            print(path)
             for subdir, dirs, files in os.walk(path[0]):
+                print(files)
                 for file in files:
                     filepath = subdir + os.sep + file
-                    if (file[file.index('.'):] in self.var.cvFormats):
-                        fileList.append(QDir.toNativeSeparators(filepath))
+                    for format in self.var.cvFormats:
+                        if (file.endswith(format)):
+                            fileList.append(QDir.toNativeSeparators(filepath))
+                            break
             self.tab1.fileList = fileList
             self.getList()
             self.outputToConsole(str(len(self.tab1.fileList)) + " arquivos válidos adicionadas à lista. "
@@ -431,6 +435,7 @@ class MainWidget(QWidget):
             try:
                 io = errorLogHandler()
                 dir = dlg.selectedFiles()[0]
+                dir = QDir.toNativeSeparators(dir)
                 io.errorLogExporter(dir)
                 self.outputToConsole("Relatório exportado com sucesso. Arquivo localizado em: " + dir)
             except:

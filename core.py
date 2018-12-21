@@ -254,10 +254,13 @@ class pdfCreator():
     def __init__(self, certificateInfo, dir):
         self.template = Image.open("img\\template.png")
         self.draw = ImageDraw.Draw(self.template)
-        self.x = 500
-        self.y = 800
+        self.x_body = 500
+        self.y_body = 800
+        self.x_date = 1100
+        self.y_date = 1400
         self.certificateInfo = certificateInfo
         self.writeText(self.certificateInfo)
+        self.writeDate()
         self.savePDF(dir)
 
 
@@ -282,11 +285,32 @@ class pdfCreator():
         selectFont = ImageFont.truetype("consola.ttf", size=72)
         linespace = 0
         for line in text:
-            self.draw.text((self.x, self.y + linespace), line, (0, 0, 0), font=selectFont)
+            self.draw.text((self.x_body, self.y_body + linespace), line, (0, 0, 0), font=selectFont)
             linespace += 88
 
-    def writeDate(self):
-        pass
+    def writeDate(self, city = "Maringá"):
+        currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+        currentTime = currentTime[:8]
+        year = currentTime[:4]
+        month = int(currentTime[4:6])
+        months = ['Janeiro',
+                  'Fevereiro',
+                  'Março',
+                  'Abril',
+                  'Maio',
+                  'Junho',
+                  'Julho',
+                  'Agosto',
+                  'Setembro',
+                  'Outubro',
+                  'Novembro',
+                  'Dezembro']
+        month = months[month-1]
+        day = currentTime[6:8]
+        text = city + ", " + day + " de " + month + " de " + year + "."
+        selectFont = ImageFont.truetype("consola.ttf", size=72)
+        self.draw.text((self.x_date, self.y_date), text, (0, 0, 0), font=selectFont)
+
 
     def savePDF(self, dir):
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
@@ -369,6 +393,7 @@ class certificateGenerator(DBhandler):
         currentCertificate["CONSULTORIA"] = self.certToGenerate["CONSULTORIA"][index]
         currentCertificate["MES1"] = self.monthTrans[self.months[0]]
         currentCertificate["MES2"] = self.monthTrans[self.months[1]]
+        currentCertificate["TOTAL"] = str(self.certToGenerate["TOTAL"][index])
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         currentCertificate["ANO"] = currentTime[0:4]
         pdfCreator(currentCertificate, self.certificateDir)
@@ -381,6 +406,7 @@ class certificateGenerator(DBhandler):
             currentCertificate["CONSULTORIA"] = self.certToGenerate["CONSULTORIA"][current]
             currentCertificate["MES1"] = self.monthTrans[self.months[0]]
             currentCertificate["MES2"] = self.monthTrans[self.months[1]]
+            currentCertificate["TOTAL"] = str(self.certToGenerate["TOTAL"][current])
             currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
             currentCertificate["ANO"] = currentTime[0:4]
             pdfCreator(currentCertificate, self.certificateDir)
