@@ -1,11 +1,10 @@
 import cv2
 import numpy as np
 import os
-import pyexcel as pe
 import configparser
 import shutil
 from datetime import datetime
-import unicodedata
+from tinydb import TinyDB, Query
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
@@ -135,13 +134,14 @@ class DBhandler(Var):
 
     def __init__(self):
         super(DBhandler, self).__init__()
-        self.consultantIndex = 0  # whenever a operation finds a consultant index, it is stored here
-        self.dbdict = self.readDatabaseDict()  # stores the database as e dict where the key is the label of each row
-        self.length = len(self.dbdict['NOME'])  # number of consultants in database
-        self.raColInt = self.dbdict['RA']
+        self.docID = 0  # whenever an operation finds a doc ID, it is stored here
+        self.db = TinyDB(self.databaseFile)
+        self.dblist = self.db.all()# stores the database as e dict where the key is the label of each row
+        self.length = len(self.dblist)  # number of consultants in database
+        self.raColInt = [x["RA"] for x in self.dblist]
         self.raCol = self.intToStr(self.raColInt)  # stores the list of RAs
-        self.nameCol = self.dbdict['NOME']  # stores the list of names
-        self.consultCol = self.dbdict['CONSULTORIA']  # stores the list of consulting names
+        self.nameCol = [x['NOME'] for x in self.dblist]  # stores the list of names
+        self.consultCol = [x['CONSULTORIA'] for x in self.dblist]  # stores the list of consulting names
         self.consultList = sorted(set(self.consultCol))
 
     def intToStr(self, intList):
@@ -150,56 +150,42 @@ class DBhandler(Var):
             strList.append(str(item))
         return strList
 
-    def readDatabaseDict(self):
-        """ Used to read a csv file and return it as a dict in which the keys are the labels of each column and the
-        values are lists related to each label
-        """
-        try:
-            return pe.get_dict(file_name = self.databaseFile, encoding = 'utf-8-sig')
-        # encoding = 'utf-8-sig' -> prevent the 'RA' to become '\ufeffRA' when the database is read
-        except:
-            return {"RA" : ["ARQUIVO INEXISTENTE"],
-                    "NOME" : ["ARQUIVO INEXISTENTE"],
-                    "CONSULTORIA" : ["ARQUIVO INEXISTENTE"]}
-
-    def readDatabaseSheet(self):
-        """ Used to read a csv file and return it as a sheet. Information is accessed by pyexcel methods"""
-        db = pe.get_sheet(file_name=self.databaseFile, encoding='utf-8-sig')
-        db.name_rows_by_column(0)
-        return db
-
-    def cellWriter(self, ra, period, time):
+    def docWriter(self, ra, year, period, time):
         """ Writes a consultant's info in the database. Expects the RA to be already in the database
         str ra: 8-number string conataining the RA
+        str year: 4-number string containing the year
         str period: 3-letter code according to Var.months
         float time: sum of time of a consultant in a month
         """
-        self.consultantIndex = self.raCol.index(str(ra))
-        self.dbdict[period][self.consultantIndex] = time
-
-    def saveDB(self):
-        """ Gets the dict from self.dbdict and saves it in the databaseFile"""
-        database = pe.get_sheet(adict = self.dbdict)
-        database.save_as(self.databaseFile)
+        with self.db as db:
+            doc = Query()
+            year = "y" + str(year)
+            currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
+            currentTime = currentTime[:14]
+            q = db.get(doc.RA == int(ra))
+            if year in q.keys():
+                if period in [x["month"] for x in q[year]]:
+                    for item in q[year]:
+                        if item['month'] == period:
+                            item['time'] = time
+                            item['entry_time'] = currentTime
+                else:
+                    q[year].append({'month': period, 'time': time, 'entry_time': currentTime})
+            else:
+                q[year] = [{'month': period, 'time': time, 'entry_time': currentTime}]
+            db.update(q)
 
     def retrieveConsultant(self, consultantRA):
         """ Searches the database for the given RA number and returns a dict with its name and consulting
         str consultantRA: the RA to be searched
         """
         try:
-            self.consultantIndex = self.raCol.index(str(consultantRA))
-            return {'RA': self.raCol[self.consultantIndex],
-                    'NOME': self.nameCol[self.consultantIndex],
-                    'CONSULTORIA': self.consultCol[self.consultantIndex]}
+            with self.db as db:
+                doc = Query()
+                q = db.search(doc.RA == int(consultantRA))
+                return q[0]
         except:
             return False
-
-    def exportDB(self, address): # Gets a dict and transforms it into a csv output
-        """ Used to create SaidaParaCertificados.csv, which feeds the certificates.
-        str address: path to the outputed csv file
-        """
-        database = pe.get_sheet(adict = self.dbdict)
-        database.save_as(address)
 
     def saveConsultant(self, consultant):
         """
@@ -958,7 +944,7 @@ class FileReader():
         for form in self.forms:
             if(not form.terminalError):
                 if (len(form.errorType) == 0) and (str(form.ra) in self.db.raCol):
-                    self.db.cellWriter(form.ra, form.period, form.time)
+                    self.db.docWriter(form.ra, form.year, form.period, form.time)
                 elif(str(form.ra) in self.db.raCol):
                     form.inDatabase = False
 
@@ -993,11 +979,4 @@ class FileReader():
         for line in logList:
             logStr = logStr + line + "\n"
         return logStr
-
-    def saveDB(self):
-        try:
-            self.db.saveDB()
-            return True
-        except:
-            return False
 

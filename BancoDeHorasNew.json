@@ -1,0 +1,1640 @@
+{
+    "15016382": {
+        "NOME": "Alana Oliveira Fernandes",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 8,
+            "OUT": 16.75,
+            "NOV": 4
+        }
+    },
+    "14034602": {
+        "NOME": "Aline Erika S. Yui",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 9.45,
+            "SET": 9,
+            "OUT": 20,
+            "NOV": 12.5
+        }
+    },
+    "15022742": {
+        "NOME": "Amanda Christiane O. Moro",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 14,
+            "SET": 12.25,
+            "OUT": 24.75,
+            "NOV": 2
+        }
+    },
+    "17395462": {
+        "NOME": "Ana Cecilia C. Piaza",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 2.3,
+            "SET": 10.5,
+            "OUT": 18.75,
+            "NOV": 2
+        }
+    },
+    "17180572": {
+        "NOME": "Armandio Campagnolo Neto",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 2.3,
+            "SET": 11.25,
+            "OUT": 22.75,
+            "NOV": 2
+        }
+    },
+    "14021972": {
+        "NOME": "Debora Telles Campos Lucas",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 28.45,
+            "SET": 19,
+            "OUT": 20.75,
+            "NOV": 13.25
+        }
+    },
+    "16409932": {
+        "NOME": "Fernanda Luiza Buzzo Petry",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 32.45,
+            "SET": 16.75,
+            "OUT": 19,
+            "NOV": 6.5
+        }
+    },
+    "15216552": {
+        "NOME": "Heverton Loquetti Fernandes",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 12.3,
+            "SET": 5.5,
+            "OUT": 22,
+            "NOV": 4
+        }
+    },
+    "17146272": {
+        "NOME": "Isabela Giovana B. Cardoso",
+        "CONSULTORIA": "Ambivet",
+        "2018": {}
+    },
+    "16119782": {
+        "NOME": "Lais Miguel da Silva Ferrari",
+        "CONSULTORIA": "Ambivet",
+        "2018": {}
+    },
+    "15100122": {
+        "NOME": "Larissa Alves de Oliveira",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 8,
+            "SET": 8,
+            "NOV": 4
+        }
+    },
+    "17053642": {
+        "NOME": "Larissa Santana Wolff",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 2.3,
+            "SET": 14.5,
+            "OUT": 20.25,
+            "NOV": 2.5
+        }
+    },
+    "17302112": {
+        "NOME": "Larissa Silva de Oliveira",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 2.3,
+            "SET": 7.25,
+            "OUT": 6
+        }
+    },
+    "18131762": {
+        "NOME": "Maria Stefani de Brito",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 27,
+            "SET": 8.75,
+            "OUT": 21,
+            "NOV": 5.75
+        }
+    },
+    "15209782": {
+        "NOME": "Mariana Martinato Guelles",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 10.4,
+            "SET": 9,
+            "OUT": 17.5,
+            "NOV": 2
+        }
+    },
+    "16139412": {
+        "NOME": "Matheus Marroni Bodnariuc",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 19.2,
+            "SET": 8.75,
+            "OUT": 17.5,
+            "NOV": 3.25
+        }
+    },
+    "15386672": {
+        "NOME": "Natalia de Souza Sbampato",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 14.4,
+            "SET": 6,
+            "OUT": 10,
+            "NOV": 2
+        }
+    },
+    "15010752": {
+        "NOME": "Paula Karolaine B. dos Santos",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 30.5,
+            "SET": 14.75,
+            "OUT": 26.75,
+            "NOV": 14.25
+        }
+    },
+    "17345232": {
+        "NOME": "Thais Cristina Biaji",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 2.3,
+            "SET": 10.25,
+            "OUT": 18.25,
+            "NOV": 8.5
+        }
+    },
+    "16073612": {
+        "NOME": "Yasmin Camilo Leones",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "AGO": 16.5,
+            "SET": 10.25,
+            "OUT": 17.5
+        }
+    },
+    "17012932": {
+        "NOME": "Beatriz Carolyne Quina Valente",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "SET": 9,
+            "OUT": 19.5,
+            "NOV": 3.75
+        }
+    },
+    "17048492": {
+        "NOME": "Isabela Brujnolo de Moraes",
+        "CONSULTORIA": "Ambivet",
+        "2018": {
+            "SET": 12.5,
+            "OUT": 17
+        }
+    },
+    "18306162": {
+        "NOME": "Ebila Madeira B. Soares",
+        "CONSULTORIA": "ComJr",
+        "2018": {}
+    },
+    "18401292": {
+        "NOME": "Beatriz Brunetta Pires",
+        "CONSULTORIA": "ComJr",
+        "2018": {
+            "AGO": 8,
+            "SET": 4,
+            "OUT": 4
+        }
+    },
+    "17225422": {
+        "NOME": "Geraldo Gustavo Neves Junior",
+        "CONSULTORIA": "ComJr",
+        "2018": {
+            "AGO": 9
+        }
+    },
+    "17184402": {
+        "NOME": "Guilherme Tel Bernadelli",
+        "CONSULTORIA": "ComJr",
+        "2018": {
+            "AGO": 4,
+            "SET": 9
+        }
+    },
+    "15274682": {
+        "NOME": "Janaina Teixeira de Souza",
+        "CONSULTORIA": "ComJr",
+        "2018": {
+            "AGO": 9
+        }
+    },
+    "18377162": {
+        "NOME": "Lidiane de Almeida Cardoso",
+        "CONSULTORIA": "ComJr",
+        "2018": {
+            "AGO": 6
+        }
+    },
+    "18294972": {
+        "NOME": "Nataniel Francisco Flauzino",
+        "CONSULTORIA": "ComJr",
+        "2018": {
+            "AGO": 14,
+            "SET": 12
+        }
+    },
+    "17225262": {
+        "NOME": "Nayara Santana de Araujo",
+        "CONSULTORIA": "ComJr",
+        "2018": {}
+    },
+    "17089672": {
+        "NOME": "Beatriz Becari de Almeida",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "17316892": {
+        "NOME": "Brenda Caroline Antonio ",
+        "CONSULTORIA": "Conage",
+        "2018": {
+            "AGO": 6
+        }
+    },
+    "17225142": {
+        "NOME": "Bruna Sverzutt",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "18285552": {
+        "NOME": "Camila Morgana R. Rodrigues",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "17216262": {
+        "NOME": "Daniela Franzoni do Nascimento",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "16219792": {
+        "NOME": "Gabriel Batista Viel",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "17188442": {
+        "NOME": "Jessica Beatriz de Almeida ",
+        "CONSULTORIA": "Conage",
+        "2018": {
+            "AGO": 9
+        }
+    },
+    "18793322": {
+        "NOME": "Larissa Bispo de Lima",
+        "CONSULTORIA": "Conage",
+        "2018": {
+            "AGO": 2
+        }
+    },
+    "18258472": {
+        "NOME": "Marcelo de Oliveira Bussolin ",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "17208472": {
+        "NOME": "Rafaela Cristina F. Santos",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "17504872": {
+        "NOME": "Raquel Ferreira Vidal",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "17316782": {
+        "NOME": "Taina Cshiavon ",
+        "CONSULTORIA": "Conage",
+        "2018": {}
+    },
+    "18010242": {
+        "NOME": "Wellisson Madson da S. Santos",
+        "CONSULTORIA": "Conage",
+        "2018": {
+            "AGO": 1
+        }
+    },
+    "17517832": {
+        "NOME": "Barbara Fouto Zanoni",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 27,
+            "SET": 8,
+            "OUT": 17
+        }
+    },
+    "18035242": {
+        "NOME": "Beatriz M. Muyto Matuoka",
+        "CONSULTORIA": "ConModa",
+        "2018": {}
+    },
+    "16067702": {
+        "NOME": "Debora Leadro Marini",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 24,
+            "SET": 6
+        }
+    },
+    "18012702": {
+        "NOME": "Giulia Bortolon Peres",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 24,
+            "SET": 8
+        }
+    },
+    "17017032": {
+        "NOME": "Lais Fratti Malinowski",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 27,
+            "SET": 8
+        }
+    },
+    "15166112": {
+        "NOME": "Lorena Keylla da Silva",
+        "CONSULTORIA": "ConModa",
+        "2018": {}
+    },
+    "17141852": {
+        "NOME": "Luan Henrique Apolinario Alves",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 27,
+            "SET": 8,
+            "OUT": 17
+        }
+    },
+    "17302262": {
+        "NOME": "Lucas Donizete de Souza",
+        "CONSULTORIA": "ConModa",
+        "2018": {}
+    },
+    "17170422": {
+        "NOME": "Maria Luiza de Carvalho ",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 27,
+            "SET": 8
+        }
+    },
+    "16064442": {
+        "NOME": "Milena Fernada Pasquali",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "AGO": 21
+        }
+    },
+    "16201782": {
+        "NOME": "Sabrina S. K. Tanaka",
+        "CONSULTORIA": "ConModa",
+        "2018": {}
+    },
+    "18531772": {
+        "NOME": "Marcela Muller",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "SET": 8,
+            "OUT": 14
+        }
+    },
+    "17187962": {
+        "NOME": "Hugo Felype",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "SET": 8,
+            "OUT": 15
+        }
+    },
+    "17192432": {
+        "NOME": "Larissa Evangelista",
+        "CONSULTORIA": "ConModa",
+        "2018": {
+            "SET": 8,
+            "OUT": 8
+        }
+    },
+    "14184272": {
+        "NOME": "Alisson Diogo dos Santos",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 45,
+            "SET": 24,
+            "OUT": 56
+        }
+    },
+    "18258422": {
+        "NOME": "Ana Carolina da Costa Valdevieso",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 10,
+            "SET": 15,
+            "OUT": 27
+        }
+    },
+    "15391522": {
+        "NOME": "Ananda da Silva Fiqueiredo",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 3
+        }
+    },
+    "15012892": {
+        "NOME": "Claudia Rafaela Zolli Paula",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 10.5,
+            "OUT": 19
+        }
+    },
+    "15166242": {
+        "NOME": "Gabriel Correia da Silva",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 29,
+            "SET": 15,
+            "OUT": 33,
+            "NOV": 11.25
+        }
+    },
+    "15140842": {
+        "NOME": "Gabrielly Souza Chagas",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 32.5,
+            "SET": 32,
+            "OUT": 30.5
+        }
+    },
+    "15011592": {
+        "NOME": "Juan Carlo Canonico S. Valladares",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 10,
+            "SET": 12,
+            "OUT": 19.5,
+            "NOV": 4
+        }
+    },
+    "15391192": {
+        "NOME": "Kaue Felix de Santana",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 26,
+            "SET": 13.75,
+            "OUT": 9.5
+        }
+    },
+    "14181422": {
+        "NOME": "Lidia Pereira Amaro",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 18.5,
+            "SET": 5
+        }
+    },
+    "15084752": {
+        "NOME": "Mariana Pires Moia",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "SET": 3.5
+        }
+    },
+    "15176502": {
+        "NOME": "Mathues Davi da Costa Manholer",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 10,
+            "SET": 8.25,
+            "OUT": 44
+        }
+    },
+    "14139882": {
+        "NOME": "Mathueus Nunes Sato",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 34,
+            "SET": 16,
+            "OUT": 27.5
+        }
+    },
+    "14327222": {
+        "NOME": "Northon Aldrovandi Paganella",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 22.5,
+            "SET": 7.5,
+            "OUT": 34.75
+        }
+    },
+    "15013042": {
+        "NOME": "Pedro Alexandre Sosnitzki",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 36.5,
+            "SET": 12.75
+        }
+    },
+    "15005912": {
+        "NOME": "Pedro Henrique de Farias Niza",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 37.5,
+            "SET": 27,
+            "OUT": 63.25
+        }
+    },
+    "17216752": {
+        "NOME": "Pedro Henrique Quirino dos Santos",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 10,
+            "SET": 16,
+            "NOV": 11
+        }
+    },
+    "14051592": {
+        "NOME": "Thuany Renata da Silva",
+        "CONSULTORIA": "Consec",
+        "2018": {
+            "AGO": 21,
+            "SET": 12.25,
+            "OUT": 5.5
+        }
+    },
+    "14145932": {
+        "NOME": "Adrielli Maria dos Reis ",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 10.5,
+            "SET": 4,
+            "OUT": 2
+        }
+    },
+    "17018122": {
+        "NOME": "Amanda R. do Nascimento",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 6,
+            "SET": 9,
+            "OUT": 6
+        }
+    },
+    "17333182": {
+        "NOME": "Carolina Yume Soares Neseyama",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 1.5
+        }
+    },
+    "18258312": {
+        "NOME": "Gabriela C. Baptista Magron",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 30.5
+        }
+    },
+    "15271802": {
+        "NOME": "Gionava Cordioli",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 8,
+            "SET": 5.25,
+            "OUT": 2.25
+        }
+    },
+    "16481332": {
+        "NOME": "Guilherme Mendonca Alegria",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 9.5,
+            "SET": 10.25,
+            "OUT": 12.5
+        }
+    },
+    "17220782": {
+        "NOME": "Isabela Goulart de Oliveira",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 9,
+            "SET": 8.25,
+            "OUT": 14.5
+        }
+    },
+    "17053542": {
+        "NOME": "Loiani Oliveira Santana ",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 30,
+            "SET": 7,
+            "OUT": 11.75
+        }
+    },
+    "17092762": {
+        "NOME": "Mariana Conceicao da Silva ",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 17,
+            "SET": 8,
+            "OUT": 18.25
+        }
+    },
+    "17222892": {
+        "NOME": "Matheus Zirondi Roloff",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 5.5,
+            "SET": 1.5,
+            "OUT": 11
+        }
+    },
+    "18276902": {
+        "NOME": "Micaeli Silva Belgamazzi",
+        "CONSULTORIA": "Ecovida",
+        "2018": {
+            "AGO": 32.5,
+            "SET": 13,
+            "OUT": 21,
+            "NOV": 4
+        }
+    },
+    "15191662": {
+        "NOME": "Beatriz Grandi Canchilheci",
+        "CONSULTORIA": "Educon",
+        "2018": {
+            "AGO": 0.5
+        }
+    },
+    "17102162": {
+        "NOME": "Bruna de Almeida Alves",
+        "CONSULTORIA": "Educon",
+        "2018": {
+            "AGO": 1.5
+        }
+    },
+    "15163082": {
+        "NOME": "Cristiane Leopoldino Rodrigues",
+        "CONSULTORIA": "Educon",
+        "2018": {
+            "AGO": 2
+        }
+    },
+    "17108722": {
+        "NOME": "Daniele Bellese dos Santos",
+        "CONSULTORIA": "Educon",
+        "2018": {
+            "AGO": 19
+        }
+    },
+    "15307962": {
+        "NOME": "Lucimara dos Santos Godoi",
+        "CONSULTORIA": "Educon",
+        "2018": {
+            "AGO": 20
+        }
+    },
+    "15010742": {
+        "NOME": "Patricia Dutra de lima ",
+        "CONSULTORIA": "Educon",
+        "2018": {}
+    },
+    "18320142": {
+        "NOME": "Viviane Marcolino",
+        "CONSULTORIA": "Educon",
+        "2018": {
+            "AGO": 25
+        }
+    },
+    "17449602": {
+        "NOME": "Abel Tonon Segundo",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "SET": 1
+        }
+    },
+    "18014862": {
+        "NOME": "Andre Vinicius Rebice",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 22
+        }
+    },
+    "17480622": {
+        "NOME": "Arthur Henrique Beltrami",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 4
+        }
+    },
+    "16158322": {
+        "NOME": "Denis Yudi Ueno",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 30.5,
+            "JUL": 18
+        }
+    },
+    "18015872": {
+        "NOME": "Fabricio Simonelli Tanguas",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "AGO": 40.75,
+            "SET": 23,
+            "OUT": 25,
+            "NOV": 16.25
+        }
+    },
+    "18017202": {
+        "NOME": "Flavio Junior Calegari Zanatta",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 23.5,
+            "JUL": 20,
+            "AGO": 44.25,
+            "SET": 11
+        }
+    },
+    "18309082": {
+        "NOME": "Gabrielle de Castro Santos",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 26,
+            "DEZ": 151
+        }
+    },
+    "14041202": {
+        "NOME": "Guilherme Hideki Shibukawa",
+        "CONSULTORIA": "Inovec",
+        "2018": {}
+    },
+    "16157912": {
+        "NOME": "Gustavo Fellipe Acioli Denobi",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 62,
+            "JUL": 78.5,
+            "AGO": 40.25,
+            "SET": 23,
+            "OUT": 61.25,
+            "NOV": 67
+        }
+    },
+    "15015602": {
+        "NOME": "Gustavo Pires Liberati",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 17,
+            "JUL": 14.25,
+            "SET": 25.5,
+            "OUT": 67
+        }
+    },
+    "18306352": {
+        "NOME": "Isabele Maria Mello L. Santos",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 8.5,
+            "AGO": 28.5
+        }
+    },
+    "16058382": {
+        "NOME": "Isadora Fonseca Araujo",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 6,
+            "JUL": 17,
+            "AGO": 30.25,
+            "OUT": 70.25
+        }
+    },
+    "18376562": {
+        "NOME": "Joao Victor K. Moura",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 17,
+            "JUL": 26.5,
+            "AGO": 72.75,
+            "SET": 50,
+            "OUT": 44.5
+        }
+    },
+    "16074832": {
+        "NOME": "Lucas Gustavo Fritzen",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "AGO": 20,
+            "SET": 9.5,
+            "OUT": 22.5
+        }
+    },
+    "15115342": {
+        "NOME": "Maicon Douglas Leles da Silva",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "AGO": 37.5,
+            "SET": 11
+        }
+    },
+    "14033172": {
+        "NOME": "Rafael Neves Pessoa",
+        "CONSULTORIA": "Inovec",
+        "2018": {}
+    },
+    "18258382": {
+        "NOME": "Ruan Felipe Siqueira Antunes",
+        "CONSULTORIA": "Inovec",
+        "2018": {
+            "JUN": 20,
+            "JUL": 19.75,
+            "AGO": 50.5,
+            "OUT": 26
+        }
+    },
+    "18290682": {
+        "NOME": "Vinicius Eduardo Brumatti",
+        "CONSULTORIA": "MM Design",
+        "2018": {}
+    },
+    "18058102": {
+        "NOME": "Alan Douglas C. Morais",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "SET": 14.75,
+            "OUT": 13.25,
+            "NOV": 9.5
+        }
+    },
+    "18012202": {
+        "NOME": "Beatriz de Castro Itanke",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 30.5
+        }
+    },
+    "16417322": {
+        "NOME": "Bruno Mollinari da Rocha",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 6,
+            "SET": 17,
+            "OUT": 4
+        }
+    },
+    "18568162": {
+        "NOME": "Camila Beatriz Villalba",
+        "CONSULTORIA": "MM Design",
+        "2018": {}
+    },
+    "18376262": {
+        "NOME": "Dhonatan Urzulino Biik",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "SET": 14,
+            "NOV": 2.75
+        }
+    },
+    "16312382": {
+        "NOME": "Gisela de Moura R. Marques",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 16,
+            "OUT": 6
+        }
+    },
+    "16412632": {
+        "NOME": "Lia Karen Shingo",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 16,
+            "SET": 22.5
+        }
+    },
+    "16117242": {
+        "NOME": "Marciane Schuh",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 18
+        }
+    },
+    "17480292": {
+        "NOME": "Nathalia Lopes Doro",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "SET": 15,
+            "OUT": 7,
+            "NOV": 2
+        }
+    },
+    "18221632": {
+        "NOME": "Nayane Sabadego",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "SET": 12.75
+        }
+    },
+    "17208602": {
+        "NOME": "Vera Lucia da Silva Lopes",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 16.5,
+            "SET": 7
+        }
+    },
+    "17502582": {
+        "NOME": "Vitoria Catarina Guido",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 24,
+            "SET": 22
+        }
+    },
+    "16203212": {
+        "NOME": "Yasmin da Costa Gomes",
+        "CONSULTORIA": "MM Design",
+        "2018": {
+            "AGO": 1
+        }
+    },
+    "16064492": {
+        "NOME": "Barbara Ribeiro Tonsic",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 38,
+            "SET": 10,
+            "OUT": 11
+        }
+    },
+    "17025312": {
+        "NOME": "Carolina Zanconi Goncalves ",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 47.5,
+            "SET": 4.5,
+            "OUT": 1.5,
+            "NOV": 1.5
+        }
+    },
+    "16064462": {
+        "NOME": "Gabriela F. da Silva Lima",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 39.5,
+            "SET": 8,
+            "OUT": 8,
+            "NOV": 1
+        }
+    },
+    "16223852": {
+        "NOME": "Jessica Franco da Silva",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 50,
+            "SET": 7.5,
+            "OUT": 2.75,
+            "NOV": 1.5
+        }
+    },
+    "16132402": {
+        "NOME": "Kamylla Francislly de Souza",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 26.5
+        }
+    },
+    "16067432": {
+        "NOME": "Luana Goncalves dos Santos",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 27,
+            "SET": 4.5
+        }
+    },
+    "16228872": {
+        "NOME": "Rafaela Gilo Sanches",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 41.5,
+            "SET": 4,
+            "OUT": 2,
+            "NOV": 1.5
+        }
+    },
+    "17013962": {
+        "NOME": "Vanessa Recalte ",
+        "CONSULTORIA": "Nutricon",
+        "2018": {
+            "AGO": 55,
+            "SET": 8.75,
+            "OUT": 3,
+            "NOV": 1
+        }
+    },
+    "15385822": {
+        "NOME": "Aparecida N. Silva",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 20,
+            "SET": 12,
+            "OUT": 22.25
+        }
+    },
+    "16449272": {
+        "NOME": "Bruna Yurie Arata",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 14,
+            "SET": 13.5,
+            "OUT": 44.5
+        }
+    },
+    "17188452": {
+        "NOME": "Carolina Tavela ",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 27.5,
+            "SET": 20.25,
+            "OUT": 13
+        }
+    },
+    "16064282": {
+        "NOME": "Dieli Corsi Pontes",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 25,
+            "SET": 15,
+            "OUT": 41.25
+        }
+    },
+    "15203402": {
+        "NOME": "Ediely Ferreira Casagrande ",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 45,
+            "SET": 33.5,
+            "OUT": 55
+        }
+    },
+    "16070742": {
+        "NOME": "Isabela Franchi da Silva",
+        "CONSULTORIA": "Oriente",
+        "2018": {}
+    },
+    "15085452": {
+        "NOME": "Jackeline baraldo Zampar",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 12,
+            "SET": 14.5,
+            "OUT": 22.25
+        }
+    },
+    "16270022": {
+        "NOME": "Jose Amaro de Jesus",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 10.5,
+            "SET": 33.75
+        }
+    },
+    "15388362": {
+        "NOME": "Karina Andrea Ishihara Tsuneto",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "SET": 17.75,
+            "OUT": 40
+        }
+    },
+    "15018272": {
+        "NOME": "Lairyani Marques Corsi",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 28.5,
+            "SET": 10.5,
+            "OUT": 46.5
+        }
+    },
+    "15166372": {
+        "NOME": "Luana Rohling Silva",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 41,
+            "SET": 22.75,
+            "OUT": 64.5
+        }
+    },
+    "14109412": {
+        "NOME": "Luiza Fernandes Cardozo ",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 18,
+            "SET": 24.5
+        }
+    },
+    "15015692": {
+        "NOME": "Marilia da Mata Silva",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 4.5,
+            "SET": 22,
+            "OUT": 61.25
+        }
+    },
+    "16074282": {
+        "NOME": "Marian Monteiro Nagi",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 26.5,
+            "SET": 1.25,
+            "OUT": 3
+        }
+    },
+    "15095592": {
+        "NOME": "Thailane Fernanda da Silva",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 24
+        }
+    },
+    "15029162": {
+        "NOME": "Thays de Fatima Zandona",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "AGO": 7,
+            "SET": 12.75,
+            "OUT": 48.5
+        }
+    },
+    "17224952": {
+        "NOME": "Raissa Borelli Ferraneto",
+        "CONSULTORIA": "Oriente",
+        "2018": {
+            "SET": 8,
+            "OUT": 23
+        }
+    },
+    "14034092": {
+        "NOME": "Alisson Batista ",
+        "CONSULTORIA": "Projecta ",
+        "2018": {}
+    },
+    "15011942": {
+        "NOME": "Daniele Firmino Viana ",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "SET": 6
+        }
+    },
+    "16308002": {
+        "NOME": "Fernanda Gaio Balestrim",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 19.5,
+            "SET": 10.25,
+            "OUT": 26.5
+        }
+    },
+    "17155762": {
+        "NOME": "Gabriel M. Mello Teixeira",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 16.5,
+            "SET": 8
+        }
+    },
+    "17225122": {
+        "NOME": "Guilherme da Silva Marcato",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 24
+        }
+    },
+    "15012612": {
+        "NOME": "Hellen Braido Avanco",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 13,
+            "SET": 10.5,
+            "OUT": 19.5,
+            "NOV": 17.5
+        }
+    },
+    "17329942": {
+        "NOME": "Isabella A. Garcia Souza",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 13,
+            "SET": 9,
+            "OUT": 24.75,
+            "NOV": 12.25
+        }
+    },
+    "16203842": {
+        "NOME": "Jeniffer Zampoli Martins",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 8,
+            "SET": 4,
+            "OUT": 6,
+            "NOV": 4
+        }
+    },
+    "17054102": {
+        "NOME": "Mariana Wendausen Donega",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 18,
+            "SET": 9.75,
+            "OUT": 17.75,
+            "NOV": 19.25
+        }
+    },
+    "15022332": {
+        "NOME": "Mario Sgoberto Netto",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 14.5
+        }
+    },
+    "1825252": {
+        "NOME": "Nayla D Barcelos Reschetti",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 20
+        }
+    },
+    "13003832": {
+        "NOME": "Nicoly Tardiola Pereira",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "SET": 3,
+            "OUT": 10.5
+        }
+    },
+    "15006012": {
+        "NOME": "Renan Rodrigues Gomes",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 19.5,
+            "SET": 9.5,
+            "OUT": 27.25,
+            "NOV": 8.5
+        }
+    },
+    "17247012": {
+        "NOME": "Thais Cristiane C. Rampasi",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 18,
+            "OUT": 29
+        }
+    },
+    "15007692": {
+        "NOME": "Tony Franca Cargnin",
+        "CONSULTORIA": "Projecta ",
+        "2018": {
+            "AGO": 17.5,
+            "SET": 3.5,
+            "OUT": 23,
+            "NOV": 9.5
+        }
+    },
+    "17324522": {
+        "NOME": "Ana Paula Vieira Serafim",
+        "CONSULTORIA": "SeCont",
+        "2018": {}
+    },
+    "16417392": {
+        "NOME": "Evelyn Mayara Luza",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {}
+    },
+    "18154462": {
+        "NOME": "Ana Flavia Booer Gomes",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "AGO": 15.5,
+            "SET": 32.75
+        }
+    },
+    "18015172": {
+        "NOME": "Bruna Noveli Negrao",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "AGO": 6,
+            "SET": 40.25
+        }
+    },
+    "17051772": {
+        "NOME": "Ingrid David Andreotti",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {}
+    },
+    "18330972": {
+        "NOME": "Joao Pedro M. Soda ",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "SET": 50.25
+        }
+    },
+    "17163112": {
+        "NOME": "Juliana Castilho Jacomelli",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "AGO": 2.5
+        }
+    },
+    "18124392": {
+        "NOME": "Juliana Rodrigues de Oliveira Aldrigue",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "AGO": 4,
+            "OUT": 5.5
+        }
+    },
+    "18012732": {
+        "NOME": "Karina Tomaz Morali",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "SET": 39
+        }
+    },
+    "17260472": {
+        "NOME": "Larissa Castelini",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {}
+    },
+    "18061152": {
+        "NOME": "Maria Luiza Zampar de Souza",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {
+            "AGO": 13,
+            "SET": 47,
+            "OUT": 6
+        }
+    },
+    "16067742": {
+        "NOME": "Mariana Pastre Glaeser",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {}
+    },
+    "18014852": {
+        "NOME": "Miguel Mastrangelo Damaceno",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {}
+    },
+    "18397652": {
+        "NOME": "Renan Madeira Evaristo",
+        "CONSULTORIA": "Toque Gourmet ",
+        "2018": {}
+    },
+    "18727372": {
+        "NOME": "Ariel Guilherme da Cunha Kaliel",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18473552": {
+        "NOME": "Carolina Y. Martinez Aut",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18278642": {
+        "NOME": "Erick Rodrigo de Oliveira",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "17162942": {
+        "NOME": "Evelyn Alves Mattos",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "16139452": {
+        "NOME": "Gabriel Toledo Maciel ",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18561232": {
+        "NOME": "Isabela Watanabe Siloti",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "17142622": {
+        "NOME": "Joao Davi Sorato",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18735062": {
+        "NOME": "Karol Linley Portera",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "17140802": {
+        "NOME": "Maria Laura Tavares",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18308922": {
+        "NOME": "Rita de Cassia B. Fontoura",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "17195562": {
+        "NOME": "Samuel Jafe Pereira Carvalho ",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18376882": {
+        "NOME": "Wilkerson Charles G. Shubert",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {}
+    },
+    "18432102": {
+        "NOME": "Yuri Mendes Leite",
+        "CONSULTORIA": "Trading Jr",
+        "2018": {
+            "SET": 13.75
+        }
+    },
+    "17229812": {
+        "NOME": "Denis Dantas",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 41.5,
+            "OUT": 9.5,
+            "NOV": 20
+        }
+    },
+    "17216382": {
+        "NOME": "Gabriel Pereira Pacheco",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 70.5,
+            "OUT": 15,
+            "NOV": 26.25
+        }
+    },
+    "17351662": {
+        "NOME": "Guilherme Dos Santos Lima ",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 42,
+            "OUT": 6.75,
+            "NOV": 22
+        }
+    },
+    "14124642": {
+        "NOME": "Guilherme Duarte Bellodi",
+        "CONSULTORIA": "Uniagro",
+        "2018": {}
+    },
+    "17377872": {
+        "NOME": "Jessica Camila Nogueira",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 52
+        }
+    },
+    "18261222": {
+        "NOME": "Joao Lucas Costa Fernandes",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "SET": 9,
+            "NOV": 29
+        }
+    },
+    "18252202": {
+        "NOME": "Lorrayne dos Santos Alves",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 40,
+            "NOV": 17.25
+        }
+    },
+    "18581282": {
+        "NOME": "Lucas Martins Arruda",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 80.5
+        }
+    },
+    "15010242": {
+        "NOME": "Malu Barcellos Schiavon ",
+        "CONSULTORIA": "Uniagro",
+        "2018": {}
+    },
+    "16062412": {
+        "NOME": "Mariana Campos Giosa",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 66.5,
+            "SET": 21.5,
+            "OUT": 53
+        }
+    },
+    "17229042": {
+        "NOME": "Matheus Martinhao ",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 55.5,
+            "SET": 18,
+            "NOV": 24
+        }
+    },
+    "17241652": {
+        "NOME": "Paulo Leandro Pavezzi Corsato",
+        "CONSULTORIA": "Uniagro",
+        "2018": {}
+    },
+    "18560122": {
+        "NOME": "Rafael Augusto Moresch",
+        "CONSULTORIA": "Uniagro",
+        "2018": {
+            "AGO": 37
+        }
+    },
+    "15137992": {
+        "NOME": "Arthur Anderson Pesco",
+        "CONSULTORIA": "Unidev",
+        "2018": {}
+    },
+    "16314522": {
+        "NOME": "Caio Augusto Basso Berezowki",
+        "CONSULTORIA": "Unidev",
+        "2018": {
+            "AGO": 21
+        }
+    },
+    "16059712": {
+        "NOME": "Carolina de Dio Ferreira",
+        "CONSULTORIA": "Unidev",
+        "2018": {
+            "AGO": 22
+        }
+    },
+    "17397292": {
+        "NOME": "Cassius Gremachi M. de Oliveira",
+        "CONSULTORIA": "Unidev",
+        "2018": {}
+    },
+    "18026802": {
+        "NOME": "Caue Sanches Vieira ",
+        "CONSULTORIA": "Unidev",
+        "2018": {
+            "AGO": 2
+        }
+    },
+    "17012962": {
+        "NOME": "Eloisa Potrich",
+        "CONSULTORIA": "Unidev",
+        "2018": {}
+    },
+    "18113072": {
+        "NOME": "Gabriel Cilico Leite",
+        "CONSULTORIA": "Unidev",
+        "2018": {}
+    },
+    "18015282": {
+        "NOME": "Luiz Felipe V. B. Lopes Lima",
+        "CONSULTORIA": "Unidev",
+        "2018": {
+            "AGO": 16
+        }
+    },
+    "16294072": {
+        "NOME": "Rodrigo Luis da Silva Bilieiro",
+        "CONSULTORIA": "Unidev",
+        "2018": {}
+    },
+    "12345678": {
+        "NOME": "\u00c1lvaro Rodrigues",
+        "CONSULTORIA": "Ma\u00e7\u00e3",
+        "2018": {
+            "ABR": 10,
+            "MAI": 10,
+            "JUN": 10,
+            "JUL": 10,
+            "AGO": 10,
+            "SET": 10,
+            "OUT": 10,
+            "NOV": 10,
+            "DEZ": 10
+        }
+    }
+}
