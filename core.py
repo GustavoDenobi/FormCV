@@ -22,16 +22,6 @@ creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. 
                   )
 
 
-def errorPopup():
-    """ Returns an error message in a popup """
-    print('ERROR')
-
-
-def textPopup(txt):
-    """ Receives a string and creates a popup with it's text """
-    print(txt)
-
-
 class Var:
     """
     This class stores general use variables and constants. When initialized, it reads config.ini to retrieve several
@@ -45,8 +35,8 @@ class Var:
         self.databaseFile = config['const']['databaseFile']  # Location of the current active database
         self.errorLogFile = config['const']['errorLogFile']  # Standard location of the error log
         self.imgPreviewSize = int(config['const']['imgPreviewSize'])  # Used as a factor for resizing image outputs
-        self.threshold = float(config['const']['threshold'])
-        self.imgDir = config['const']['imgDir']
+        self.threshold = float(config['const']['threshold']) # threshold used for defining image normalization
+        self.imgDir = config['const']['imgDir'] # directory of images
         self.minimumHours = int(config['const']['minimumHours'])
         self.certificateDir = config['const']['certificateDir']
         self.errorLog = []  # Used to store a sequence of lines which contain details about every read image
@@ -55,6 +45,7 @@ class Var:
         self.inDatabase = True # To check if a RA was found in the database
 
     def checkBackup(self):
+        """ Checks if a new backup should be done, according to the time defined in config.ini and does it if so."""
         config = configparser.ConfigParser()
         config.read('config.ini')
         lastBackup = config['backup']['lastbackup']
@@ -74,6 +65,7 @@ class Var:
             return False
 
     def refreshParams(self):
+        """ Refreshes the parameters stored in the __init__"""
         config = configparser.ConfigParser()
         config.read('config.ini')
         self.logDir = config['const']['logDir']  # The directory that should be scanned for images
@@ -97,12 +89,6 @@ class Var:
             config.write(configFile)
         self.refreshParams()
 
-    # pattern: Defines the values of every cell in a row in the time field of the forms
-    # months: defines the standard name for converting the number of a month to a key, which is the same of the database
-    # w: width of imgUndist, which is the undistorted version of the input
-    # h: height of imgUndist, which is the undistorted version of the input
-    # coordOrder: used in getCoordOrder, defines the order of the 4 points of the image contour to be undistorted
-    # cvFormats: formats that opencv is able to handle
     pattern = [0, 1, 2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 0, 0, 1, 2, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3]
     months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ']
     w = 37 * 16
@@ -138,18 +124,23 @@ class DBhandler(Var):
 
 
     def loadDB(self):
+        """ Opens the database file and retrieves useful info. """
         self.db = TinyDB(self.databaseFile)
         with self.db as db:
-            self.dblist = db.all() # stores the database as e dict where the key is the label of each row
+            self.dblist = db.all() # stores the database as e list
         self.length = len(self.dblist)  # number of consultants in database
-        self.raColInt = [x["RA"] for x in self.dblist]
-        self.raColStr = self.intToStr(self.raColInt)  # stores the list of RAs
+        self.raColInt = [x["RA"] for x in self.dblist] # stores the list os RAs as integer
+        self.raColStr = self.intToStr(self.raColInt)  # stores the list of RAs as string
         self.nameCol = [x['NOME'] for x in self.dblist]  # stores the list of names
         self.consultCol = [x['CONSULTORIA'] for x in self.dblist]  # stores the list of consulting names
-        self.consultList = sorted(set(self.consultCol))
-        self.db = TinyDB(self.databaseFile)
+        self.consultList = sorted(set(self.consultCol)) # stores a sorted listed of available consultings
+        self.db = TinyDB(self.databaseFile) # creates a new instance of the database to be used by other methods
 
     def intToStr(self, intList):
+        """
+        Transforms list of integers into list of strings
+        list intList: list containing integers
+        """
         strList = []
         for item in intList:
             strList.append(str(item))
@@ -250,21 +241,32 @@ class DBhandler(Var):
 
 
 class pdfCreator():
+    """
+    Creates PDF files based on a template and infos contained in certificateInfo and saves it to dir.
+    :param certificateInfo: list of dicts
+    :param dir: directory to save the PDFs
+    """
 
     def __init__(self, certificateInfo, dir):
-        self.template = Image.open("img\\template.png")
-        self.draw = ImageDraw.Draw(self.template)
+        self.template = Image.open("img\\template.png") # base image on which info is drawed
+        self.draw = ImageDraw.Draw(self.template) # instance of the drawing
+        # margins
         self.x_body = 500
         self.y_body = 800
         self.x_date = 1100
         self.y_date = 1400
+
         self.certificateInfo = certificateInfo
-        self.writeText(self.certificateInfo)
-        self.writeDate()
-        self.savePDF(dir)
+        self.writeText(self.certificateInfo) # writes text
+        self.writeDate() # writes date
+        self.savePDF(dir) # saves file in dir
 
 
     def writeText(self, fdict):
+        """
+        :param fdict: dict containing info for the text
+        :return:
+        """
         text = ("    Certifico que "
                 + fdict["NOME"]
                 + ", sob o RA "
@@ -289,6 +291,10 @@ class pdfCreator():
             linespace += 88
 
     def writeDate(self, city = "Maringá"):
+        """
+        :param city: name of the city to be written in the document
+        :return:
+        """
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         currentTime = currentTime[:8]
         year = currentTime[:4]
@@ -313,6 +319,10 @@ class pdfCreator():
 
 
     def savePDF(self, dir):
+        """
+        :param dir: directory to save the PDF
+        :return:
+        """
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         filepath = os.path.join(dir, (self.certificateInfo["CONSULTORIA"]
                                       + " - "
@@ -326,6 +336,9 @@ class pdfCreator():
 
 
 class certificateGenerator(DBhandler):
+    """
+    Used to retrieve info of consultants that achieved the minimum worked time.
+    """
     monthTrans = {'JAN': 'Janeiro',
                   'FEV': 'Fevereiro',
                   'MAR': 'Março',
@@ -354,6 +367,12 @@ class certificateGenerator(DBhandler):
         self.certCount = len(self.certToGenerate["RA"])
 
     def filterSumTime(self, year, months, consult):
+        """
+        :param year: year of activity
+        :param months: list of 2 months
+        :param consult: consulting
+        :return: dict of list with info to be written in certificates
+        """
         output = {'RA': [],
                      'NOME': [],
                      'CONSULTORIA': [],
@@ -383,6 +402,11 @@ class certificateGenerator(DBhandler):
         return output
 
     def saveCertificate(self, index):
+        """
+        Used to save a single certificate
+        :param index: index of consultant to get a certificate
+        :return:
+        """
         currentCertificate = self.fdict
         currentCertificate["RA"] = str(self.certToGenerate["RA"][index])
         currentCertificate["NOME"] = self.certToGenerate["NOME"][index]
@@ -395,6 +419,10 @@ class certificateGenerator(DBhandler):
         pdfCreator(currentCertificate, self.certificateDir)
 
     def saveCertificates(self):
+        """
+        Saves the certificates to PDFs using the pdfCreator class
+        :return:
+        """
         for current in range(self.certCount):
             currentCertificate = self.fdict
             currentCertificate["RA"] = str(self.certToGenerate["RA"][current])
@@ -417,6 +445,11 @@ class errorLogHandler(Var):
         self.errorLogText = self.errorLogLoader(self.errorLogFile)
 
     def errorLogLoader(self, file):
+        """
+        Loads the text contained in the error log file.
+        :param file: error log file path
+        :return:
+        """
         with open(file) as stream:
             text = stream.read()
             return text
@@ -455,6 +488,13 @@ class FormCV(Var):
         self.imgnormal = None  # normalized image
 
     def imread(self, filename, flags=cv2.IMREAD_COLOR, dtype=np.uint8):
+        """
+        Workaround to cv.imread(), which fails to read a file containing utf-8 symbols like accentuation.
+        :param filename: path to image to be read
+        :param flags: type of image to be returned. Standard colored image.
+        :param dtype: encoding
+        :return: image as matrix with shape (x,y,3)
+        """
         try:
             n = np.fromfile(filename, dtype)
             img = cv2.imdecode(n, flags)
@@ -631,6 +671,11 @@ class FormCV(Var):
             return "TOMATRIX"
 
     def dataExtract(self, matrix):
+        """
+        Retrieves information from matrix
+        :param matrix: filtered input image
+        :return: ra, month, list of days worked and their indexes
+        """
         data = matrix
         ra = []
         period = []
@@ -800,6 +845,10 @@ class ImgRead(FormCV):
             
             
     def errorFinder(self):
+        """
+        Finds the errors in the image reading process
+        :return: list of errors
+        """
         errors = []
         if(len(self.imgUndist) == len("IMGUNDIST")):
             errors.append(self.imgUndist)
@@ -824,13 +873,29 @@ class ImgRead(FormCV):
         return errors
 
     def grayToBGR(self, src):
+        """
+        Transforms image from grayscale to BGR
+        :param src: source image
+        :return: BGR image
+        """
         return cv2.cvtColor(src, cv2.COLOR_GRAY2BGR)
 
     def resizeImg(self, src, height):
+        """
+        Resizes image keeping the aspect ratio
+        :param src: source image
+        :param height: target height
+        :return: resized image
+        """
         factor = height/src.shape[0]
         return cv2.resize(src, dsize=None, fx=factor, fy=factor, interpolation=cv2.INTER_AREA)
 
     def getAnottatedImage(self, x=5):
+        """
+        Anottates image with errors encountered.
+        :param x: resizing factor
+        :return:
+        """
         try:
             self.imgAnottated = self.resizeImg(self.imgAnottated, 95 * x)
             if("RA" in self.errorType):
@@ -870,6 +935,12 @@ class ImgRead(FormCV):
         self.errorLog.append(txt)
 
     def saveImg(self, dir, img):
+        """
+        Saves image to disk.
+        :param dir: directory in which the img should be saved
+        :param img: image to be saved
+        :return:
+        """
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         currentTime = currentTime[:14]
         if(self.status):
@@ -880,6 +951,10 @@ class ImgRead(FormCV):
         cv2.imwrite(path, img)
 
     def getInfo(self):
+        """
+        Gets info from the read image
+        :return: info gathered
+        """
         info = {'IMG': [],
                 'RA': [],
                 'NOME': [],
@@ -910,6 +985,10 @@ class ImgRead(FormCV):
         return info
 
     def getLog(self):
+        """
+        Gathers log info
+        :return: log
+        """
         log = []
         log.append("IMAGEM: " + self.file)
         if (self.status):
@@ -939,6 +1018,9 @@ class ImgRead(FormCV):
 
 
 class FileReader():
+    """
+    Used to unite info from different parts of the program (database, read images), save info and write the log file.
+    """
     def __init__(self, forms):
         self.var = Var()
         self.db = DBhandler()
@@ -950,6 +1032,10 @@ class FileReader():
         self.outputLog()
 
     def writeInfo(self):
+        """
+        Stores the info gathered from the last reading in the database.
+        :return:
+        """
         try:
             for form in self.forms:
                 if(not form.terminalError):
@@ -970,6 +1056,10 @@ class FileReader():
         self.var.errorLog.append(txt)
 
     def getLog(self):
+        """
+        Retrieves the log from the forms.
+        :return: error log
+        """
         errorLog = []
         for form in self.forms:
             errorLog.extend(form.log)
@@ -977,6 +1067,10 @@ class FileReader():
         return errorLog
 
     def outputLog(self):
+        """
+        Saves 2 copies of the error log file.
+        :return:
+        """
         self.io.errorLogWriter(self.log)
         currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
         self.io.errorLogExporter(os.path.join(self.var.logDir,
@@ -984,18 +1078,15 @@ class FileReader():
                                                + currentTime[:14]
                                                + ".txt")))
 
-    def logToStr(self, log, numOfLines = 25):
+    def logToStr(self, log):
+        """
+        Transforms the lists contained in the log into string.
+        :param log: error log list
+        :return:
+        """
         logList = log
-        #for item in range(numOfLines - len(logList)):
-        #    logList.append("")
         logStr = ""
         for line in logList:
             logStr = logStr + line + "\n"
         return logStr
 
-#a = DBhandler()
-#a.docWriter(12345678, 2019, 'JAN', 20)
-#a.docWriter(12345678, 2019, 'FEV', 20)
-#a = certificateGenerator(2019, ['JAN', 'FEV'], 'Arroz')
-#print(a.certCount)
-#a.saveCertificates()

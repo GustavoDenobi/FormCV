@@ -91,8 +91,6 @@ class MainWidget(QWidget):
     def getFolder(self):
         dlg = QFileDialog(directory=self.var.imgDir)
         dlg.setFileMode(QFileDialog.Directory)
-        #dlg.setFilter(self.var.cvFormats)
-        path = QStringListModel()
         fileList = []
 
         if dlg.exec_():
