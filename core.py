@@ -13,14 +13,13 @@ import textwrap
 VERSION = '2.0.0'
 
 creditText = ('Este aplicativo foi criado e desenvolvido em 2018 por Gustavo F. A. Denobi, consultor pela iNOVEC. \n'
-                  'Agradecimentos especiais ao ICETI e à UNICESUMAR, pela oportunidade de aprendizado no processo '
+                  'Agradecimentos especiais ao UNICESUMAR Empresarial, pela oportunidade de aprendizado no processo '
                   'de desenvolvimento deste aplicativo.\n\n'
                   'O uso deste aplicativo e todo o seu conteúdo está totalmente sujeito a autorização do autor.\n\n'
-                  'Contato: gustavodenobi@gmail.com\n\n'
+                  'Contato: gustavodenobi@gmail.com\n'
+                  'GitHub: github.com/GustavoDenobi\n\n'
                   'Versão: ' + VERSION
                   )
-
-
 
 
 def errorPopup():
@@ -69,7 +68,7 @@ class Var:
             with open('config.ini', 'w') as configFile:
                 config.write(configFile)
 
-            shutil.copy(self.databaseFile, os.path.join(backupDir + os.sep + str(currentTime)) + ".csv")
+            shutil.copy(self.databaseFile, os.path.join(backupDir + os.sep + str(currentTime)) + ".json")
             return True
         else:
             return False
@@ -135,14 +134,20 @@ class DBhandler(Var):
     def __init__(self):
         super(DBhandler, self).__init__()
         self.docID = 0  # whenever an operation finds a doc ID, it is stored here
+        self.loadDB()
+
+
+    def loadDB(self):
         self.db = TinyDB(self.databaseFile)
-        self.dblist = self.db.all()# stores the database as e dict where the key is the label of each row
+        with self.db as db:
+            self.dblist = db.all() # stores the database as e dict where the key is the label of each row
         self.length = len(self.dblist)  # number of consultants in database
         self.raColInt = [x["RA"] for x in self.dblist]
-        self.raCol = self.intToStr(self.raColInt)  # stores the list of RAs
+        self.raColStr = self.intToStr(self.raColInt)  # stores the list of RAs
         self.nameCol = [x['NOME'] for x in self.dblist]  # stores the list of names
         self.consultCol = [x['CONSULTORIA'] for x in self.dblist]  # stores the list of consulting names
         self.consultList = sorted(set(self.consultCol))
+        self.db = TinyDB(self.databaseFile)
 
     def intToStr(self, intList):
         strList = []
@@ -157,12 +162,12 @@ class DBhandler(Var):
         str period: 3-letter code according to Var.months
         float time: sum of time of a consultant in a month
         """
+        self.loadDB()
         with self.db as db:
-            doc = Query()
             year = "y" + str(year)
             currentTime = str(datetime.today()).replace(":", "").replace(" ", "").replace(".", "").replace("-", "")
             currentTime = currentTime[:14]
-            q = db.get(doc.RA == int(ra))
+            q = db.search(Query().RA == int(ra))[0]
             if year in q.keys():
                 if period in [x["month"] for x in q[year]]:
                     for item in q[year]:
@@ -173,17 +178,21 @@ class DBhandler(Var):
                     q[year].append({'month': period, 'time': time, 'entry_time': currentTime})
             else:
                 q[year] = [{'month': period, 'time': time, 'entry_time': currentTime}]
-            db.update(q)
+            db.update(q, Query().RA == int(ra))
 
     def retrieveConsultant(self, consultantRA):
         """ Searches the database for the given RA number and returns a dict with its name and consulting
         str consultantRA: the RA to be searched
         """
+        self.loadDB()
         try:
+            consultantRA = int(consultantRA)
             with self.db as db:
-                doc = Query()
-                q = db.search(doc.RA == int(consultantRA))
-                return q[0]
+                q = [x for x in db.all() if x['RA'] == consultantRA]
+                if len(q) == 0:
+                    return False
+                else:
+                    return q[0]
         except:
             return False
 
@@ -196,27 +205,31 @@ class DBhandler(Var):
         for key in consultant.keys():
             if consultant[key] == '':  # checks if all fields are filled
                 status = False
-        if(not consultant['RA'].isdigit()):  # checks if RA is number
+        if(not str(consultant['RA']).isdigit()):  # checks if RA is number
             status = False
-        if(not len(consultant['RA']) == 8):  # checks if RA has 8 numbers
+        if(not len(str(consultant['RA'])) == 8):  # checks if RA has 8 numbers
             status = False
         if(status):  # if validation passed, proceed
-            if(int(consultant['RA']) in self.dbdict['RA']):  # checks if consultant is already in database
-                try:
-                    index = self.dbdict["RA"].index(int(consultant["RA"]))
-                    self.dbdict["NOME"][index] = consultant["NOME"]
-                    self.dbdict["CONSULTORIA"][index] = consultant["CONSULTORIA"]
-                    self.saveDB()
+            consultant['RA'] = int(consultant['RA'])
+            if(consultant['RA'] in self.raColInt):  # checks if consultant is already in database
+                try: # edits consultant
+                    self.loadDB()
+                    with self.db as db:
+                        doc = db.get(Query().RA == consultant['RA'])
+                        doc['NOME'] = consultant['NOME']
+                        doc['CONSULTORIA'] = consultant['CONSULTORIA']
+                        db.update(doc, Query().RA == consultant['RA'])
                     return 1
                 except:
                     return 0
-            else:
+            else: # edit consultant
                 try:  # adds consultant to the database
-                    for key in consultant.keys():
-                        self.dbdict[key].append(consultant[key])
-                    for key in self.months:
-                        self.dbdict[key].append(0)
-                    self.saveDB()
+                    self.loadDB()
+                    with self.db as db:
+                        doc = {'RA': consultant['RA'],
+                               'NOME': consultant['NOME'],
+                               'CONSULTORIA': consultant['CONSULTORIA']}
+                        db.insert(doc)
                     return 1
                 except:
                     return 0
@@ -227,12 +240,13 @@ class DBhandler(Var):
         :param consultantRA: string containing the consultant's RA
         """
         try:
-            db = self.readDatabaseSheet()
-            del db.row[consultantRA]
-            db.save_as(self.databaseFile)
-            textPopup("Consultor removido!")
+            consultantRA = int(consultantRA)
+            self.loadDB()
+            with self.db as db:
+                db.remove(Query().RA == consultantRA)
+            return 1
         except:
-            errorPopup()
+            return 0
 
 
 class pdfCreator():
@@ -325,7 +339,7 @@ class certificateGenerator(DBhandler):
                   'NOV': 'Novembro',
                   'DEZ': 'Dezembro'}
 
-    def __init__(self, months, consult):
+    def __init__(self, year, months, consult):
         super(certificateGenerator, self).__init__()
         self.fdict = {"RA" : "",
                       "NOME" : "",
@@ -335,42 +349,38 @@ class certificateGenerator(DBhandler):
                       "MES2" : "",
                       "ANO" : ""}
         self.months = months
-        self.certToGenerate = self.filterSumTime(months, consult)
+        self.year = year
+        self.certToGenerate = self.filterSumTime(year, months, consult)
         self.certCount = len(self.certToGenerate["RA"])
 
-    def filterSumTime(self, months, consult):
-        output = {'RA': self.dbdict['RA'],
-                  'NOME': self.dbdict['NOME'],
-                  'CONSULTORIA': self.dbdict['CONSULTORIA'],
-                  'TOTAL': ([0] * self.length)}
-
-        for i in range(len(self.dbdict['NOME'])):
-            if(consult == "Todas"):
-                sumTime = self.dbdict[months[0]][i] + self.dbdict[months[1]][i]
-                if (sumTime % 1) <= 0.5:
-                    sumTime = int(sumTime)
-                else:
-                    sumTime = int(sumTime) + 1
-                output['TOTAL'][i] = sumTime
-            elif(self.dbdict["CONSULTORIA"][i] == consult):
-                sumTime = self.dbdict[months[0]][i] + self.dbdict[months[1]][i]
-                if (sumTime % 1) <= 0.5:
-                    sumTime = int(sumTime)
-                else:
-                    sumTime = int(sumTime) + 1
-                output['TOTAL'][i] = sumTime
-
-        newoutput = {'RA': [],
+    def filterSumTime(self, year, months, consult):
+        output = {'RA': [],
                      'NOME': [],
                      'CONSULTORIA': [],
                      'TOTAL': []}
 
-        # The following loop selects only the consultants with more than 20 hours in the selected 2 months
-        for i in range(len(self.dbdict['NOME'])):
-            if (output['TOTAL'][i] >= float(self.minimumHours)):
-                for key in output.keys():
-                    newoutput[key].append(output[key][i])
-        return newoutput
+        self.loadDB()
+        yearstr = ('y' + str(year))
+        for doc in self.dblist:
+            total = 0
+            if consult == "Todas":
+                if yearstr in doc:
+
+                    for entry in doc[yearstr]:
+                        if entry['month'] in months:
+                            total += entry['time']
+            else:
+                if (yearstr in doc) and (consult in doc['CONSULTORIA']):
+                    for entry in doc[yearstr]:
+                        if entry['month'] in months:
+                            total += entry['time']
+            total = int(total) if total % 1 <= 0.5 else int(total) + 1
+            if total >= float(self.minimumHours):
+                output['RA'].append(doc['RA'])
+                output['NOME'].append(doc['NOME'])
+                output['CONSULTORIA'].append(doc['CONSULTORIA'])
+                output['TOTAL'].append(total)
+        return output
 
     def saveCertificate(self, index):
         currentCertificate = self.fdict
@@ -385,7 +395,7 @@ class certificateGenerator(DBhandler):
         pdfCreator(currentCertificate, self.certificateDir)
 
     def saveCertificates(self):
-        for current in range(len(self.certToGenerate["RA"])):
+        for current in range(self.certCount):
             currentCertificate = self.fdict
             currentCertificate["RA"] = str(self.certToGenerate["RA"][current])
             currentCertificate["NOME"] = self.certToGenerate["NOME"][current]
@@ -450,7 +460,6 @@ class FormCV(Var):
             img = cv2.imdecode(n, flags)
             return img
         except Exception as e:
-            print(e)
             return None
 
     def imgPreview(self, img, title = "Preview"):
@@ -941,12 +950,16 @@ class FileReader():
         self.outputLog()
 
     def writeInfo(self):
-        for form in self.forms:
-            if(not form.terminalError):
-                if (len(form.errorType) == 0) and (str(form.ra) in self.db.raCol):
-                    self.db.docWriter(form.ra, form.year, form.period, form.time)
-                elif(str(form.ra) in self.db.raCol):
-                    form.inDatabase = False
+        try:
+            for form in self.forms:
+                if(not form.terminalError):
+                    if (len(form.errorType) == 0) and (str(form.ra) in self.db.raColStr):
+                        self.db.docWriter(form.ra, ('20' + str(form.year)), form.period, form.time)
+                    elif(str(form.ra) in self.db.raColStr):
+                        form.inDatabase = False
+            return True
+        except:
+            return False
 
     def logAppend(self, txt):
         """
@@ -980,3 +993,9 @@ class FileReader():
             logStr = logStr + line + "\n"
         return logStr
 
+#a = DBhandler()
+#a.docWriter(12345678, 2019, 'JAN', 20)
+#a.docWriter(12345678, 2019, 'FEV', 20)
+#a = certificateGenerator(2019, ['JAN', 'FEV'], 'Arroz')
+#print(a.certCount)
+#a.saveCertificates()

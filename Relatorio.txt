@@ -1,106 +1,92 @@
-IMAGEM: C:\Users\denobi\Pictures\1d8f0368-3dd0-4377-a82a-771564be81c1.jpg
-    Imagem não reconhecida.
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152041.jpg
+    RA: 16157912
+    NOME: Gustavo Felipe Acioli Denobi
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 61.25
 
-IMAGEM: C:\Users\denobi\Pictures\20180531_152904.jpg
-    Imagem não reconhecida.
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152058.jpg
+    RA: 18309082
+    NOME: Gabrielle de Castro Santos
+    CONSULTORIA: Inovec
+    PERIODO: DEZ
+    ANO: 18
+    HORAS: 151.0
+        Dias com erros de preenchimento: [7]
 
-IMAGEM: C:\Users\denobi\Pictures\20180531_154105.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\20180531_155052.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\20180531_155057.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\20180531_155312.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\20180531_155352.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\20180531_155524.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\20180531_155549.jpg
-    RA: 00122335
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152106.jpg
+    RA: 15022652
     NOME: ?
     CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 0.0
-        Dias com erros de preenchimento: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 16.75
 
-IMAGEM: C:\Users\denobi\Pictures\635cjrt0hq010qn816wok71yl.jpg
-    Imagem não reconhecida.
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152116.jpg
+    RA: 15015602
+    NOME: Gustavo Pires Liberati
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 67.0
 
-IMAGEM: C:\Users\denobi\Pictures\656762807df14f0725a13f0386997008.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\8d705fc2d5f8233550cca6ab6dc898e9.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\98df645b-f1e4-48a8-a950-f12ea2a64708.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\black-abstract-wallpaper-018b.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\black-abstract-wallpaper-018c.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\cl02c.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\download.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\EMPRESARIAL.png
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\FABI.png
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\foto.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\gold-05.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\IMG_20180530_154453_426.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\presepio-2.jpg
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\PUB-FACE.jpg
-    RA: 
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152124.jpg
+    RA: 14022952
     NOME: ?
     CONSULTORIA: ?
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 23.0
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152135.jpg
+    RA: 16058382
+    NOME: Isadora Fonseca Araujo
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 70.25
+        Dias com erros de preenchimento: [22]
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152145.jpg
+    RA: 18015872
+    NOME: Fabrício Simonelli Tanguas
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 25.0
+
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152155.jpg
+    RA: 17449602
+    NOME: Abel Tonon Segundo
+    CONSULTORIA: Inovec
     PERIODO: 
     ANO: 
-    HORAS: 0.0
-    Erro de preenchimento no RA.
+    HORAS: 13.75
     Erro de preenchimento no Período.
 
-IMAGEM: C:\Users\denobi\Pictures\PUB-IG.jpg
-    RA: 
-    NOME: ?
-    CONSULTORIA: ?
-    PERIODO: 
-    ANO: 
-    HORAS: 0.0
-    Erro de preenchimento no RA.
-    Erro de preenchimento no Período.
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152205.jpg
+    RA: 16074832
+    NOME: Lucas Gustavo Fritzen
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 22.5
 
-IMAGEM: C:\Users\denobi\Pictures\UNICESUMAR.jpg
-    Imagem não reconhecida.
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152217.jpg
+    RA: 18258382
+    NOME: Ruan Felipe Siqueira Antunes
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 26.0
+        Dias com erros de preenchimento: [18]
 
-IMAGEM: C:\Users\denobi\Pictures\Untitled-1.png
-    Imagem não reconhecida.
-
-IMAGEM: C:\Users\denobi\Pictures\Camera Roll\WIN_20181130_13_39_37_Pro.jpg
-    Imagem não reconhecida.
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152225.jpg
+    RA: 18376562
+    NOME: João Victor K. Moura
+    CONSULTORIA: Inovec
+    PERIODO: OUT
+    ANO: 18
+    HORAS: 44.5
 

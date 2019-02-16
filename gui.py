@@ -76,16 +76,14 @@ class MainWidget(QWidget):
         self.tab3.foundItems = []
         self.database = DBhandler()
         self.table.clear()
-        self.table.setColumnCount(len(self.database.dbdict.items()))
-        self.table.setHorizontalHeaderLabels(self.database.dbdict.keys())
+        self.table.setColumnCount(3)
+        self.table.columnName = ['RA', 'NOME', 'CONSULTORIA']
+        self.table.setHorizontalHeaderLabels(self.table.columnName)
         self.table.setRowCount(self.database.length)
-        for column, key in enumerate(self.database.dbdict):
+        for column in range(len(self.table.columnName)):
             self.table.horizontalHeaderItem(column).setTextAlignment(Qt.AlignHCenter)
-            for row, item in enumerate(self.database.dbdict[key]):
-                if(key in self.var.months):
-                    newitem = QTableWidgetItem(str(float(item)))
-                else:
-                    newitem = QTableWidgetItem(str(item))
+            for row in range(self.database.length):
+                newitem = QTableWidgetItem(str(self.database.dblist[row][self.table.columnName[column]]))
                 newitem.setTextAlignment(Qt.AlignCenter)
                 self.table.setItem(row, column, newitem)
         self.table.resizeColumnsToContents()
@@ -99,9 +97,7 @@ class MainWidget(QWidget):
 
         if dlg.exec_():
             path = dlg.selectedFiles()
-            print(path)
             for subdir, dirs, files in os.walk(path[0]):
-                print(files)
                 for file in files:
                     filepath = subdir + os.sep + file
                     for format in self.var.cvFormats:
@@ -144,7 +140,7 @@ class MainWidget(QWidget):
         self.btn_Save.setEnabled(False)
 
     def saveDB(self):
-        if(self.tab1.reading.saveDB()):
+        if(self.tab1.reading.writeInfo()):
             self.loadDatabase()
             self.listedFiles.clear()
             self.tab1.fileList = []
@@ -179,8 +175,6 @@ class MainWidget(QWidget):
                 self.outputToConsole("Lendo imagem " + str(count) + " de " + str(imgCount) + "...")
                 self.refreshProgBar(max = imgCount, current = count)
 
-
-
             self.tab1.reading = FileReader(self.tab1.forms)
             self.changeViews()
             self.refreshLog()
@@ -200,11 +194,11 @@ class MainWidget(QWidget):
             filename = QDir.toNativeSeparators(filename)
             self.var.paramTuner("certificateDir", filename)
             self.tab4.label1.setText(self.var.certificateDir)
-
+            year = self.tab3.yearSel.value()
             months = []
             months.append(self.tab3.firstMonth)
             months.append(self.tab3.secondMonth)
-            gen = certificateGenerator(months, self.tab3.consult)
+            gen = certificateGenerator(year, months, self.tab3.consult)
             count = 0
 
             for cert in range(gen.certCount):
@@ -223,6 +217,7 @@ class MainWidget(QWidget):
         txt = self.tab3.box3.lineRA.text()
         if(len(txt) == 8):
             if(txt.isnumeric()):
+                self.tab3.box3.lineRA.setEnabled(False)
                 consultant = self.database.retrieveConsultant(txt)
                 self.tab3.box3.lineConsult.setEnabled(True)
                 self.tab3.box3.lineNome.setEnabled(True)
@@ -243,24 +238,21 @@ class MainWidget(QWidget):
                     self.tab3.box3.lineNome.setText(consultant["NOME"])
                     self.tab3.box3.lineConsult.setText(consultant["CONSULTORIA"])
                     self.tab3.box3.btn_Delete.setStyleSheet("")
+                    self.tab3.box3.btn_Delete.setText('Excluir Consultor')
                     self.tab3.box3.btn_Delete.clicked.connect(self.confirmDeleteConsultant)
                     self.tab3.box3.lineRA.setStyleSheet("color: orange;")
                     self.tab3.box3.btn_Save.setText("Salvar Consultor")
+                    self.tab3.box4.yearList.setEnabled(True)
+                    self.tab3.box4.entryTable.setEnabled(True)
+                    for key in consultant.keys():
+                        if key[0] == 'y':
+                            self.tab3.box4.yearList.addItem(key[1:])
             else:
                 self.outputToConsole("O número de Registro de Aluno (RA) deve conter 8 números.")
                 self.tab3.box3.lineRA.setStyleSheet("color: red;")
-        else:
-            self.tab3.box3.lineNome.setText("")
-            self.tab3.box3.lineConsult.setText("")
-            self.tab3.box3.lineNome.setEnabled(False)
-            self.tab3.box3.lineConsult.setEnabled(False)
-            self.tab3.box3.btn_Save.setEnabled(False)
-            self.tab3.box3.btn_Cancel.setEnabled(False)
-            self.tab3.box3.btn_Delete.setEnabled(False)
-            self.tab3.box3.btn_Save.setText("Salvar Consultor")
-            self.tab3.box3.lineRA.setStyleSheet("color: black;")
 
     def clearConsultant(self):
+        self.tab3.box3.lineRA.setEnabled(True)
         self.tab3.box3.lineRA.setText("")
         self.tab3.box3.lineNome.setText("")
         self.tab3.box3.lineConsult.setText("")
@@ -268,7 +260,12 @@ class MainWidget(QWidget):
         self.tab3.box3.lineConsult.setEnabled(False)
         self.tab3.box3.btn_Save.setEnabled(False)
         self.tab3.box3.btn_Cancel.setEnabled(False)
-        self.tab3.box3.btn_Delete.setEnabled(False)
+        self.tab3.box3.btn_Cancel.clicked.disconnect()
+        if self.tab3.box3.btn_Delete.isEnabled():
+            self.tab3.box3.btn_Delete.setEnabled(False)
+            self.tab3.box3.btn_Delete.clicked.disconnect()
+        self.tab3.box3.btn_Delete.setText('Excluir Consultor')
+        self.tab3.box3.btn_Delete.setStyleSheet("")
         self.tab3.box3.btn_Save.setText("Salvar Consultor")
         self.tab3.box3.lineRA.setStyleSheet("color: black;")
 
@@ -289,15 +286,49 @@ class MainWidget(QWidget):
 
     def confirmDeleteConsultant(self):
         self.tab3.box3.btn_Delete.setText("Confirmar deleção")
+        self.tab3.box3.btn_Delete.clicked.disconnect(self.confirmDeleteConsultant)
         self.tab3.box3.btn_Delete.clicked.connect(self.deleteConsultant)
         self.tab3.box3.btn_Delete.setStyleSheet("color: red;")
 
     def deleteConsultant(self):
-        self.tab3.box3.btn_Delete.setStyleSheet("")
         self.database.delConsultant(str(self.tab3.box3.lineRA.text()))
         self.outputToConsole("Consultor removido com sucesso.")
         self.clearConsultant()
         self.loadDatabase()
+
+    def changeEntryTable(self):
+        self.tab3.box4.entryTable.clear()
+        current = self.tab3.box4.yearList.currentItem()
+        current = current.text()
+        consultant = self.database.retrieveConsultant(self.tab3.box3.lineRA.text())
+        entries = consultant[("y" + str(current))]
+
+        en_titles = list(entries[0].keys())
+        self.tab3.box4.entryTable.setColumnCount(len(self.tab3.titles))
+        self.tab3.box4.entryTable.setRowCount(len(entries))
+        self.tab3.box4.entryTable.setHorizontalHeaderLabels(self.tab3.titles)
+        for column in range(len(self.tab3.titles)):
+            self.tab3.box4.entryTable.horizontalHeaderItem(column).setTextAlignment(Qt.AlignHCenter)
+            for row in range(len(entries)):
+                if en_titles[column] == "entry_time":
+                    txt = str(entries[row][en_titles[column]])
+                    txt = str(txt[6:8]
+                              + '/'
+                              + txt[4:6]
+                              + '/'
+                              + txt[:4]
+                              + ' - '
+                              + txt[8:10]
+                              + ':'
+                              + txt[10:12]
+                              + ':'
+                              + txt[12:14])
+                    newitem = QTableWidgetItem(txt)
+                else:
+                    newitem = QTableWidgetItem(str(entries[row][en_titles[column]]))
+                newitem.setTextAlignment(Qt.AlignCenter)
+                self.tab3.box4.entryTable.setItem(row, column, newitem)
+        self.tab3.box4.entryTable.resizeColumnsToContents()
 
     def refreshProgBar(self, min = 0, max = 1, current = 0, reset = False):
         if(reset):
@@ -603,6 +634,7 @@ class MainWidget(QWidget):
         self.tab3.consult = "Todas"
         self.tab3.searchText = ""
         self.tab3.foundItems = []
+        self.tab3.titles = ['MÊS', "HORAS", "DATA DE LEITURA"]
 
         self.tab3.layout = QGridLayout()
 
@@ -635,12 +667,18 @@ class MainWidget(QWidget):
 
         self.tab3.box2 = QGroupBox("Gerar Certificados")
         self.tab3.box2.layout = QVBoxLayout(self)
-        self.tab3.label_Generate = QLabel("Selecione 2 meses de exercício e uma consultoria."
+        self.tab3.label_Generate = QLabel("Selecione o ano, 2 meses de exercício e uma consultoria."
                                           + " Para gerar os certificados, clique em Gerar Certificados.")
         self.tab3.label_Generate.setAlignment(Qt.AlignCenter)
         self.tab3.box2.layout.addWidget(self.tab3.label_Generate)
         self.tab3.box2.buttons = QWidget()
         self.tab3.box2.buttons.layout = QHBoxLayout()
+        self.tab3.yearSel = QSpinBox()
+        self.tab3.yearSel.setMaximum(2999)
+        self.tab3.yearSel.setMinimum(2000)
+        currentyear = int(self.getCurrentTime()[:4])
+        self.tab3.yearSel.setValue(currentyear)
+        self.tab3.box2.buttons.layout.addWidget(self.tab3.yearSel)
         self.tab3.monthSel1 = QComboBox()
         self.tab3.monthSel1.addItems(self.var.months)
         self.tab3.monthSel1.activated.connect(self.selMonth1)
@@ -692,17 +730,33 @@ class MainWidget(QWidget):
         self.tab3.box3.manager.layout.addRow("Nome:", self.tab3.box3.lineNome)
         self.tab3.box3.manager.layout.addRow("Consultoria", self.tab3.box3.lineConsult)
         self.tab3.box3.manager.layout.addRow("", self.tab3.box3.buttons)
+
+        self.tab3.box4 = QGroupBox("Relatórios")
+        self.tab3.box4.layout = QHBoxLayout()
+        self.tab3.box4.yearList = QListWidget()
+        self.tab3.box4.yearList.itemClicked.connect(self.changeEntryTable)
+        self.tab3.box4.yearList.setResizeMode(QListView.Adjust)
+        self.tab3.box4.layout.addWidget(self.tab3.box4.yearList)
+        self.tab3.box4.entryTable = QTableWidget()
+        self.tab3.box4.entryTable.setColumnCount(len(self.tab3.titles))
+        self.tab3.box4.entryTable.setHorizontalHeaderLabels(self.tab3.titles)
+        self.tab3.box4.layout.addWidget(self.tab3.box4.entryTable)
+        self.tab3.box4.setLayout(self.tab3.box4.layout)
+        self.tab3.box4.entryTable.setEnabled(False)
+        self.tab3.box4.yearList.setEnabled(False)
+
         self.tab3.box3.manager.setLayout(self.tab3.box3.manager.layout)
         self.tab3.box3.layout.addWidget(self.tab3.box3.manager)
+        self.tab3.box3.layout.addWidget(self.tab3.box4)
         self.tab3.box3.setLayout(self.tab3.box3.layout)
 
         self.tab3.spacer = QSpacerItem(1,1)
 
 
         self.tab3.layout.addWidget(self.tab3.box1, 0, 0, 0, 1)
-        self.tab3.layout.addWidget(self.tab3.box3, 0, 1)
-        self.tab3.layout.addWidget(self.tab3.box2, 1, 1)
-        self.tab3.layout.addItem(self.tab3.spacer, 2, 1)
+        self.tab3.layout.addWidget(self.tab3.box3, 2, 1)
+        self.tab3.layout.addWidget(self.tab3.box2, 3, 1)
+        #self.tab3.layout.addItem(self.tab3.spacer, 2, 1)
         self.tab3.layout.setRowStretch(2, 1)
         self.tab3.setLayout(self.tab3.layout)
 
@@ -715,7 +769,7 @@ class MainWidget(QWidget):
             dlg0.setDirectory(self.var.databaseFile)
             filename = dlg0.selectedFiles()[0]
             filename = QDir.toNativeSeparators(filename)
-            if(filename.endswith(".csv")):
+            if(filename.endswith(".json")):
                 self.var.paramTuner("databaseFile", filename)
                 self.outputToConsole("Configuração atualizada.")
                 self.tab4.label0.setText(filename)
@@ -790,7 +844,6 @@ class MainWidget(QWidget):
         txt = path
         try:
             isExistent = os.lstat(txt)
-            isExistent = True
         except:
             isExistent = False
         return isExistent
