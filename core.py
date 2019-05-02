@@ -1025,6 +1025,7 @@ class ImgRead(FormCV):
             info['HORAS'].append('?')
             info['NOME'].append('?')
             info['CONSULTORIA'].append('?')
+        print(info)
         return info
 
     def getLog(self):
@@ -1036,8 +1037,10 @@ class ImgRead(FormCV):
         log.append("IMAGEM: " + self.file)
         if (self.status):
             log.append("    RA: " + str(self.ra))
-            log.append("    NOME: " + str(self.info['NOME'][self.info['RA'].index(self.ra)]))
-            log.append("    CONSULTORIA: " + str(self.info['CONSULTORIA'][self.info['RA'].index(self.ra)]))
+            #log.append("    NOME: " + str(self.info['NOME'][self.info['RA'].index(self.ra)]))
+            #log.append("    CONSULTORIA: " + str(self.info['CONSULTORIA'][self.info['RA'].index(self.ra)]))
+            log.append("    NOME: " + str(self.info['NOME'][0]))
+            log.append("    CONSULTORIA: " + str(self.info['CONSULTORIA'][0]))
             log.append("    PERIODO: " + str(self.info['MES'][0]))
             log.append("    ANO: 20" + str(self.year))
             log.append("    HORAS: " + str(self.info['HORAS'][0]))

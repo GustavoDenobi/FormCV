@@ -1,82 +1,41 @@
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111257.jpg
-    RA: 15022742
-    NOME: Amanda Christiane O. Moro
-    CONSULTORIA: Ambivet
-    PERIODO: FEV - Última leitura realizada em 01/05/2019 - 22:31:13
-    ANO: 2019
-    HORAS: 9.0 [9.0]
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152041.jpg
+    RA: 16157912
+    NOME: Gustavo Fellipe Acioli Denobi
+    CONSULTORIA: Inovec
+    PERIODO: OUT - Última leitura realizada em 02/05/2019 - 08:04:53
+    ANO: 2018
+    HORAS: 61.25 [61.25]
 
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111318.jpg
-    RA: 17395462
-    NOME: Ana Cecília C. Piaza
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 2.25
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152058.jpg
+    RA: 18309082
+    NOME: Gabrielle de Castro Santos
+    CONSULTORIA: Inovec
+    PERIODO: DEZ - Última leitura realizada em 02/05/2019 - 08:04:53
+    ANO: 2018
+    HORAS: 151.0 [151.0]
+        Dias com erros de preenchimento: [7]
 
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111335.jpg
-    RA: 17180572
-    NOME: Armandio Campagnolo Neto
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 6.5
-
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111343.jpg
-    RA: 16409932
-    NOME: Fernanda Luiza Buzzo Petry
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 11.5
-
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111351.jpg
-    RA: 15216551
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152106.jpg
+    RA: 15022652
     NOME: ?
     CONSULTORIA: ?
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 9.5
+    PERIODO: OUT
+    ANO: 2018
+    HORAS: 16.75
 
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111401.jpg
-    RA: 18131762
-    NOME: Maria Stefani de Brito
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 12.0
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152116.jpg
+    RA: 15015602
+    NOME: Gustavo Pires Liberati
+    CONSULTORIA: Inovec
+    PERIODO: OUT - Última leitura realizada em 02/05/2019 - 08:04:53
+    ANO: 2018
+    HORAS: 67.0 [67.0]
 
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111408.jpg
-    RA: 15010752
-    NOME: Paula Karolaine B. dos Santos
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 15.25
-
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111417.jpg
-    RA: 17302112
-    NOME: Larissa Silva de Oliveira
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 5.5
-        Dias com erros de preenchimento: [26]
-
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111427.jpg
-    RA: 17345232
-    NOME: Thaís Cristina Biaji
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 11.25
-
-IMAGEM: D:\Imagens do Relatório de horas\Feverreiro\Ambvet\20190408_111500.jpg
-    RA: 16073612
-    NOME: Yasmim Camilo Londres
-    CONSULTORIA: Ambivet
-    PERIODO: FEV
-    ANO: 2019
-    HORAS: 2.0
-        Dias com erros de preenchimento: [21]
+IMAGEM: C:\Dropbox\INOVEC\FormCV\Formulários\Outubro\Inovec\20181113_152124.jpg
+    RA: 14022952
+    NOME: ?
+    CONSULTORIA: ?
+    PERIODO: OUT
+    ANO: 2018
+    HORAS: 23.0
 
