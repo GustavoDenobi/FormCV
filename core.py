@@ -171,15 +171,15 @@ class DBhandler(Var):
                 q[year] = [{'month': period, 'time': time, 'entry_time': currentTime}]
             db.update(q, Query().RA == int(ra))
 
-    def retrieveConsultant(self, consultantRA):
+    def retrieveConsultant(self, ra):
         """ Searches the database for the given RA number and returns a dict with its name and consulting
-        str consultantRA: the RA to be searched
+        str ra: the RA to be searched
         """
         self.loadDB()
         try:
-            consultantRA = int(consultantRA)
+            ra = int(ra)
             with self.db as db:
-                q = [x for x in db.all() if x['RA'] == consultantRA]
+                q = [x for x in db.all() if x['RA'] == ra]
                 if len(q) == 0:
                     return False
                 else:
@@ -225,19 +225,41 @@ class DBhandler(Var):
                 except:
                     return 0
 
-    def delConsultant(self, consultantRA):
+    def delConsultant(self, ra):
         """
         Deletes a consultant according to its given RA
-        :param consultantRA: string containing the consultant's RA
+        :param ra: string containing the consultant's RA
         """
         try:
-            consultantRA = int(consultantRA)
+            ra = int(ra)
             self.loadDB()
             with self.db as db:
-                db.remove(Query().RA == consultantRA)
+                db.remove(Query().RA == ra)
             return 1
         except:
             return 0
+
+    def checkOverwriting(self, ra, month, year):
+        """
+        When a new reading of forms is made, it's possible that another version of the same document has already been
+        read, which could cause unwanted overwriting in the database. The purpose of this method is to check if a month
+        has already been stored in the database and retrieve its entry.
+        :param ra: consultant ra, either as a string or an integer
+        :param month: 3-digit, all-caps string as defined in Var.months
+        :param year: 4-digit string or integer
+        :return: the entry dicotionary, if existent, else False
+        """
+        feedback = False
+        if (len(str(ra)) == 8) and (len(month) == 3) and (len(str(year)) == 4):
+            ra = int(ra)
+            consultant = self.retrieveConsultant(ra)
+            year = 'y' + str(year)
+            if consultant is not False:
+                if year in consultant:
+                    for entry in consultant[year]:
+                        if entry['month'] == month:
+                            feedback = entry
+        return feedback
 
 
 class pdfCreator():
@@ -837,11 +859,11 @@ class ImgRead(FormCV):
             self.imgAnottated = self.grayToBGR(self.imgnormal)
         else:
             self.imgAnottated = None
-
         self.db = DBhandler()
         self.getAnottatedImage(x=self.imgPreviewSize)
         self.info = self.getInfo()
         self.log = self.getLog()
+
             
             
     def errorFinder(self):
@@ -964,10 +986,31 @@ class ImgRead(FormCV):
                 'HORAS': []}
         info['IMG'].append(self.file)
         try:
+            year = "20" + str(self.year)
+            checkOverwrite = False
+            if not self.terminalError:
+                checkOverwrite = self.db.checkOverwriting(self.ra, self.period, year)
             info['RA'].append(self.ra)
             info['MES'].append(self.period)
+            if checkOverwrite is not False:
+                txt = str(checkOverwrite['entry_time'])
+                txt = str(txt[6:8]
+                          + '/'
+                          + txt[4:6]
+                          + '/'
+                          + txt[:4]
+                          + ' - '
+                          + txt[8:10]
+                          + ':'
+                          + txt[10:12]
+                          + ':'
+                          + txt[12:14])
+                info['MES'][0] += (" - Última leitura realizada em " + txt)
             info['ANO'].append(self.year)
             info['HORAS'].append(str(self.time))
+            if checkOverwrite is not False:
+                txt = str(checkOverwrite['time'])
+                info['HORAS'][0] += (" [" + txt + "]")
             consultant = self.db.retrieveConsultant(self.ra)
             if(consultant is not False):
                 info['NOME'].append(consultant['NOME'])
@@ -992,12 +1035,12 @@ class ImgRead(FormCV):
         log = []
         log.append("IMAGEM: " + self.file)
         if (self.status):
-            log.append("    RA: " + self.ra)
-            log.append("    NOME: " + self.info['NOME'][self.info['RA'].index(self.ra)])
-            log.append("    CONSULTORIA: " + self.info['CONSULTORIA'][self.info['RA'].index(self.ra)])
-            log.append("    PERIODO: " + self.period)
-            log.append("    ANO: " + self.year)
-            log.append("    HORAS: " + str(self.time))
+            log.append("    RA: " + str(self.ra))
+            log.append("    NOME: " + str(self.info['NOME'][self.info['RA'].index(self.ra)]))
+            log.append("    CONSULTORIA: " + str(self.info['CONSULTORIA'][self.info['RA'].index(self.ra)]))
+            log.append("    PERIODO: " + str(self.info['MES'][0]))
+            log.append("    ANO: 20" + str(self.year))
+            log.append("    HORAS: " + str(self.info['HORAS'][0]))
             if(self.hasFillError or self.hasSumError):
                 self.warnings += 1
                 if(self.hasFillError):
@@ -1089,4 +1132,3 @@ class FileReader():
         for line in logList:
             logStr = logStr + line + "\n"
         return logStr
-

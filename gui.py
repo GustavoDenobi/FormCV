@@ -259,6 +259,10 @@ class MainWidget(QWidget):
         self.tab3.box3.btn_Save.setEnabled(False)
         self.tab3.box3.btn_Cancel.setEnabled(False)
         self.tab3.box3.btn_Cancel.clicked.disconnect()
+        self.tab3.box4.yearList.clear()
+        self.tab3.box4.yearList.setEnabled(False)
+        self.tab3.box4.entryTable.clear()
+        self.tab3.box4.entryTable.setEnabled(False)
         if self.tab3.box3.btn_Delete.isEnabled():
             self.tab3.box3.btn_Delete.setEnabled(False)
             self.tab3.box3.btn_Delete.clicked.disconnect()
